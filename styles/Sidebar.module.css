@@ -1,0 +1,19 @@
+/* styles/Sidebar.module.css */
+.sidebar {
+    width: 200px;
+    padding: 10px;
+    background-color: #f4f4f4;
+  }
+  .sidebar h2 {
+    font-size: 1.2rem;
+  }
+  .sidebar ul {
+    list-style-type: none;
+    padding: 0;
+  }
+  .sidebar li {
+    cursor: pointer;
+    padding: 5px;
+    border-bottom: 1px solid #ddd;
+  }
+  

@@ -1,0 +1,15 @@
+/* styles/TaskList.module.css */
+.taskList {
+    padding: 10px;
+  }
+  .taskItem {
+    display: flex;
+    justify-content: space-between;
+    padding: 5px;
+    border-bottom: 1px solid #ddd;
+  }
+  .taskItem span.completed {
+    text-decoration: line-through;
+    color: gray;
+  }
+  
