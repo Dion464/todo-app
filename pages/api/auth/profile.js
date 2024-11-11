@@ -1,35 +1,40 @@
-// pages/api/auth/profile.js
+
+import jwt from 'jsonwebtoken';
 import { openDB } from '../../../lib/db';
 
 export default async function handler(req, res) {
-    if (req.method === 'GET') {
-        const { token } = req.headers; // Assuming you send a JWT token in headers
+  if (req.method === 'GET') {
+    const token = req.headers.authorization?.split(' ')[1]; 
 
-        // Verify token and get user ID (you may need to use a library like jsonwebtoken)
-        // Replace this with your actual JWT verification logic
-        const userId = verifyToken(token); // You need to implement the verifyToken function
-
-        if (!userId) {
-            return res.status(401).json({ message: 'Unauthorized' });
-        }
-
-        const db = await openDB();
-        const user = await db.get('SELECT * FROM users WHERE id = ?', userId);
-        const completedTasks = await db.all('SELECT * FROM tasks WHERE user_id = ? AND completed = 1', userId);
-
-        if (user) {
-            return res.status(200).json({ user, completedTasks });
-        } else {
-            return res.status(404).json({ message: 'User not found' });
-        }
+    if (!token) {
+      return res.status(401).json({ message: 'Token missing' });
     }
 
-    res.setHeader('Allow', ['GET']);
-    res.status(405).end(`Method ${req.method} Not Allowed`);
-}
+    try {
+      // Log the token to see if it's correct
+      console.log('Token:', token);
 
-// Add your verifyToken function here
-const verifyToken = (token) => {
-    // Implement your logic to verify the JWT and extract the user ID
-    // Return the user ID if valid; otherwise, return null
-};
+      // Verify the token using JWT_SECRET
+      const decoded = jwt.verify(token, process.env.JWT_SECRET);
+      console.log('Decoded Token:', decoded); // Log the decoded token to check the payload
+
+      // Open the database connection
+      const db = await openDB();
+
+      // Fetch user data from the database
+      const userData = await db.get('SELECT * FROM users WHERE id = ?', decoded.id);
+
+      if (!userData) {
+        return res.status(404).json({ message: 'User not found' });
+      }
+
+      return res.status(200).json(userData); // Return the profile data
+    } catch (error) {
+      console.error('Token verification error:', error);
+      return res.status(500).json({ message: 'Internal server error' });
+    }
+  } else {
+    // Only GET method is allowed for profile
+    res.status(405).json({ message: 'Method Not Allowed' });
+  }
+}

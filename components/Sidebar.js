@@ -1,17 +1,16 @@
-// components/Sidebar.js
 import React from 'react';
+import Link from 'next/link';
 import styles from '../styles/Sidebar.module.css';
 
-const Sidebar = ({ onFilterChange }) => {
+export default function Sidebar() {
   return (
     <div className={styles.sidebar}>
-      <h2>Task Filters</h2>
+      <h3>Task Filters</h3>
       <ul>
-        <li onClick={() => onFilterChange('all')}>All Tasks</li>
-        <li onClick={() => onFilterChange('completed')}>Completed</li>
+        <li><Link href="/tasks?filter=all">All Tasks</Link></li>
+        <li><Link href="/tasks?filter=completed">Completed Tasks</Link></li>
+        <li><Link href="/tasks?filter=incomplete">Incomplete Tasks</Link></li>
       </ul>
     </div>
   );
-};
-
-export default Sidebar;
+}

@@ -1,0 +1,126 @@
+/* Layout for the main content */
+.container {
+    display: flex;
+    min-height: 100vh;
+    background-color: #f4f7fa;
+  }
+  
+  /* Main content area */
+  .mainContent {
+    flex-grow: 1;
+    padding: 20px;
+    background-color: #fff;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+    margin-left: 20px;
+    max-width: 900px;
+    margin-right: 20px;
+  }
+  
+  /* Header */
+  .header {
+    font-size: 24px;
+    margin-bottom: 20px;
+    font-weight: bold;
+    color: #333;
+  }
+  
+  /* Task Input container */
+  .taskInputContainer {
+    display: flex;
+    align-items: center;
+    margin-bottom: 20px;
+    gap: 10px; /* Adds space between input and button */
+  }
+  
+  .taskInput {
+    width: 300px;
+    padding: 12px;
+    border-radius: 6px;
+    border: 1px solid #ccc;
+    font-size: 16px;
+  }
+  
+  .addButton {
+    padding: 12px 20px;
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 16px;
+  }
+  
+  .addButton:hover {
+    background-color: #45a049;
+  }
+  
+  /* Profile link style */
+  .profileLink {
+    margin-top: 20px;
+    display: block;
+    color: #007bff;
+    font-size: 16px;
+    text-decoration: none;
+  }
+  
+  .profileLink:hover {
+    text-decoration: underline;
+  }
+  
+  /* Task item styling */
+  .taskActions {
+    display: flex;
+    gap: 12px; /* Spacing between the buttons */
+    margin-top: 10px;
+  }
+  
+  .taskButton {
+    padding: 8px 16px;
+    font-size: 14px;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  
+  .undoButton {
+    background-color: #FFB84D;
+    color: white;
+  }
+  
+  .undoButton:hover {
+    background-color: #FFA500;
+  }
+  
+  .deleteButton {
+    background-color: #FF4C4C;
+    color: white;
+  }
+  
+  .deleteButton:hover {
+    background-color: #FF0000;
+  }
+  
+  /* Styling for the task items in the list */
+  .taskItem {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px;
+    margin-bottom: 10px;
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  }
+  
+  .taskItem span {
+    font-size: 18px;
+    color: #333;
+    flex-grow: 1;
+    text-decoration: none;
+  }
+  
+  .taskItem span[style*="line-through"] {
+    color: #999;
+  }
+  

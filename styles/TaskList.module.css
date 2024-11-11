@@ -1,15 +1,71 @@
-/* styles/TaskList.module.css */
-.taskList {
-    padding: 10px;
-  }
-  .taskItem {
-    display: flex;
-    justify-content: space-between;
-    padding: 5px;
-    border-bottom: 1px solid #ddd;
-  }
-  .taskItem span.completed {
-    text-decoration: line-through;
-    color: gray;
-  }
-  
+.taskInputContainer {
+  display: flex;
+  align-items: center;
+  margin-bottom: 20px; /* Adds space below the input field */
+}
+
+.taskInput {
+  width: 250px;
+  padding: 10px;
+  margin-right: 10px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+.addButton {
+  padding: 10px 20px;
+  background-color: #4CAF50;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.addButton:hover {
+  background-color: #45a049;
+}
+
+.profileLink {
+  margin-top: 20px;
+  display: block;
+  color: #007bff;
+  text-decoration: none;
+}
+
+.profileLink:hover {
+  text-decoration: underline;
+}
+
+/* Styling for the task action buttons */
+.taskActions {
+  display: flex;
+  gap: 10px; /* Adds space between buttons */
+  margin-top: 10px; /* Adds space above the buttons */
+}
+
+.taskButton {
+  padding: 8px 16px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 14px;
+  transition: background-color 0.3s ease;
+}
+
+.undoButton {
+  background-color: #FFB84D; /* Amber color for undo */
+  color: white;
+}
+
+.undoButton:hover {
+  background-color: #FFA500; /* Darker amber on hover */
+}
+
+.deleteButton {
+  background-color: #FF4C4C; /* Red color for delete */
+  color: white;
+}
+
+.deleteButton:hover {
+  background-color: #FF0000; /* Darker red on hover */
+}

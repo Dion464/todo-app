@@ -7,4 +7,10 @@
     flex: 1;
     padding: 20px;
   }
-  
+/* Add some basic styling for the login form */
+.login {
+  display: flex;
+  flex-direction: column; /* Stack the inputs and button vertically */
+  gap: 15px; /* Adds space between the inputs */
+  width: 300px; 
+}

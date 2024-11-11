@@ -1,4 +1,4 @@
-// pages/api/auth/signup.js
+
 import bcrypt from 'bcrypt';
 import { openDB } from '../../../lib/db'; // Adjust this path if necessary
 

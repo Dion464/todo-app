@@ -1,0 +1,55 @@
+/* profile.module.css */
+.profileContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 20px;
+  background-color: #f5f5f5;
+  border-radius: 8px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  max-width: 600px;
+  margin: 50px auto;
+}
+
+.profileHeading {
+  font-size: 2rem;
+  font-weight: bold;
+  color: #333;
+}
+
+.profileInfo {
+  margin: 20px 0;
+  font-size: 1.1rem;
+  color: #555;
+}
+
+.profileInfo p {
+  margin: 10px 0;
+}
+
+.buttonContainer {
+  display: flex;
+  gap: 20px;
+}
+
+.button {
+  padding: 10px 20px;
+  font-size: 1rem;
+  cursor: pointer;
+  border: none;
+  border-radius: 5px;
+  transition: all 0.3s ease;
+}
+
+.button:hover {
+  background-color: #007bff;
+  color: white;
+}
+
+.logoutButton {
+  background-color: #dc3545;
+}
+
+.logoutButton:hover {
+  background-color: #c82333;
+}

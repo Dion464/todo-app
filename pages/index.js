@@ -1,10 +1,10 @@
-// pages/index.js
+
 import { useEffect, useState } from 'react';
 import Link from 'next/link';
 
 const Home = () => {
   const [tasks, setTasks] = useState([]);
-  const [isAuthenticated, setIsAuthenticated] = useState(false); // Update this based on your authentication logic
+  const [isAuthenticated, setIsAuthenticated] = useState(false); 
 
   useEffect(() => {
     const fetchTasks = async () => {

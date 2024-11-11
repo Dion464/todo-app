@@ -1,91 +1,111 @@
-// pages/tasks.js
 import React, { useEffect, useState } from 'react';
 import TaskList from '../components/TaskList';
 import Sidebar from '../components/Sidebar';
+import { useRouter } from 'next/router';
+import styles from '../styles/task.module.css'; // Import styles
 import Link from 'next/link';
 
-export default function Tasks() {
+export default function FilteredTasks() {
   const [tasks, setTasks] = useState([]);
   const [newTask, setNewTask] = useState('');
-
+  const router = useRouter();
+  const { filter } = router.query;
+  const userId = 1; 
+  
   const fetchTasks = async () => {
     try {
-      const response = await fetch('/api/tasks');
-      if (!response.ok) throw new Error('Network response was not ok');
+      let url = `/api/tasks?userId=${userId}`;
+      if (filter === 'completed') url += `&completed=1`;
+      else if (filter === 'incomplete') url += `&completed=0`;
+
+      const response = await fetch(url);
+      if (!response.ok) throw new Error('Failed to fetch tasks');
       const data = await response.json();
-      console.log('Fetched tasks:', data); // Log fetched tasks
       setTasks(data);
     } catch (error) {
-      console.error('Failed to fetch tasks:', error);
+      console.error('Error fetching tasks:', error);
     }
   };
 
+  useEffect(() => {
+    if (filter) {
+      fetchTasks();
+    }
+  }, [filter]);
+
   const addTask = async () => {
-    if (!newTask.trim()) return; // Prevent adding empty tasks
+    if (!newTask.trim()) return;
+
     try {
       const response = await fetch('/api/tasks', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ title: newTask }),
+        body: JSON.stringify({ title: newTask, userId }),
       });
       if (!response.ok) throw new Error('Failed to add task');
-      await fetchTasks(); // Refresh tasks after adding
-      setNewTask(''); // Clear the input field
+      fetchTasks();
+      setNewTask('');
     } catch (error) {
       console.error('Error adding task:', error);
     }
   };
 
-  const toggleComplete = async (id) => {
-    const taskToToggle = tasks.find(task => task.id === id);
-    if (!taskToToggle) return; // Ensure task exists
+  const onToggleComplete = async (taskId) => {
     try {
-      const response = await fetch(`/api/tasks/${id}`, {
+      const task = tasks.find(t => t.id === taskId);
+      const updatedTask = { ...task, completed: !task.completed };
+
+      const response = await fetch(`/api/tasks/${taskId}`, {
         method: 'PUT',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ completed: !taskToToggle.completed }),
+        body: JSON.stringify(updatedTask),
       });
-      if (!response.ok) throw new Error('Failed to toggle task');
-      await fetchTasks(); // Refresh tasks after toggling
+
+      if (!response.ok) throw new Error('Failed to toggle task completion');
+      fetchTasks();
     } catch (error) {
-      console.error('Error toggling task:', error);
+      console.error('Error toggling task completion:', error);
     }
   };
 
-  const deleteTask = async (id) => {
+  const onDelete = async (taskId) => {
     try {
-      const response = await fetch(`/api/tasks/${id}`, {
+      const response = await fetch(`/api/tasks/${taskId}`, {
         method: 'DELETE',
       });
+
       if (!response.ok) throw new Error('Failed to delete task');
-      await fetchTasks(); // Refresh tasks after deletion
+      fetchTasks();
     } catch (error) {
       console.error('Error deleting task:', error);
     }
   };
 
-  useEffect(() => {
-    fetchTasks(); // Fetch tasks when the component mounts
-  }, []);
-
   return (
-    <div style={{ display: 'flex' }}>
-      <Sidebar onFilterChange={() => {}} />
-      <div style={{ marginLeft: '20px' }}>
-        <h2>Tasks</h2>
-        <input
-          type="text"
-          value={newTask}
-          onChange={e => setNewTask(e.target.value)}
-          placeholder="Add new task"
-        />
-        <button onClick={addTask}>Add Task</button>
+    <div className={styles.container}>
+      <Sidebar />
+      <div className={styles.mainContent}>
+        <h2 className={styles.header}>{filter ? `${filter.charAt(0).toUpperCase() + filter.slice(1)} Tasks` : 'All Tasks'}</h2>
+        
+        <div className={styles.taskInputContainer}>
+          <input
+            type="text"
+            value={newTask}
+            onChange={(e) => setNewTask(e.target.value)}
+            placeholder="Add new task"
+            className={styles.taskInput}
+          />
+          <button onClick={addTask} className={styles.addButton}>Add Task</button>
+        </div>
+
         <TaskList 
           tasks={tasks} 
-          onToggleComplete={toggleComplete} 
-          onDelete={deleteTask} 
+          filter={filter} 
+          onToggleComplete={onToggleComplete}  
+          onDelete={onDelete}  
         />
-        <Link href="/profile" style={{ marginTop: '20px', display: 'block' }}>
+
+        <Link href="/profile" className={styles.profileLink}>
           Go to Profile
         </Link>
       </div>

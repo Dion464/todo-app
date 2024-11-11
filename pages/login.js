@@ -1,3 +1,4 @@
+import styles from "../styles/home.module.css"
 import React, { useState } from 'react';
 import { useRouter } from 'next/router';
 
@@ -16,13 +17,13 @@ export default function Login() {
       });
 
       if (!response.ok) {
-        const errorResponse = await response.json(); // Ensure this is awaited to get the error message
+        const errorResponse = await response.json(); 
         setError(errorResponse.message || 'Login failed');
         console.error('Login error response:', errorResponse);
         return;
       }
 
-      const { token } = await response.json(); // Await for the token
+      const { token } = await response.json(); 
       localStorage.setItem('token', token);
       router.push('/tasks');
     } catch (error) {
@@ -35,18 +36,22 @@ export default function Login() {
     <div>
       <h2>Login</h2>
       {error && <p style={{ color: 'red' }}>{error}</p>}
+      <li className={styles.login}>
       <input
+      
         type="text"
         value={username}
         onChange={e => setUsername(e.target.value)}
         placeholder="Username"
-      />
+/>
+
       <input
         type="password"
         value={password}
         onChange={e => setPassword(e.target.value)}
         placeholder="Password"
       />
+      </li>
       <button onClick={handleLogin}>Login</button>
     </div>
   );
