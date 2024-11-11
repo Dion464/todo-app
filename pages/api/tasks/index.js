@@ -10,7 +10,6 @@ export default async function handler(req, res) {
       // If userId is provided, filter tasks by userId
       if (userId) {
         if (completed !== undefined) {
-          // If completed filter is provided, filter by completed status
           tasks = await db.all('SELECT * FROM tasks WHERE user_id = ? AND completed = ?', [userId, completed === '1' ? 1 : 0]);
         } else {
           // If no completed filter, fetch all tasks for the user
@@ -45,5 +44,5 @@ export default async function handler(req, res) {
   } else {
     res.setHeader('Allow', ['GET', 'POST']);
     return res.status(405).end(`Method ${req.method} Not Allowed`);
-  }
+  } 
 }
