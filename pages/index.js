@@ -27,6 +27,10 @@ const Home = () => {
 
   return (
     <div className={styles.container}>
+      <div className={styles.logoContainer}>
+        <img src="/images.jpeg" alt="Logo" className={styles.logo} />
+      </div>
+
       <h1 className={styles.heading}>Welcome to Todo App</h1>
       <p className={styles.subheading}>Please log in or sign up to manage your tasks.</p>
 

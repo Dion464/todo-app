@@ -5,7 +5,9 @@ export default function Document() {
     <Html lang="en">
       <Head>
         <meta name="description" content="Todo App with authentication and task management" />
-        <link rel="icon" href="/favicon.ico" />
+        <link rel="icon" href="/images.jpeg" />
+        {/* Set the browser theme color to match your app's color scheme */}
+        <meta name="theme-color" content="#2C3E50" /> {/* Adjust this color as per your theme */}
       </Head>
       <body>
         <Main />

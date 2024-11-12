@@ -52,7 +52,7 @@ export default function Profile() {
       <div className={styles.profileCard}>
         <div className={styles.profileHeader}>
           <img
-            src="/images.png" // Use the default profile image
+            src="/images.png" 
             alt="Profile Avatar"
             className={styles.profileImage}
           />

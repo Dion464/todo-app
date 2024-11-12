@@ -114,12 +114,23 @@
   display: flex;
   align-items: center;
   cursor: pointer;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.profileSection:hover {
+  transform: scale(1.05); /* Slightly enlarges the profile section on hover */
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2); /* Adds shadow for emphasis */
 }
 
 .profileImage {
-  width: 40px;
-  height: 40px;
+  width: 45px;
+  height: 45px;
   border-radius: 50%;
   object-fit: cover;
   border: 2px solid #3498db;
+  transition: transform 0.3s ease;
+}
+
+.profileSection:hover .profileImage {
+  transform: rotate(10deg); /* Slight rotation effect to indicate interactivity */
 }

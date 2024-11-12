@@ -5,6 +5,9 @@ import styles from '../styles/Sidebar.module.css';
 export default function Sidebar() {
   return (
     <div className={styles.sidebar}>
+      <div className={styles.logoContainer}>
+        <img src="/images.jpeg" alt="Logo" className={styles.sidebarLogo} />
+      </div>
       <h3>Task Filters</h3>
       <ul>
         <li><Link href="/tasks?filter=all">All Tasks</Link></li>
