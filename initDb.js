@@ -1,9 +1,7 @@
-import { openDB } from './db.js';
+import { openDB } from 'lib/db.js';
 
 const initDB = async () => {
-    console.log(11111)
     const db = await openDB();
-    console.log(222222)
     try {
         // Create 'users' table
         await db.exec(`
