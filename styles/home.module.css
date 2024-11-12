@@ -120,9 +120,9 @@
   height: auto;
   border-radius: 10px;
   object-fit: cover;
-  filter: brightness(0) invert(1); /* Adjust logo to blend with dark background */
+  filter: brightness(0) invert(1); 
 }
-/* Animation for fade-in effect */
+
 @keyframes fadeIn {
   0% {
     opacity: 0;
