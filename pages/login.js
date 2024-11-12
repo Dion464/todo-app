@@ -1,4 +1,4 @@
-import styles from "../styles/home.module.css"
+import styles from "../styles/ login.module.css";
 import React, { useState } from 'react';
 import { useRouter } from 'next/router';
 
@@ -33,26 +33,37 @@ export default function Login() {
   };
 
   return (
-    <div>
-      <h2>Login</h2>
-      {error && <p style={{ color: 'red' }}>{error}</p>}
-      <li className={styles.login}>
-      <input
-      
-        type="text"
-        value={username}
-        onChange={e => setUsername(e.target.value)}
-        placeholder="Username"
-/>
+    <div className={styles.container}>
+      <h1 className={styles.heading}>Login</h1>
+      <p className={styles.subheading}>Welcome back! Please login to your account.</p>
 
-      <input
-        type="password"
-        value={password}
-        onChange={e => setPassword(e.target.value)}
-        placeholder="Password"
-      />
-      </li>
-      <button onClick={handleLogin}>Login</button>
+      <div className={styles.form}>
+        <input
+          type="text"
+          value={username}
+          onChange={e => setUsername(e.target.value)}
+          placeholder="Username"
+          className={styles.inputField}
+        />
+        <input
+          type="password"
+          value={password}
+          onChange={e => setPassword(e.target.value)}
+          placeholder="Password"
+          className={styles.inputField}
+        />
+
+        <button onClick={handleLogin} className={styles.button}>Login</button>
+
+        {error && <p className={styles.errorMessage}>{error}</p>}
+
+        <button 
+          onClick={() => router.push('/signup')} 
+          className={styles.redirectButton}
+        >
+          Don't have an account? Sign Up
+        </button>
+      </div>
     </div>
   );
 }

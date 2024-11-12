@@ -10,7 +10,8 @@ export default function FilteredTasks() {
   const [newTask, setNewTask] = useState('');
   const router = useRouter();
   const { filter } = router.query;
-  const userId = 1; 
+  const userId = 1; // Mock user ID, replace with actual user ID from auth
+  const profileImage = '/images.png'; // Profile image URL, adjust if needed
   
   const fetchTasks = async () => {
     try {
@@ -84,8 +85,11 @@ export default function FilteredTasks() {
   return (
     <div className={styles.container}>
       <Sidebar />
+
       <div className={styles.mainContent}>
-        <h2 className={styles.header}>{filter ? `${filter.charAt(0).toUpperCase() + filter.slice(1)} Tasks` : 'All Tasks'}</h2>
+        <h2 className={styles.header}>
+          {filter ? `${filter.charAt(0).toUpperCase() + filter.slice(1)} Tasks` : 'All Tasks'}
+        </h2>
         
         <div className={styles.taskInputContainer}>
           <input
@@ -98,15 +102,24 @@ export default function FilteredTasks() {
           <button onClick={addTask} className={styles.addButton}>Add Task</button>
         </div>
 
-        <TaskList 
-          tasks={tasks} 
-          filter={filter} 
-          onToggleComplete={onToggleComplete}  
-          onDelete={onDelete}  
-        />
+        <div className={styles.taskList}>
+          <TaskList 
+            tasks={tasks} 
+            filter={filter} 
+            onToggleComplete={onToggleComplete}  
+            onDelete={onDelete}  
+          />
+        </div>
 
         <Link href="/profile" className={styles.profileLink}>
           Go to Profile
+        </Link>
+      </div>
+
+      {/* Profile section at the top-right */}
+      <div className={styles.profileSection}>
+        <Link href="/profile">
+          <img src={profileImage} alt="Profile" className={styles.profileImage} />
         </Link>
       </div>
     </div>

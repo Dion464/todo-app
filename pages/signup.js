@@ -1,4 +1,5 @@
-import { useState } from 'react';
+import styles from "../styles/signup.module.css";
+import React, { useState } from 'react';
 import { useRouter } from 'next/router';
 
 export default function SignUp() {
@@ -34,32 +35,50 @@ export default function SignUp() {
   };
 
   return (
-    <form onSubmit={handleSubmit}>
-      <h2>Sign Up</h2>
-      {error && <p style={{ color: 'red' }}>{error}</p>}
-      {successMessage && <p style={{ color: 'green' }}>{successMessage}</p>}
-      <input 
-        type="text" 
-        placeholder="Username" 
-        value={username} 
-        onChange={(e) => setUsername(e.target.value)} 
-        required 
-      />
-      <input 
-        type="email" 
-        placeholder="Email" 
-        value={email} 
-        onChange={(e) => setEmail(e.target.value)} 
-        required 
-      />
-      <input 
-        type="password" 
-        placeholder="Password" 
-        value={password} 
-        onChange={(e) => setPassword(e.target.value)} 
-        required 
-      />
-      <button type="submit">Sign Up</button>
-    </form>
+    <div className={styles.container}>
+      <h1 className={styles.heading}>Sign Up</h1>
+      <p className={styles.subheading}>Create your account to get started!</p>
+
+      <div className={styles.form}>
+        {error && <p className={styles.errorMessage}>{error}</p>}
+        {successMessage && <p className={styles.successMessage}>{successMessage}</p>}
+
+        <input
+          type="text"
+          placeholder="Username"
+          value={username}
+          onChange={(e) => setUsername(e.target.value)}
+          className={styles.inputField}
+          required
+        />
+        <input
+          type="email"
+          placeholder="Email"
+          value={email}
+          onChange={(e) => setEmail(e.target.value)}
+          className={styles.inputField}
+          required
+        />
+        <input
+          type="password"
+          placeholder="Password"
+          value={password}
+          onChange={(e) => setPassword(e.target.value)}
+          className={styles.inputField}
+          required
+        />
+
+        <button type="submit" onClick={handleSubmit} className={styles.button}>
+          Sign Up
+        </button>
+
+        <button 
+          onClick={() => router.push('/login')} 
+          className={styles.redirectButton}
+        >
+          Already have an account? Log In
+        </button>
+      </div>
+    </div>
   );
 }

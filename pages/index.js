@@ -1,6 +1,6 @@
-
 import { useEffect, useState } from 'react';
 import Link from 'next/link';
+import styles from '../styles/home.module.css';
 
 const Home = () => {
   const [tasks, setTasks] = useState([]);
@@ -26,31 +26,31 @@ const Home = () => {
   }, [isAuthenticated]);
 
   return (
-    <div style={{ textAlign: 'center', padding: '50px' }}>
-      <h1>Welcome to Todo App</h1>
-      <p>Please log in or sign up to manage your tasks.</p>
-      <div>
-        <Link href="/login" legacyBehavior>
-          <a>Login</a>
-        </Link>
-        <br />
-        <Link href="/signup" legacyBehavior>
-          <a>Sign Up</a>
-        </Link>
+    <div className={styles.container}>
+      <h1 className={styles.heading}>Welcome to Todo App</h1>
+      <p className={styles.subheading}>Please log in or sign up to manage your tasks.</p>
+
+      <div className={styles.buttonContainer}>
+        <Link href="/login" className={styles.button}>Login</Link>
+        <Link href="/signup" className={styles.button}>Sign Up</Link>
       </div>
+
       {isAuthenticated && (
-        <div>
+        <div className={styles.tasksSection}>
           <h2>Your Tasks</h2>
           {tasks.length > 0 ? (
-            <ul>
+            <ul className={styles.tasksList}>
               {tasks.map(task => (
-                <li key={task.id}>
-                  {task.title} {task.completed ? '(Completed)' : ''}
+                <li key={task.id} className={styles.taskItem}>
+                  <span className={task.completed ? styles.completed : ''}>
+                    {task.title}
+                  </span>
+                  {task.completed && <span>(Completed)</span>}
                 </li>
               ))}
             </ul>
           ) : (
-            <p>No tasks available.</p>
+            <p className={styles.noTasks}>No tasks available.</p>
           )}
         </div>
       )}

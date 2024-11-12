@@ -1,22 +1,16 @@
 import React from 'react';
-import styles from '../styles/TaskList.module.css'; // Import styles
+import styles from '../styles/TaskList.module.css';
 
-const TaskList = ({ tasks, onToggleComplete, onDelete, onUndo }) => {
+const TaskList = ({ tasks, onToggleComplete, onDelete }) => {
   return (
-    <div>
+    <div className={styles.taskList}>
       {tasks.map((task) => (
         <div key={task.id} className={styles.taskItem}>
-          <span
-            style={{
-              textDecoration: task.completed ? 'line-through' : 'none',
-              fontSize: '18px',
-            }}
-          >
+          <span className={`${styles.taskTitle} ${task.completed ? styles.completed : ''}`}>
             {task.title}
           </span>
 
           <div className={styles.taskActions}>
-            {/* Complete/Undo Button */}
             <button
               onClick={() => onToggleComplete(task.id)}
               className={styles.taskButton}
@@ -24,7 +18,6 @@ const TaskList = ({ tasks, onToggleComplete, onDelete, onUndo }) => {
               {task.completed ? 'Undo' : 'Complete'}
             </button>
 
-            {/* Delete Button */}
             <button
               onClick={() => onDelete(task.id)}
               className={`${styles.taskButton} ${styles.deleteButton}`}

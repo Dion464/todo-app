@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
-import styles from "/styles/profile.module.css"; 
+import styles from '/styles/profile.module.css';
 
 export default function Profile() {
   const [userData, setUserData] = useState(null);
@@ -10,7 +10,7 @@ export default function Profile() {
   useEffect(() => {
     const fetchUserProfile = async () => {
       try {
-        const token = localStorage.getItem('token'); 
+        const token = localStorage.getItem('token');
         if (!token) {
           router.push('/login'); // Redirect to login if no token
           return;
@@ -18,14 +18,10 @@ export default function Profile() {
 
         const response = await fetch('/api/auth/profile', {
           method: 'GET',
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
+          headers: { Authorization: `Bearer ${token}` },
         });
 
-        if (!response.ok) {
-          throw new Error('Failed to fetch user profile');
-        }
+        if (!response.ok) throw new Error('Failed to fetch user profile');
 
         const data = await response.json();
         setUserData(data);
@@ -49,22 +45,27 @@ export default function Profile() {
   };
 
   if (loading) return <p>Loading...</p>;
-
   if (!userData) return <p>Error fetching user profile</p>;
 
   return (
     <div className={styles.profileContainer}>
-      <h1 className={styles.profileHeading}>User Profile</h1>
-      <div className={styles.profileInfo}>
-        
-        <p><strong>Email:</strong> {userData.email}</p>
-        <p><strong>Username:</strong> {userData.username}</p>
-  
-      </div>
+      <div className={styles.profileCard}>
+        <div className={styles.profileHeader}>
+          <img
+            src="/images.png" // Use the default profile image
+            alt="Profile Avatar"
+            className={styles.profileImage}
+          />
+          <div className={styles.profileDetails}>
+            <h2 className={styles.username}>{userData.username}</h2>
+            <p className={styles.email}>{userData.email}</p>
+          </div>
+        </div>
 
-      <div className={styles.buttonContainer}>
-        <button onClick={handleBackToTasks} className={styles.button}>Back to Tasks</button>
-        <button onClick={handleLogOut} className={`${styles.button} ${styles.logoutButton}`}>Log Out</button>
+        <div className={styles.buttonContainer}>
+          <button onClick={handleBackToTasks} className={`${styles.button} ${styles.backButton}`}>Back to Tasks</button>
+          <button onClick={handleLogOut} className={`${styles.button} ${styles.logoutButton}`}>Log Out</button>
+        </div>
       </div>
     </div>
   );
