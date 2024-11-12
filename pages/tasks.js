@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import TaskList from '../components/TaskList';
 import Sidebar from '../components/Sidebar';
 import { useRouter } from 'next/router';
-import styles from '../styles/task.module.css'; // Import styles
+import styles from '../styles/task.module.css'; 
 import Link from 'next/link';
 
 export default function FilteredTasks() {
