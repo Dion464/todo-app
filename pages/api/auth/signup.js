@@ -10,6 +10,12 @@ export default async function handler(req, res) {
       return res.status(400).json({ message: 'Username, email, and password are required' });
     }
 
+    // Validate password length and uppercase requirement
+    const passwordRegex = /^(?=.*[A-Z]).{6,}$/;
+    if (!passwordRegex.test(password)) {
+      return res.status(400).json({ message: 'Password must be at least 6 characters long and include an uppercase letter' });
+    }
+
     // Open the database connection
     const db = await openDB();
 
