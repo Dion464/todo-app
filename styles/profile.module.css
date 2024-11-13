@@ -109,6 +109,36 @@
   justify-content: center;
   margin-bottom: 20px;
 }
+.editSection {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 20px;
+  gap: 10px;
+}
+
+.usernameInput {
+  padding: 10px;
+  font-size: 1rem;
+  border: 2px solid #3498db;
+  border-radius: 8px;
+  width: 80%;
+  max-width: 300px;
+  outline: none;
+  transition: border-color 0.3s ease;
+}
+
+.usernameInput:focus {
+  border-color: #00796b;
+}
+
+.saveButton {
+  background-color: #4caf50;
+}
+
+.saveButton:hover {
+  background-color: #388e3c;
+}
 
 /* Profile Image - New Styles */
 .profileImage {

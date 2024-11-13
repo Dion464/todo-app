@@ -115,13 +115,20 @@
 .logoContainer {
   margin-bottom: 20px;
 }
-.logo {
-  width: 100px;
-  height: auto;
-  border-radius: 10px;
-  object-fit: cover;
-  filter: brightness(0) invert(1); 
+.Logo {
+  width: 50px;
+  height: 50px; /* Consistent height for a square logo */
+  border-radius: 8px; /* Subtle rounding for a clean look */
+  object-fit: contain; /* Ensures the logo fits within bounds without distortion */
+  filter: brightness(0) invert(1); /* Inverts for dark theme compatibility */
+  transition: transform 0.3s ease, filter 0.3s ease; /* Smooth transitions for hover effects */
 }
+
+.Logo:hover {
+  transform: scale(1.05); /* Slight scale-up for a subtle hover effect */
+  filter: brightness(1) invert(0); /* Optional: Toggle brightness on hover for a dynamic feel */
+}
+
 
 @keyframes fadeIn {
   0% {

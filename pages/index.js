@@ -28,7 +28,7 @@ const Home = () => {
   return (
     <div className={styles.container}>
       <div className={styles.logoContainer}>
-        <img src="/images.jpeg" alt="Logo" className={styles.logo} />
+        <img src="/logo.png" alt="Logo" className={styles.logo} />
       </div>
 
       <h1 className={styles.heading}>Welcome to Todo App</h1>

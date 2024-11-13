@@ -16,14 +16,17 @@
   justify-content: center;
   margin-bottom: 20px;
 }
-
 .sidebarLogo {
   width: 50px;
-  height: auto;
-  border-radius: 10px;
-  object-fit:fill;
-  filter: brightness(0) invert(1); 
+  height: 50px; /* Consistent height for a square logo */
+  border-radius: 8px; /* Subtle rounding for a clean look */
+  object-fit: contain; /* Ensures the logo fits within bounds without distortion */
+  filter: brightness(0) invert(1); /* Inverts for dark theme compatibility */
+ 
 }
+
+
+
 
 .sidebar h3 {
   font-size: 1.5rem;
