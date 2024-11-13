@@ -70,14 +70,14 @@
   }
   
   .button:hover {
-    background-color: #0066cc;
+    background-color: #7791ac;
     box-shadow: 6px 6px 20px rgba(0, 0, 0, 0.2), -6px -6px 20px rgba(255, 255, 255, 0.15);
     transform: translateY(-5px);
   }
   
   .redirectButton {
     background-color: transparent;
-    color: #4a90e2;
+    color: #7f858b;
     font-size: 1.1rem;
     font-weight: 600;
     border: none;

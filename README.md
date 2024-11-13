@@ -60,13 +60,14 @@ todo-app/
 │   │   ├── index.js            # Main entry point
 │   │   └── ...                 # Other page components
 ├── lib/
-│   └── database.sqlite         # SQLite database file
+│  
 ├── styles/
 │   ├── globals.css             # Global styles
 │   └── Home.module.css         # Module-specific styles for the homepage
 ├── initDB.js                   # Script to initialize the SQLite database
 ├── package.json                # Project configuration
 └── README.md                   # This file
+└── database.sqlite         # SQLite database file
 ```
 
 ---

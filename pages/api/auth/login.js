@@ -7,6 +7,11 @@ export default async function handler(req, res) {
         try {
             const { username, password } = req.body;
 
+            // Check if both username and password are provided
+            if (!username || !password) {
+                return res.status(400).json({ message: 'Username and password are required' });
+            }
+
             const db = await openDB();
             const user = await db.get('SELECT * FROM users WHERE username = ?', username);
 

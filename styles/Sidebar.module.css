@@ -21,7 +21,7 @@
   width: 50px;
   height: auto;
   border-radius: 10px;
-  object-fit: cover;
+  object-fit:fill;
   filter: brightness(0) invert(1); 
 }
 

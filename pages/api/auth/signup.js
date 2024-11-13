@@ -1,4 +1,3 @@
-
 import bcrypt from 'bcrypt';
 import { openDB } from '../../../lib/db'; // Adjust this path if necessary
 
@@ -6,11 +5,24 @@ export default async function handler(req, res) {
   if (req.method === 'POST') {
     const { username, email, password } = req.body;
 
-    // Check if user already exists
+    // Check if all fields are provided
+    if (!username || !email || !password) {
+      return res.status(400).json({ message: 'Username, email, and password are required' });
+    }
+
+    // Open the database connection
     const db = await openDB();
-    const existingUser = await db.get('SELECT * FROM users WHERE email = ?', email);
-    if (existingUser) {
-      return res.status(400).json({ message: 'User already exists' });
+
+    // Check if email is already in use
+    const existingEmail = await db.get('SELECT * FROM users WHERE email = ?', email);
+    if (existingEmail) {
+      return res.status(400).json({ message: 'Email is already in use' });
+    }
+
+    // Check if username is already in use
+    const existingUsername = await db.get('SELECT * FROM users WHERE username = ?', username);
+    if (existingUsername) {
+      return res.status(400).json({ message: 'Username is already in use' });
     }
 
     // Hash the password
