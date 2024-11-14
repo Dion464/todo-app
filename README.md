@@ -52,22 +52,47 @@ The app will be available at [http://localhost:3000](http://localhost:3000).
 ## Folder Structure:
 ```plaintext
 todo-app/
-├── src/
-│   ├── pages/
-│   │   ├── api/
-│   │   │   └── auth/
-│   │   │       └── profile.js  # API route for profile data
-│   │   ├── index.js            # Main entry point
-│   │   └── ...                 # Other page components
-├── lib/
-│  
-├── styles/
-│   ├── globals.css             # Global styles
-│   └── Home.module.css         # Module-specific styles for the homepage
-├── initDB.js                   # Script to initialize the SQLite database
-├── package.json                # Project configuration
-└── README.md                   # This file
-└── database.sqlite         # SQLite database file
+├── components/                     # Reusable UI components
+│   ├── Sidebar.js                  # Sidebar component
+│   └── TaskList.js                 # Task list component
+├── lib/                            # Utility libraries
+│   ├── auth.js                     # Authentication utilities
+│   └── db.js                       # Database connection setup
+├── pages/                          # Next.js pages and API routes
+│   ├── _app.js                     # Custom App component
+│   ├── _document.js                # Custom Document component
+│   ├── index.js                    # Main entry point
+│   ├── login.js                    # Login page
+│   ├── profile.js                  # Profile page
+│   ├── signup.js                   # Signup page
+│   ├── tasks.js                    # Tasks page
+│   ├── api/                        # API routes
+│   │   ├── auth/                   # Auth-related API endpoints
+│   │   │   ├── login.js            # Login API route
+│   │   │   ├── profile.js          # Profile API route
+│   │   │   └── signup.js           # Signup API route
+│   │   └── tasks/                  # Task-related API endpoints
+│   │       ├── [filter].js         # Dynamic route for task filtering
+│   │       └── index.js            # Default tasks API route
+├── public/                         # Public assets
+│   ├── images.jpeg                 # Logo image
+│   └── images.png                  # Default profile image
+├── styles/                         # CSS Modules and global styles
+│   ├── globals.css                 # Global styles
+│   ├── login.module.css            # Styles for login page
+│   ├── Sidebar.module.css          # Styles for Sidebar component
+│   ├── TaskList.module.css         # Styles for TaskList component
+│   ├── home.module.css             # Styles for homepage
+│   ├── profile.module.css          # Styles for profile page
+│   ├── signup.module.css           # Styles for signup page
+│   └── task.module.css             # Styles for tasks page
+├── database.sqlite                 # SQLite database file
+├── initDb.js                       # Script to initialize the SQLite database
+├── jsconfig.json                   # JavaScript configuration
+├── next.config.mjs                 # Next.js configuration
+├── package.json                    # Project configuration
+├── package-lock.json               # Dependency lock file
+└── README.md                       # Project documentation
 ```
 
 ---
