@@ -41,3 +41,6 @@ next-env.d.ts
 
 # sqlite db file
 database.sqlite
+
+# gitignore
+.gitignore
