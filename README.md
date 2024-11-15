@@ -7,7 +7,7 @@ A simple to-do app with user authentication, task management, and profile featur
 
 ## Features:
 - User authentication (Sign up, Log in)
-- Profile page displaying completed tasks and user credentials
+- Profile page displaying users credentiales log out button and changing username features 
 - Add and manage tasks
 - Display tasks specific to the logged-in user
 - Responsive design
