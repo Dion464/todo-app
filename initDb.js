@@ -1,4 +1,4 @@
-import { openDB } from 'lib/db.js';
+import { openDB } from './lib/db.js';
 
 const initDB = async () => {
     const db = await openDB();
