@@ -32,7 +32,7 @@ body {
 body {
   font-family: Arial, sans-serif;
   color: #333;
-  background: linear-gradient(135deg, #f0f9ff, #cfe3e9);
+  background: whitesmoke;
   background-attachment: fixed;
   display: flex;
   justify-content: center;

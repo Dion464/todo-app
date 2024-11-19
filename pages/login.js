@@ -1,12 +1,14 @@
 import styles from "../styles/ login.module.css";
 import React, { useState } from 'react';
 import { useRouter } from 'next/router';
+import { FaEye, FaEyeSlash } from 'react-icons/fa'; // Import the eye icons from react-icons
 
 export default function Login() {
   const router = useRouter();
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
+  const [passwordVisible, setPasswordVisible] = useState(false); // State to toggle password visibility
 
   const handleLogin = async () => {
     try {
@@ -45,13 +47,21 @@ export default function Login() {
           placeholder="Username"
           className={styles.inputField}
         />
-        <input
-          type="password"
-          value={password}
-          onChange={e => setPassword(e.target.value)}
-          placeholder="Password"
-          className={styles.inputField}
-        />
+        <div className={styles.passwordContainer}>
+          <input
+            type={passwordVisible ? 'text' : 'password'} // Toggle password visibility
+            value={password}
+            onChange={e => setPassword(e.target.value)}
+            placeholder="Password"
+            className={styles.inputField}
+          />
+          <span
+            className={styles.eyeIcon}
+            onClick={() => setPasswordVisible(!passwordVisible)} // Toggle visibility
+          >
+            {passwordVisible ? <FaEyeSlash /> : <FaEye />} {/* Eye icon toggle */}
+          </span>
+        </div>
 
         <button onClick={handleLogin} className={styles.button}>Login</button>
 

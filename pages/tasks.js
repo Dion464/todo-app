@@ -10,8 +10,9 @@ export default function FilteredTasks() {
   const [newTask, setNewTask] = useState('');
   const router = useRouter();
   const { filter } = router.query;
-  const userId = 1; // Mock user ID, replace with actual user ID from auth
-  const profileImage = '/images.png'; // Profile image URL, adjust if needed
+  const userId = 1; 
+ 
+  const profileImage = '/images.png'; 
 
   const fetchTasks = async () => {
     try {
@@ -22,7 +23,7 @@ export default function FilteredTasks() {
       const response = await fetch(url);
       if (!response.ok) throw new Error('Failed to fetch tasks');
       const data = await response.json();
-      setTasks(data);
+      setTasks(data);  
     } catch (error) {
       console.error('Error fetching tasks:', error);
     }
@@ -41,7 +42,7 @@ export default function FilteredTasks() {
       const response = await fetch('/api/tasks', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ title: newTask, userId }),
+        body: JSON.stringify({ title: newTask, userId, username }), 
       });
       if (!response.ok) throw new Error('Failed to add task');
       fetchTasks();
@@ -53,7 +54,7 @@ export default function FilteredTasks() {
 
   const onToggleComplete = async (taskId) => {
     try {
-      const task = tasks.find(t => t.id === taskId);
+      const task = tasks.find((t) => t.id === taskId);
       if (!task) throw new Error('Task not found');
 
       const updatedTask = { ...task, completed: !task.completed };
@@ -62,7 +63,7 @@ export default function FilteredTasks() {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json',
-          'Authorization': 'Bearer ' + localStorage.getItem('token'),
+          Authorization: 'Bearer ' + localStorage.getItem('token'),
         },
         body: JSON.stringify({ completed: updatedTask.completed, userId }),
       });
@@ -93,7 +94,7 @@ export default function FilteredTasks() {
   };
 
   const resetInput = () => {
-    setNewTask(''); // Reset the input field
+    setNewTask(''); 
   };
 
   return (
@@ -113,8 +114,12 @@ export default function FilteredTasks() {
             placeholder="Add new task"
             className={styles.taskInput}
           />
-          <button onClick={resetInput} className={styles.cancelButton}>Cancel</button>
-          <button onClick={addTask} className={styles.addButton}>Add Task</button>
+          <button onClick={resetInput} className={styles.deleteButton}>
+            Cancel
+          </button>
+          <button onClick={addTask} className={styles.addButton}>
+            Add
+          </button>
         </div>
 
         <div className={styles.taskList}>
@@ -122,6 +127,7 @@ export default function FilteredTasks() {
             tasks={tasks}
             filter={filter}
             onToggleComplete={onToggleComplete}
+            onDelete={onDelete} 
           />
         </div>
 
@@ -130,7 +136,6 @@ export default function FilteredTasks() {
         </Link>
       </div>
 
-      {/* Profile section at the top-right */}
       <div className={styles.profileSection}>
         <Link href="/profile">
           <img src={profileImage} alt="Profile" className={styles.profileImage} />

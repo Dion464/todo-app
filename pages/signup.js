@@ -1,6 +1,7 @@
 import styles from "../styles/signup.module.css";
 import React, { useState } from 'react';
 import { useRouter } from 'next/router';
+import { FaEye, FaEyeSlash } from 'react-icons/fa'; // Import the eye icons from react-icons
 
 export default function SignUp() {
   const [username, setUsername] = useState('');
@@ -8,6 +9,7 @@ export default function SignUp() {
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
   const [successMessage, setSuccessMessage] = useState('');
+  const [passwordVisible, setPasswordVisible] = useState(false); // State to toggle password visibility
   const router = useRouter();
 
   const handleSubmit = async (e) => {
@@ -28,7 +30,7 @@ export default function SignUp() {
         router.push('/login'); // Redirect to login page after 2 seconds
       }, 2000);
     } else {
-      const errorData = await response.json(); // Add 'await' to resolve the promise
+      const errorData = await response.json();
       setError(errorData.message || 'An error occurred');
       console.error('Sign-up error:', errorData);
     }
@@ -59,14 +61,23 @@ export default function SignUp() {
           className={styles.inputField}
           required
         />
-        <input
-          type="password"
-          placeholder="Password"
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
-          className={styles.inputField}
-          required
-        />
+
+        <div className={styles.passwordContainer}>
+          <input
+            type={passwordVisible ? 'text' : 'password'} // Toggle password visibility
+            placeholder="Password"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+            className={styles.inputField}
+            required
+          />
+          <span
+            className={styles.eyeIcon}
+            onClick={() => setPasswordVisible(!passwordVisible)} // Toggle visibility
+          >
+            {passwordVisible ? <FaEyeSlash /> : <FaEye />} {/* Eye icon toggle */}
+          </span>
+        </div>
 
         <button type="submit" onClick={handleSubmit} className={styles.button}>
           Sign Up

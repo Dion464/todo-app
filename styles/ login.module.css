@@ -97,3 +97,14 @@
   margin-top: 15px;
   font-weight: 500;
 }
+.passwordContainer {
+  position: relative;
+}
+
+.eyeIcon {
+  position: absolute;
+  right: 10px;
+  top: 50%;
+  transform: translateY(-50%);
+  cursor: pointer;
+}
