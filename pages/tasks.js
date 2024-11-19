@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import TaskList from '../components/TaskList';
 import Sidebar from '../components/Sidebar';
 import { useRouter } from 'next/router';
-import styles from '../styles/task.module.css'; 
+import styles from '../styles/task.module.css';
 import Link from 'next/link';
 
 export default function FilteredTasks() {
@@ -12,7 +12,7 @@ export default function FilteredTasks() {
   const { filter } = router.query;
   const userId = 1; // Mock user ID, replace with actual user ID from auth
   const profileImage = '/images.png'; // Profile image URL, adjust if needed
-  
+
   const fetchTasks = async () => {
     try {
       let url = `/api/tasks?userId=${userId}`;
@@ -54,15 +54,25 @@ export default function FilteredTasks() {
   const onToggleComplete = async (taskId) => {
     try {
       const task = tasks.find(t => t.id === taskId);
+      if (!task) throw new Error('Task not found');
+
       const updatedTask = { ...task, completed: !task.completed };
 
       const response = await fetch(`/api/tasks/${taskId}`, {
         method: 'PUT',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(updatedTask),
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': 'Bearer ' + localStorage.getItem('token'),
+        },
+        body: JSON.stringify({ completed: updatedTask.completed, userId }),
       });
 
-      if (!response.ok) throw new Error('Failed to toggle task completion');
+      if (!response.ok) {
+        const errorText = await response.text();
+        console.error('Response error:', errorText);
+        throw new Error('Failed to toggle task completion');
+      }
+
       fetchTasks();
     } catch (error) {
       console.error('Error toggling task completion:', error);
@@ -82,6 +92,10 @@ export default function FilteredTasks() {
     }
   };
 
+  const resetInput = () => {
+    setNewTask(''); // Reset the input field
+  };
+
   return (
     <div className={styles.container}>
       <Sidebar />
@@ -90,7 +104,7 @@ export default function FilteredTasks() {
         <h2 className={styles.header}>
           {filter ? `${filter.charAt(0).toUpperCase() + filter.slice(1)} Tasks` : 'All Tasks'}
         </h2>
-        
+
         <div className={styles.taskInputContainer}>
           <input
             type="text"
@@ -99,15 +113,15 @@ export default function FilteredTasks() {
             placeholder="Add new task"
             className={styles.taskInput}
           />
+          <button onClick={resetInput} className={styles.cancelButton}>Cancel</button>
           <button onClick={addTask} className={styles.addButton}>Add Task</button>
         </div>
 
         <div className={styles.taskList}>
-          <TaskList 
-            tasks={tasks} 
-            filter={filter} 
-            onToggleComplete={onToggleComplete}  
-            onDelete={onDelete}  
+          <TaskList
+            tasks={tasks}
+            filter={filter}
+            onToggleComplete={onToggleComplete}
           />
         </div>
 

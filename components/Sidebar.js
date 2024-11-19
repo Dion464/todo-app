@@ -8,7 +8,7 @@ export default function Sidebar() {
       <div className={styles.logoContainer}>
         <img src="/logo.png" alt="Logo" className={styles.sidebarLogo} />
       </div>
-      <h3>Task Filters</h3>
+      <h3>TODO-APP</h3>
       <ul>
         <li><Link href="/tasks?filter=all">All Tasks</Link></li>
         <li><Link href="/tasks?filter=completed">Completed Tasks</Link></li>

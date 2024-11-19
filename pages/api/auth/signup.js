@@ -6,10 +6,17 @@ export default async function handler(req, res) {
     const { username, email, password } = req.body;
 
     // Check if all fields are provided
-    if (!username || !email || !password) {
-      return res.status(400).json({ message: 'Username, email, and password are required' });
+    if (!username ) {
+      return res.status(400).json({ message: 'Username,  is required' });
     }
-
+  // Check if all fields are provided
+  if (!email ) {
+    return res.status(400).json({ message: 'Email, is required' });
+  }
+    // Check if all fields are provided
+    if (!password ) {
+      return res.status(400).json({ message: 'Passwoed, is required' });
+    }
     // Validate password length and uppercase requirement
     const passwordRegex = /^(?=.*[A-Z]).{6,}$/;
     if (!passwordRegex.test(password)) {
@@ -30,6 +37,8 @@ export default async function handler(req, res) {
     if (existingUsername) {
       return res.status(400).json({ message: 'Username is already in use' });
     }
+
+    
 
     // Hash the password
     const hashedPassword = await bcrypt.hash(password, 10);

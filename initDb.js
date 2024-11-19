@@ -42,5 +42,5 @@ const initDB = async () => {
         db.close();
     }
 };
-
+  
 initDB();

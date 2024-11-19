@@ -1,8 +1,35 @@
 import { openDB } from '../../../lib/db';
+import jwt from 'jsonwebtoken';
+
+const SECRET_KEY = process.env.JWT_SECRET; // Ensure this is set in your environment
+
+// Middleware to verify JWT and extract user ID
+const verifyUser = (req) => {
+    const authHeader = req.headers.authorization;
+    if (!authHeader) throw new Error('No authorization header provided');
+
+    const token = authHeader.split(' ')[1];
+    if (!token) throw new Error('Token missing');
+
+    try {
+        const decoded = jwt.verify(token, SECRET_KEY);
+        console.log('decoded', decoded)
+        return decoded.id;
+    } catch (error) {
+        throw new Error('Invalid token');
+    }
+};
 
 export default async function handler(req, res) {
     const db = await openDB();
-    const { filter } = req.query; 
+    const { filter } = req.query;
+
+    let userId;
+    try {
+        userId = verifyUser(req); // Get the authenticated user's ID
+    } catch (error) {
+        return res.status(401).json({ message: error.message });
+    }
 
     // Check if the filter is a numeric ID
     const isTaskId = !isNaN(parseInt(filter));
@@ -12,11 +39,10 @@ export default async function handler(req, res) {
             let tasks;
             if (isTaskId) {
                 // Fetch a single task by ID
-                tasks = await db.get('SELECT * FROM tasks WHERE id = ?', [filter]);
+                tasks = await db.get('SELECT * FROM tasks WHERE id = ? AND user_id = ?', [filter, userId]);
                 if (!tasks) return res.status(404).json({ message: 'Task not found' });
             } else {
                 // Filter tasks based on 'completed' status
-                const userId = req.query.userId || 1; // Replace 1 with actual user ID logic as needed
                 const completedStatus = filter === 'completed' ? 1 : filter === 'incomplete' ? 0 : null;
                 
                 if (completedStatus !== null) {
@@ -31,9 +57,9 @@ export default async function handler(req, res) {
             return res.status(500).json({ message: 'Error retrieving tasks', error: error.message });
         }
     } else if (req.method === 'POST') {
-        const { title, userId } = req.body;
-        if (!title || !userId) {
-            return res.status(400).json({ message: 'Task title and user ID are required' });
+        const { title } = req.body;
+        if (!title) {
+            return res.status(400).json({ message: 'Task title is required' });
         }
 
         try {
@@ -51,7 +77,8 @@ export default async function handler(req, res) {
         if (completed === undefined) return res.status(400).json({ message: 'Completed status is required' });
 
         try {
-            await db.run('UPDATE tasks SET completed = ? WHERE id = ?', [completed, filter]);
+            console.log('userId', userId)
+            await db.run('UPDATE tasks SET completed = ? WHERE id = ? AND user_id = ?', [completed, filter, userId]);
             return res.status(200).json({ message: 'Task updated successfully' });
         } catch (error) {
             console.error('Error updating task:', error);
@@ -61,7 +88,8 @@ export default async function handler(req, res) {
         if (!isTaskId) return res.status(400).json({ message: 'Invalid task ID for deletion' });
 
         try {
-            await db.run('DELETE FROM tasks WHERE id = ?', [filter]);
+            const result = await db.run('DELETE FROM tasks WHERE id = ? AND user_id = ?', [filter, userId]);
+            if (result.changes === 0) return res.status(404).json({ message: 'Task not found or not authorized' });
             return res.status(200).json({ message: 'Task deleted successfully' });
         } catch (error) {
             console.error('Error deleting task:', error);

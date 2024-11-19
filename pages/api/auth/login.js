@@ -8,11 +8,15 @@ export default async function handler(req, res) {
       const { username, password } = req.body;
 
       // Check if both username and password are provided
-      if (!username && !password) {
-        console.error('Username or password is missing');
-        return res.status(400).json({ message: 'Username and password are required' });
+      if (!username ) {
+        console.error('Username is missing');
+        return res.status(400).json({ message: 'Username is required' });
       }
-
+// Check if both username and password are provided
+if (!password ) {
+  console.error('  password is missing');
+  return res.status(400).json({ message: 'password is required' });
+}
       // Validate password length and uppercase requirement
       const passwordRegex = /^(?=.*[A-Z]).{6,}$/;
       if (!passwordRegex.test(password)) {

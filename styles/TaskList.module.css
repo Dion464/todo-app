@@ -2,6 +2,9 @@
   display: flex;
   flex-direction: column;
   gap: 20px;
+  width: 100%; /* Take full width of the container */
+  margin: 0 auto; /* Center it within the parent container */
+  padding: 0 20px; /* Add some padding to keep it slightly away from the edges */
 }
 
 .taskItem {
@@ -13,6 +16,9 @@
   border-radius: 10px;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
   transition: all 0.3s ease;
+  width: 100%;
+  max-width: fit-content;
+  /* Make each task item full width */
 }
 
 .taskItem:hover {
@@ -28,6 +34,7 @@
 .completed {
   text-decoration: line-through;
   color: #7f8c8d;
+  margin-right: auto;
 }
 
 .taskActions button {
@@ -35,6 +42,8 @@
   color: white;
   padding: 12px 18px;
   border: none;
+  margin-left: auto;
+  margin: 5px;
   border-radius: 8px;
   cursor: pointer;
   font-size: 1rem;
@@ -43,10 +52,12 @@
 
 .taskActions button:hover {
   background-color: #2980b9;
+  margin-bottom: auto;
 }
 
 .deleteButton {
   background-color: #e74c3c;
+  margin-bottom: auto;
 }
 
 .deleteButton:hover {

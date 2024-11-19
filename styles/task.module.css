@@ -25,6 +25,7 @@
   background-color: #ecf0f1;
   overflow-y: auto;
   width: calc(100% - 250px);
+  max-width:fit-content; /* Increases max-width to make content wider */
 }
 
 .header {
@@ -38,6 +39,8 @@
   justify-content: center;
   gap: 20px;
   margin-bottom: 30px;
+max-height: fit-content;
+ max-width: 100%;
 }
 
 .taskInput {
@@ -64,6 +67,8 @@
   font-size: 1.1rem;
   font-weight: bold;
   transition: background-color 0.3s ease, transform 0.3s ease;
+ max-width: 120px;
+ max-height: 70px;
 }
 
 .addButton:hover {
@@ -80,6 +85,7 @@
   display: flex;
   flex-direction: column;
   gap: 20px;
+  width: 100%; /* Ensures task list takes full width */
 }
 
 .profileLink {
