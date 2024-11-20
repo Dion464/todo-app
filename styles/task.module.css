@@ -21,6 +21,7 @@
   margin-left: 250px;
   padding: 30px;
   background-color:white;
+  
   overflow-y: auto;
   width: calc(100% - 250px);
   max-width: 100%; /* Ensures full width */
@@ -97,7 +98,7 @@
   padding: 15px;
   border: 1px solid #ddd;
   border-radius: 8px;
-  background-color: #f9f9f9;
+  background-color: #9fe3e8;
 }
 
 .taskItem:hover {
@@ -107,6 +108,7 @@
 .deleteButton {
   background-color: #e74c3c;
   margin-top: 15px;
+  margin-bottom: 5px;
 }
 
 .deleteButton:hover {
@@ -118,7 +120,7 @@
   text-decoration: none;
   font-size: 1.1rem;
   display: block;
-  margin-top: 20px;
+  margin-top: 200px;
   text-align: center;
   padding: 12px 20px;
   background-color: #3498db;
@@ -164,4 +166,9 @@
 
 .profileSection:hover .profileImage {
   transform: rotate(10deg); /* Slight rotation effect to indicate interactivity */
+}
+.charCount {
+  font-size: 0.9rem;
+  color: #7f8c8d;
+  margin-top: 5px;
 }

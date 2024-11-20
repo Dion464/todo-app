@@ -11,6 +11,7 @@ export default function FilteredTasks() {
   const router = useRouter();
   const { filter } = router.query;
   const userId = 1; // Placeholder user ID
+  const MAX_TASK_LENGTH = 100; // Maximum characters for a task
 
   // Fetch tasks with the appropriate filter
   const fetchTasks = async () => {
@@ -37,7 +38,14 @@ export default function FilteredTasks() {
 
   // Add new task
   const addTask = async () => {
-    if (!newTask.trim()) return;
+    if (!newTask.trim()) {
+      alert('Task cannot be empty!');
+      return;
+    }
+    if (newTask.length > MAX_TASK_LENGTH) {
+      alert(`Task cannot exceed ${MAX_TASK_LENGTH} characters.`);
+      return;
+    }
 
     try {
       const response = await fetch('/api/tasks', {
@@ -88,7 +96,7 @@ export default function FilteredTasks() {
       const response = await fetch(`/api/tasks/${taskId}`, {
         method: 'DELETE',
         headers: {
-          'Authorization': 'Bearer ' + localStorage.getItem('token'), // Authorization token
+          Authorization: 'Bearer ' + localStorage.getItem('token'), // Authorization token
         },
       });
 
@@ -116,8 +124,12 @@ export default function FilteredTasks() {
           <input
             type="text"
             value={newTask}
-            onChange={(e) => setNewTask(e.target.value)}
-            placeholder="Add new task"
+            onChange={(e) => {
+              if (e.target.value.length <= MAX_TASK_LENGTH) {
+                setNewTask(e.target.value);
+              }
+            }}
+            placeholder="Add new task (max 100 characters)"
             className={styles.taskInput}
           />
           <button onClick={resetInput} className={styles.deleteButton}>
@@ -127,6 +139,11 @@ export default function FilteredTasks() {
             Add
           </button>
         </div>
+
+        {/* Display remaining character count */}
+        <p className={styles.charCount}>
+          {MAX_TASK_LENGTH - newTask.length} characters remaining
+        </p>
 
         <div className={styles.taskList}>
           <TaskList
