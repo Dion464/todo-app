@@ -34,7 +34,26 @@ export default async function handler(req, res) {
     // Check if the filter is a numeric ID
     const isTaskId = !isNaN(parseInt(filter));
 
-    if (req.method === 'DELETE') {
+    if (req.method === 'PUT') {
+        if (!isTaskId) return res.status(400).json({ message: 'Invalid task ID for updating' });
+
+        const { completed, userId: taskUserId } = req.body;
+        if (taskUserId !== userId) {
+            return res.status(403).json({ message: 'Not authorized to update this task' });
+        }
+
+        try {
+            // Update task completion status
+            const result = await db.run('UPDATE tasks SET completed = ? WHERE id = ? AND user_id = ?', [completed, filter, userId]);
+            if (result.changes === 0) {
+                return res.status(404).json({ message: 'Task not found or not authorized' });
+            }
+            return res.status(200).json({ message: 'Task updated successfully' });
+        } catch (error) {
+            console.error('Error updating task:', error);
+            return res.status(500).json({ message: 'Error updating task', error: error.message });
+        }
+    } else if (req.method === 'DELETE') {
         if (!isTaskId) return res.status(400).json({ message: 'Invalid task ID for deletion' });
 
         try {
@@ -57,7 +76,6 @@ export default async function handler(req, res) {
             console.log(`Task successfully deleted: ID ${filter}, User ${userId}`);
             return res.status(200).json({ message: 'Task deleted successfully' });
         } catch (error) {
-            // Log the error and return a 500 status with error details
             console.error('Error deleting task:', error);
             return res.status(500).json({ message: 'Error deleting task', error: error.message });
         }
@@ -78,14 +96,12 @@ export default async function handler(req, res) {
 
         try {
             const result = await db.run('INSERT INTO tasks (title, completed, user_id) VALUES (?, ?, ?)', [title, false, userId]);
-            const newTask = { id: result.lastID, title, completed: false, user_id: userId };
-            return res.status(201).json(newTask);
+            return res.status(201).json({ id: result.lastID, title, completed: false });
         } catch (error) {
             console.error('Error adding task:', error);
             return res.status(500).json({ message: 'Error adding task', error: error.message });
         }
     } else {
-        res.setHeader('Allow', ['GET', 'POST', 'DELETE']);
-        return res.status(405).end(`Method ${req.method} Not Allowed`);
+        return res.status(405).json({ message: 'Method Not Allowed' });
     }
 }
