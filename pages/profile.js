@@ -6,6 +6,8 @@ export default function Profile() {
   const [userData, setUserData] = useState(null);
   const [newUsername, setNewUsername] = useState('');
   const [loading, setLoading] = useState(true);
+  const [message, setMessage] = useState(''); // To store the success/error message
+  const [messageColor, setMessageColor] = useState(''); // To store the color for the message
   const router = useRouter();
 
   useEffect(() => {
@@ -63,14 +65,23 @@ export default function Profile() {
       if (response.ok) {
         const updatedData = await response.json();
         setUserData((prev) => ({ ...prev, username: newUsername }));
-        alert('Username updated successfully');
+        setMessage('Username updated successfully');
+        setMessageColor('green'); // Success message in green
       } else {
         const errorData = await response.json();
-        alert(errorData.message);
+        setMessage(errorData.message);
+        setMessageColor('red'); // Error message in red
       }
     } catch (error) {
       console.error('Error updating username:', error);
+      setMessage('Error updating username');
+      setMessageColor('red'); // Error message in red
     }
+
+    // Reset the message after 4 seconds
+    setTimeout(() => {
+      setMessage('');
+    }, 4000);
   };
 
   if (loading) return <p>Loading...</p>;
@@ -99,6 +110,13 @@ export default function Profile() {
             Save Username
           </button>
         </div>
+
+        {/* Display the success or error message */}
+        {message && (
+          <div className={styles.message} style={{ color: messageColor }}>
+            {message}
+          </div>
+        )}
 
         <div className={styles.buttonContainer}>
           <button onClick={handleBackToTasks} className={`${styles.button} ${styles.backButton}`}>
