@@ -6,8 +6,8 @@
     justify-content: center;
     padding: 100px 20px;
     min-height: 100vh;
-    background: #f0f1f6;
-    background-image: linear-gradient(135deg, #e8f8fe, #f3e5f5);
+
+   
   }
   
   .heading {
@@ -104,4 +104,37 @@
     margin-top: 15px;
     font-weight: 500;
   }
+  .buttonSecondary {
+    background-color: #bdd7e3;
+    color: #333;
+    border: 1px solid #ccc;
+    padding: 10px 20px;
+    border-radius: 5px;
+    font-size: 1rem;
+    cursor: pointer;
+  }
   
+  .buttonSecondary:hover {
+    background-color: #91abc6;
+  }
+  .passwordContainer {
+    position: relative;
+    width: 100%;
+  }
+  
+  /* The eye icon for toggling password visibility */
+  .eyeIcon {
+    position: absolute;
+    right: 15px; /* Adjust this value to align the icon properly */
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 1.5rem;
+    color: #aaa;
+    cursor: pointer;
+    user-select: none;
+    z-index: 10; /* Ensure it appears above the input field */
+  }
+  
+  .eyeIcon:hover {
+    color: #555;
+  }

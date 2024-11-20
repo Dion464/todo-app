@@ -15,13 +15,13 @@ export default async function handler(req, res) {
 // Check if both username and password are provided
 if (!password ) {
   console.error('  password is missing');
-  return res.status(400).json({ message: 'password is required' });
+  return res.status(400).json({ message: 'Password is required' });
 }
       // Validate password length and uppercase requirement
       const passwordRegex = /^(?=.*[A-Z]).{6,}$/;
       if (!passwordRegex.test(password)) {
         console.error('Password does not meet the requirements');
-        return res.status(400).json({ message: 'Password must be at least 6 characters long and include an uppercase letter' });
+        return res.status(400).json({ message: 'Password is incorrect ' });
       }
 
       // Open the DB and fetch the user

@@ -13,7 +13,7 @@ const verifyUser = (req) => {
 
     try {
         const decoded = jwt.verify(token, SECRET_KEY);
-        console.log('decoded', decoded)
+        console.log('Decoded user info:', decoded); // Log decoded user info
         return decoded.id;
     } catch (error) {
         throw new Error('Invalid token');
@@ -34,23 +34,37 @@ export default async function handler(req, res) {
     // Check if the filter is a numeric ID
     const isTaskId = !isNaN(parseInt(filter));
 
-    if (req.method === 'GET') {
+    if (req.method === 'DELETE') {
+        if (!isTaskId) return res.status(400).json({ message: 'Invalid task ID for deletion' });
+
         try {
-            let tasks;
-            if (isTaskId) {
-                // Fetch a single task by ID
-                tasks = await db.get('SELECT * FROM tasks WHERE id = ? AND user_id = ?', [filter, userId]);
-                if (!tasks) return res.status(404).json({ message: 'Task not found' });
-            } else {
-                // Filter tasks based on 'completed' status
-                const completedStatus = filter === 'completed' ? 1 : filter === 'incomplete' ? 0 : null;
-                
-                if (completedStatus !== null) {
-                    tasks = await db.all('SELECT * FROM tasks WHERE user_id = ? AND completed = ?', [userId, completedStatus]);
-                } else {
-                    tasks = await db.all('SELECT * FROM tasks WHERE user_id = ?', [userId]);
-                }
+            // Check if the task exists before attempting to delete it
+            const task = await db.get('SELECT * FROM tasks WHERE id = ? AND user_id = ?', [filter, userId]);
+            if (!task) {
+                console.log(`Task not found or not authorized: ID ${filter}, User ${userId}`);
+                return res.status(404).json({ message: 'Task not found or not authorized' });
             }
+
+            // Perform the deletion
+            const result = await db.run('DELETE FROM tasks WHERE id = ? AND user_id = ?', [filter, userId]);
+
+            // Log and return success if deletion was successful
+            if (result.changes === 0) {
+                console.log(`No changes made during deletion: ID ${filter}, User ${userId}`);
+                return res.status(404).json({ message: 'Task not found or not authorized' });
+            }
+
+            console.log(`Task successfully deleted: ID ${filter}, User ${userId}`);
+            return res.status(200).json({ message: 'Task deleted successfully' });
+        } catch (error) {
+            // Log the error and return a 500 status with error details
+            console.error('Error deleting task:', error);
+            return res.status(500).json({ message: 'Error deleting task', error: error.message });
+        }
+    } else if (req.method === 'GET') {
+        try {
+            // Fetch tasks for the authenticated user
+            const tasks = await db.all('SELECT * FROM tasks WHERE user_id = ?', [userId]);
             return res.status(200).json(tasks);
         } catch (error) {
             console.error('Error retrieving tasks:', error);
@@ -70,33 +84,8 @@ export default async function handler(req, res) {
             console.error('Error adding task:', error);
             return res.status(500).json({ message: 'Error adding task', error: error.message });
         }
-    } else if (req.method === 'PUT') {
-        if (!isTaskId) return res.status(400).json({ message: 'Invalid task ID for update' });
-        
-        const { completed } = req.body;
-        if (completed === undefined) return res.status(400).json({ message: 'Completed status is required' });
-
-        try {
-            console.log('userId', userId)
-            await db.run('UPDATE tasks SET completed = ? WHERE id = ? AND user_id = ?', [completed, filter, userId]);
-            return res.status(200).json({ message: 'Task updated successfully' });
-        } catch (error) {
-            console.error('Error updating task:', error);
-            return res.status(500).json({ message: 'Error updating task', error: error.message });
-        }
-    } else if (req.method === 'DELETE') {
-        if (!isTaskId) return res.status(400).json({ message: 'Invalid task ID for deletion' });
-
-        try {
-            const result = await db.run('DELETE FROM tasks WHERE id = ? AND user_id = ?', [filter, userId]);
-            if (result.changes === 0) return res.status(404).json({ message: 'Task not found or not authorized' });
-            return res.status(200).json({ message: 'Task deleted successfully' });
-        } catch (error) {
-            console.error('Error deleting task:', error);
-            return res.status(500).json({ message: 'Error deleting task', error: error.message });
-        }
     } else {
-        res.setHeader('Allow', ['GET', 'POST', 'PUT', 'DELETE']);
+        res.setHeader('Allow', ['GET', 'POST', 'DELETE']);
         return res.status(405).end(`Method ${req.method} Not Allowed`);
     }
 }

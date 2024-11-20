@@ -1,7 +1,7 @@
 import styles from "../styles/signup.module.css";
 import React, { useState } from 'react';
 import { useRouter } from 'next/router';
-import { FaEye, FaEyeSlash } from 'react-icons/fa'; // Import the eye icons from react-icons
+import { FaEye, FaEyeSlash } from 'react-icons/fa';
 
 export default function SignUp() {
   const [username, setUsername] = useState('');
@@ -9,13 +9,12 @@ export default function SignUp() {
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
   const [successMessage, setSuccessMessage] = useState('');
-  const [passwordVisible, setPasswordVisible] = useState(false); // State to toggle password visibility
+  const [passwordVisible, setPasswordVisible] = useState(false);
   const router = useRouter();
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
+  const handleSubmit = async () => {
     setError('');
-    setSuccessMessage(''); // Reset success message on form submit
+    setSuccessMessage('');
 
     const response = await fetch('/api/auth/signup', {
       method: 'POST',
@@ -24,16 +23,16 @@ export default function SignUp() {
     });
 
     if (response.ok) {
-      const data = await response.json();
       setSuccessMessage('Sign-up successful! Redirecting to login...');
-      setTimeout(() => {
-        router.push('/login'); // Redirect to login page after 2 seconds
-      }, 2000);
+      setTimeout(() => router.push('/login'), 2000);
     } else {
       const errorData = await response.json();
       setError(errorData.message || 'An error occurred');
-      console.error('Sign-up error:', errorData);
     }
+  };
+
+  const handleKeyPress = (e) => {
+    if (e.key === 'Enter') handleSubmit();
   };
 
   return (
@@ -51,7 +50,7 @@ export default function SignUp() {
           value={username}
           onChange={(e) => setUsername(e.target.value)}
           className={styles.inputField}
-          required
+          onKeyDown={handleKeyPress}
         />
         <input
           type="email"
@@ -59,23 +58,22 @@ export default function SignUp() {
           value={email}
           onChange={(e) => setEmail(e.target.value)}
           className={styles.inputField}
-          required
+          onKeyDown={handleKeyPress}
         />
-
         <div className={styles.passwordContainer}>
           <input
-            type={passwordVisible ? 'text' : 'password'} // Toggle password visibility
+            type={passwordVisible ? 'text' : 'password'}
             placeholder="Password"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
             className={styles.inputField}
-            required
+            onKeyDown={handleKeyPress}
           />
           <span
             className={styles.eyeIcon}
-            onClick={() => setPasswordVisible(!passwordVisible)} // Toggle visibility
+            onClick={() => setPasswordVisible(!passwordVisible)}
           >
-            {passwordVisible ? <FaEyeSlash /> : <FaEye />} {/* Eye icon toggle */}
+            {passwordVisible ? <FaEyeSlash /> : <FaEye />}
           </span>
         </div>
 
@@ -83,11 +81,8 @@ export default function SignUp() {
           Sign Up
         </button>
 
-        <button 
-          onClick={() => router.push('/login')} 
-          className={styles.redirectButton}
-        >
-          Already have an account? Log In
+        <button onClick={() => router.push('/login')} className={styles.buttonSecondary}>
+          Already have an account? Login
         </button>
       </div>
     </div>

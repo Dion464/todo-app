@@ -10,10 +10,9 @@ export default function FilteredTasks() {
   const [newTask, setNewTask] = useState('');
   const router = useRouter();
   const { filter } = router.query;
-  const userId = 1; 
- 
-  const profileImage = '/images.png'; 
+  const userId = 1; // Placeholder user ID
 
+  // Fetch tasks with the appropriate filter
   const fetchTasks = async () => {
     try {
       let url = `/api/tasks?userId=${userId}`;
@@ -23,18 +22,20 @@ export default function FilteredTasks() {
       const response = await fetch(url);
       if (!response.ok) throw new Error('Failed to fetch tasks');
       const data = await response.json();
-      setTasks(data);  
+      setTasks(data);
     } catch (error) {
       console.error('Error fetching tasks:', error);
     }
   };
 
+  // Fetch tasks when the filter changes
   useEffect(() => {
     if (filter) {
       fetchTasks();
     }
   }, [filter]);
 
+  // Add new task
   const addTask = async () => {
     if (!newTask.trim()) return;
 
@@ -42,7 +43,7 @@ export default function FilteredTasks() {
       const response = await fetch('/api/tasks', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ title: newTask, userId, username }), 
+        body: JSON.stringify({ title: newTask, userId }),
       });
       if (!response.ok) throw new Error('Failed to add task');
       fetchTasks();
@@ -52,6 +53,7 @@ export default function FilteredTasks() {
     }
   };
 
+  // Toggle task completion
   const onToggleComplete = async (taskId) => {
     try {
       const task = tasks.find((t) => t.id === taskId);
@@ -63,7 +65,7 @@ export default function FilteredTasks() {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json',
-          Authorization: 'Bearer ' + localStorage.getItem('token'),
+          Authorization: 'Bearer ' + localStorage.getItem('token'), // Authorization token
         },
         body: JSON.stringify({ completed: updatedTask.completed, userId }),
       });
@@ -80,21 +82,25 @@ export default function FilteredTasks() {
     }
   };
 
+  // Delete task with error handling and token authorization
   const onDelete = async (taskId) => {
     try {
       const response = await fetch(`/api/tasks/${taskId}`, {
         method: 'DELETE',
+        headers: {
+          'Authorization': 'Bearer ' + localStorage.getItem('token'), // Authorization token
+        },
       });
 
       if (!response.ok) throw new Error('Failed to delete task');
-      fetchTasks();
+      fetchTasks(); // Re-fetch tasks after deletion
     } catch (error) {
       console.error('Error deleting task:', error);
     }
   };
 
   const resetInput = () => {
-    setNewTask(''); 
+    setNewTask('');
   };
 
   return (
@@ -127,18 +133,12 @@ export default function FilteredTasks() {
             tasks={tasks}
             filter={filter}
             onToggleComplete={onToggleComplete}
-            onDelete={onDelete} 
+            onDelete={onDelete} // Pass onDelete function
           />
         </div>
 
         <Link href="/profile" className={styles.profileLink}>
           Go to Profile
-        </Link>
-      </div>
-
-      <div className={styles.profileSection}>
-        <Link href="/profile">
-          <img src={profileImage} alt="Profile" className={styles.profileImage} />
         </Link>
       </div>
     </div>
