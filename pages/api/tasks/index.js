@@ -25,17 +25,17 @@ export default async function handler(req, res) {
       return res.status(500).json({ message: 'Error retrieving tasks', error: error.message });
     }
   } else if (req.method === 'POST') {
-    const { title, userId } = req.body;
+    const { title, description, userId } = req.body;
     if (!title || !userId) {
       return res.status(400).json({ message: 'Task title and user ID are required' });
     }
 
     try {
       const result = await db.run(
-        'INSERT INTO tasks (title, completed, user_id) VALUES (?, ?, ?)',
-        [title, false, userId]
+        'INSERT INTO tasks (title, description, completed, user_id) VALUES (?, ?, ?, ?)',
+        [title, description, false, userId]
       );
-      const newTask = { id: result.lastID, title, completed: false, user_id: userId };
+      const newTask = { id: result.lastID, title, description, completed: false, user_id: userId };
       return res.status(201).json(newTask);
     } catch (error) {
       console.error('Error adding task:', error);

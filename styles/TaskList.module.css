@@ -1,180 +1,149 @@
+/* Task list container */
 .taskList {
   display: flex;
   flex-direction: row;
-  gap: 20px;
   flex-wrap: wrap;
-  justify-content: flex-start;
-  width: 100%;
-  margin: 0 auto;
-  padding: 0 20px;
+  gap: 20px;
+  justify-content: center;
 }
 
-.taskItem {
+/* Flip card container */
+.flipCard {
+  background-color: transparent;
+  width: 350px;
+  height: 150px;
+  perspective: 1000px;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  border-radius: 10px;
+  overflow: hidden;
+}
+
+.flipCard:hover {
+  transform: scale(1.05);
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.2);
+}
+
+/* Flip card inner element */
+.flipCardInner {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  text-align: center;
+  transition: transform 0.6s ease;
+  transform-style: preserve-3d;
+}
+
+/* Flipped card state */
+.flipped {
+  transform: rotateY(180deg);
+}
+
+/* Front side of the flip card */
+.flipCardFront,
+.flipCardBack {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  backface-visibility: hidden;
+  border-radius: 10px;
+}
+
+/* Front side styling */
+.flipCardFront {
+  background-color: #ecf0f1;
+  color: #34495e;
   display: flex;
   flex-direction: column;
-  justify-content: flex-start;
-  background: #ffffff;
+  justify-content: space-between;
+  padding: 15px 20px;
+  transition: background-color 0.3s ease;
+}
+
+.flipCardFront:hover {
+  background-color: #bdc3c7;
+}
+
+/* Back side styling */
+.flipCardBack {
+  background-color: #153041;
+  color: white;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  transform: rotateY(180deg);
   padding: 20px;
-  border-radius: 15px;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-  transition: all 0.3s ease;
-  width: 250px;
-  height: 300px;
-  margin-bottom: 20px;
-  max-width: 100%;
-  word-wrap: break-word;
-  overflow-wrap: break-word;
-  overflow: hidden;
-  position: relative;
-  
+  overflow-y: auto; /* Allows scrolling for longer text */
 }
 
-.taskItem .taskContent {
-  overflow-y: auto;
-  max-height: 200px;
-  margin-bottom: 20px;
-}
-
+/* Task title styling */
 .taskTitle {
-  font-size: 1.2rem;
-  font-weight: 600;
-  color: #34495e;
-  margin-bottom: 10px;
-  word-wrap: break-word;
-  overflow-wrap: break-word;
-  white-space: normal;
+  font-size: 18px;
+  font-weight: bold;
+  text-align: left;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis; /* Ensure long titles are truncated */
 }
 
 .completed {
   text-decoration: line-through;
-  color: #7f8c8d;
-  margin-bottom: 20px;
+  color: #95a5a6;
 }
 
+/* Task actions (buttons) layout */
 .taskActions {
   display: flex;
-  flex-direction: row;
   justify-content: space-between;
-  width: 100%;
-  margin-top: auto;
+  margin-top: 15px;
 }
 
-.taskActions button {
-  background-color: #3498db;
-  color: white;
+/* Common button styling */
+.taskButton {
   padding: 8px 12px;
+  font-size: 14px;
   border: none;
-  border-radius: 8px;
+  border-radius: 5px;
   cursor: pointer;
-  font-size: 0.9rem;
-  transition: all 0.3s ease;
-  max-width: 100px;
-}
-
-.taskActions button:hover {
   background-color: #2980b9;
+  color: white;
+  transition: background-color 0.3s ease, transform 0.2s ease;
 }
 
-.deleteButton {
-  background-color: #e74c3c;
-  padding: 8px 16px;
-  font-size: 0.9rem;
-  max-width: 100px;
-  max-height: 40px;
+.taskButton:hover {
+  background-color: #1f5f8a;
+  transform: translateY(-2px);
 }
 
-.deleteButton:hover {
-  background-color: #c0392b;
+/* Flip back button styling */
+.flipBackButton {
+  background-color: #2980b9;
+  margin-top: 15px; /* Margin from the description text */
 }
 
-.profileSection {
-  position: fixed;
-  top: 20px;
-  right: 20px;
-  display: flex;
-  align-items: center;
-  cursor: pointer;
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
+.flipBackButton:hover {
+  background-color: #2980b9;
+  transform: translateY(-2px);
 }
 
-.profileSection:hover {
-  transform: scale(1.05);
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+.flipBackButton:active {
+  background-color: #1f5f8a;
+  transform: translateY(-2px);
 }
 
-.profileImage {
-  width: 45px;
-  height: 45px;
-  border-radius: 50%;
-  object-fit: cover;
-  border: 2px solid #3498db;
-  transition: transform 0.3s ease;
+/* Description text styling */
+.flipCardBack p {
+  font-size: 14px;
+  line-height: 1.5;
+  margin-bottom: 10px; /* Margin below description text */
+  text-align: left;
+  overflow-wrap: break-word; /* Ensure long words break to the next line */
+  word-wrap: break-word;
+  max-height: 80px; /* Limit height for large descriptions */
+  overflow-y: auto; /* Scroll if the text exceeds the max height */
 }
 
-.profileSection:hover .profileImage {
-  transform: rotate(10deg);
-}
-
-@media (max-width: 480px) {
-  .taskList {
-    flex-direction: column;
-    gap: 15px;
-    padding: 0 10px;
-  }
-
-  .taskItem {
-    width: 100%;
-    height: auto;
-    margin: 0;
-  }
-
-  .taskTitle {
-    font-size: 1rem;
-  }
-
-  .taskActions button {
-    font-size: 0.8rem;
-    padding: 6px 10px;
-  }
-
-  .profileSection {
-    top: 10px;
-    right: 10px;
-  }
-
-  .profileImage {
-    width: 35px;
-    height: 35px;
-  }
-}
-
-@media (min-width: 481px) and (max-width: 768px) {
-  .taskList {
-    flex-direction: row;
-    gap: 15px;
-  }
-
-  .taskItem {
-    width: 220px;
-  }
-
-  .taskTitle {
-    font-size: 1.1rem;
-  }
-
-  .taskActions button {
-    font-size: 0.9rem;
-    padding: 8px 12px;
-  }
-}
-
-@media (min-width: 769px) {
-  .taskItem {
-    width: 250px;
-    height: 300px;
-  }
-
-  .taskTitle {
-    font-size: 1.2rem;
-  }
+/* Ensure buttons have enough space */
+.flipCardBack .taskButton {
+  margin-top: 10px; /* Space between description and button */
 }

@@ -1,29 +1,61 @@
-import React from 'react';
+import React, { useState } from 'react';
 import styles from '../styles/TaskList.module.css';
 
 const TaskList = ({ tasks, onToggleComplete, onDelete }) => {
+  const [flippedCards, setFlippedCards] = useState({});
+
+  const toggleFlip = (taskId) => {
+    setFlippedCards((prevState) => ({
+      ...prevState,
+      [taskId]: !prevState[taskId],
+    }));
+  };
+
   return (
     <div className={styles.taskList}>
       {tasks.map((task) => (
-        <div key={task.id} className={styles.taskItem}>
-          <span className={`${styles.taskTitle} ${task.completed ? styles.completed : ''}`}>
-            {task.title}
-          </span>
-
-          <div className={styles.taskActions}>
-            <button
-              onClick={() => onToggleComplete(task.id)}
-              className={styles.taskButton}
-            >
-              {task.completed ? 'Undo' : 'Complete'}
-            </button>
-
-            <button
-              onClick={() => onDelete(task.id)}
-              className={`${styles.taskButton} ${styles.deleteButton}`}
-            >
-              Delete
-            </button>
+        <div key={task.id} className={styles.flipCard}>
+          <div
+            className={`${styles.flipCardInner} ${flippedCards[task.id] ? styles.flipped : ''}`}
+          >
+            <div className={styles.flipCardFront}>
+              <span
+                className={`${styles.taskTitle} ${
+                  task.completed ? styles.completed : ''
+                }`}
+              >
+                {task.title}
+              </span>
+              <div className={styles.taskActions}>
+                <button
+                  onClick={() => onToggleComplete(task.id)}
+                  className={styles.taskButton}
+                >
+                  {task.completed ? 'Undo' : 'Complete'}
+                </button>
+                <button
+                  onClick={() => onDelete(task.id)}
+                  className={styles.taskButton}
+                >
+                  Delete
+                </button>
+                <button
+                  onClick={() => toggleFlip(task.id)}
+                  className={styles.taskButton}
+                >
+                  Flip
+                </button>
+              </div>
+            </div>
+            <div className={styles.flipCardBack}>
+              <p>{task.description || 'No description available'}</p>
+              <button
+                onClick={() => toggleFlip(task.id)}
+                className={`${styles.taskButton} ${styles.flipBackButton}`}
+              >
+                Flip Back
+              </button>
+            </div>
           </div>
         </div>
       ))}
