@@ -12,8 +12,8 @@ export default function FilteredTasks() {
   const router = useRouter();
   const { filter } = router.query;
   const userId = 1; // Placeholder user ID
-  const MAX_TASK_LENGTH = 100; // Maximum characters for a task
-  const MAX_DESCRIPTION_LENGTH = 30; // Maximum characters for description
+  const MAX_TASK_LENGTH = 20; // Maximum characters for a task
+  const MAX_DESCRIPTION_LENGTH = 40; // Maximum characters for description
 
   // Fetch tasks with the appropriate filter
   const fetchTasks = async () => {
@@ -64,7 +64,7 @@ export default function FilteredTasks() {
     }
   };
 
-  // Toggle task completion
+ 
   const onToggleComplete = async (taskId) => {
     try {
       const token = localStorage.getItem('token');
@@ -139,7 +139,7 @@ export default function FilteredTasks() {
           {filter ? `${filter.charAt(0).toUpperCase() + filter.slice(1)} Tasks` : 'All Tasks'}
         </h2>
 
-        {/* Task input form */}
+       
         <div className={styles.taskInputContainer}>
           <input
             type="text"
@@ -149,7 +149,7 @@ export default function FilteredTasks() {
                 setNewTask(e.target.value);
               }
             }}
-            placeholder="Add new task (max 100 characters)"
+            placeholder="Add new task (max 20 characters)"
             className={styles.inputField}
           />
           <textarea
@@ -159,7 +159,7 @@ export default function FilteredTasks() {
                 setNewDescription(e.target.value);
               }
             }}
-            placeholder="Add a description (optional, max 30 characters)"
+            placeholder="Add a description (optional, max 40 characters)"
             className={styles.inputField}
           />
           <div className={styles.buttonContainer}>
@@ -190,9 +190,7 @@ export default function FilteredTasks() {
           />
         </div>
 
-        <Link href="/profile" className={styles.profileLink}>
-          Go to Profile
-        </Link>
+       
       </div>
     </div>
   );
