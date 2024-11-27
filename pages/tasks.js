@@ -150,7 +150,7 @@ export default function FilteredTasks() {
               }
             }}
             placeholder="Add new task (max 100 characters)"
-            className={styles.taskInput}
+            className={styles.inputField}
           />
           <textarea
             value={newDescription}
@@ -160,13 +160,16 @@ export default function FilteredTasks() {
               }
             }}
             placeholder="Add a description (optional, max 30 characters)"
-            className={styles.taskInput}  />
-          <button onClick={resetInput} className={styles.cancelButton}>
-            Cancel
-          </button>
-          <button onClick={addTask} className={styles.addButton}>
-            Add
-          </button>
+            className={styles.inputField}
+          />
+          <div className={styles.buttonContainer}>
+            <button onClick={resetInput} className={styles.cancelButton}>
+              Cancel
+            </button>
+            <button onClick={addTask} className={styles.addButton}>
+              Add
+            </button>
+          </div>
         </div>
 
         {/* Display remaining character count */}
