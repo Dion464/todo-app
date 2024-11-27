@@ -49,6 +49,8 @@ The app will be available at [http://localhost:3000](http://localhost:3000).
 
 ---
 
+### 4. To se the description flip the card also description is optional 
+
 ## Folder Structure:
 ```plaintext
 todo-app/
