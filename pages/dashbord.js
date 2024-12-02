@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
+import Sidebar from '../components/Sidebar';
 import TaskStatsChart from '../components/TaskStatsCharts';
-import styles from '../styles/dashboard.module.css'
+import styles from '../styles/dashboard.module.css';
 
 const Dashboard = () => {
   const [stats, setStats] = useState(null);
@@ -28,27 +29,30 @@ const Dashboard = () => {
 
   return (
     <div className={styles.dashboardContainer}>
-      <div className={styles.dashboardHeader}>
-        <h1>Welcome to Your Dashboard</h1>
-        <p>Your task statistics at a glance</p>
-      </div>
-      <div className={styles.statsSummary}>
-        <div className={styles.statCard}>
-          <h3>Total Tasks</h3>
-          <p>{stats.total}</p>
+      <Sidebar /> {/* Add Sidebar component here */}
+      <div className={styles.mainContent}>
+        <div className={styles.dashboardHeader}>
+          <h1>Welcome to Your Dashboard</h1>
+          <p>Your task statistics at a glance</p>
         </div>
-        <div className={styles.statCard}>
-          <h3>Completed Tasks</h3>
-          <p>{stats.completed}</p>
+        <div className={styles.statsSummary}>
+          <div className={styles.statCard}>
+            <h3>Total Tasks</h3>
+            <p>{stats.total}</p>
+          </div>
+          <div className={styles.statCard}>
+            <h3>Completed Tasks</h3>
+            <p>{stats.completed}</p>
+          </div>
+          <div className={styles.statCard}>
+            <h3>Incomplete Tasks</h3>
+            <p>{stats.total - stats.completed}</p>
+          </div>
         </div>
-        <div className={styles.statCard}>
-          <h3>Incomplete Tasks</h3>
-          <p>{stats.total - stats.completed}</p>
+        <TaskStatsChart stats={stats} />
+        <div className={styles.backButton}>
+          <button onClick={() => window.history.back()}>Go Back</button>
         </div>
-      </div>
-      <TaskStatsChart stats={stats} />
-      <div className={styles.backButton}>
-        <button onClick={() => window.history.back()}>Go Back</button>
       </div>
     </div>
   );
