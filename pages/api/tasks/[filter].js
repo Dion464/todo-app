@@ -64,7 +64,9 @@ export default async function handler(req, res) {
         if (!title) {
             return res.status(400).json({ message: 'Task title is required' });
         }
-
+        if (!description) {
+            return res.status(400).json({ message: 'Task description is required' });
+        }
         try {
             const result = await db.run('INSERT INTO tasks (title, description, completed) VALUES (?, ?, ?)', [title, description, false]);
             return res.status(201).json({ id: result.lastID, title, description, completed: false });

@@ -11,12 +11,17 @@ const TaskList = ({ tasks, onToggleComplete, onDelete }) => {
     }));
   };
 
+  const isAnyCardFlipped = Object.values(flippedCards).some((flipped) => flipped);
+
   return (
     <div className={styles.taskList}>
+      {isAnyCardFlipped && <div className={styles.backdrop}></div>}
       {tasks.map((task) => (
         <div key={task.id} className={styles.flipCard}>
           <div
-            className={`${styles.flipCardInner} ${flippedCards[task.id] ? styles.flipped : ''}`}
+            className={`${styles.flipCardInner} ${
+              flippedCards[task.id] ? styles.flipped : ''
+            }`}
           >
             <div className={styles.flipCardFront}>
               <span

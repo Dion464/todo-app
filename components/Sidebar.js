@@ -1,3 +1,4 @@
+// components/Sidebar.js
 import React from 'react';
 import Link from 'next/link';
 import styles from '../styles/Sidebar.module.css';
@@ -22,6 +23,7 @@ export default function Sidebar() {
         <li><Link href="/tasks?filter=all">All Tasks</Link></li>
         <li><Link href="/tasks?filter=completed">Completed Tasks</Link></li>
         <li><Link href="/tasks?filter=incomplete">Incomplete Tasks</Link></li>
+        <li><Link href="/dashbord">Dashboard</Link></li> {/* New Link */}
       </ul>
     </div>
   );

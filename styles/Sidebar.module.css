@@ -17,12 +17,19 @@
   margin-bottom: 20px;
 }
 .sidebarLogo {
-  width: 80px; /* Increase size */
-  height: 80px; /* Increase size */
+  width: 40px; /* Increase size */
+  height: 40px; /* Increase size */
   border-radius: 8px;
-  object-fit: contain;
-  filter: none; /* Removed to allow normal visibility */
+  justify-content: right;
+  transition: transform 0.3s ease, box-shadow 0.3s ease; /* Smooth transition */
 }
+
+.sidebarLogo:hover {
+  transform: scale(1.2); /* Slightly enlarge the logo */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Add a subtle shadow */
+  background-color: rgba(0, 0, 0, 0.1); /* Slightly darken the background */
+}
+
 
 
 

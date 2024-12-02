@@ -31,6 +31,14 @@ export default async function handler(req, res) {
       return res.status(401).json({ message: 'Token missing' });
     }
 
+    // Validate username
+    const usernameRegex = /^(?=.*[A-Z]).{5,}$/; // At least one uppercase letter and 5+ characters
+    if (!usernameRegex.test(newUsername)) {
+      return res
+        .status(400)
+        .json({ message: 'Username must have at least one uppercase letter and be at least 5 characters long.' });
+    }
+
     try {
       const decoded = jwt.verify(token, process.env.JWT_SECRET);
       const db = await openDB();

@@ -9,6 +9,7 @@
 .sidebar {
   position: fixed;
   width: 250px;
+ 
   top: 0;
   left: 0;
   height: 100%;
@@ -30,8 +31,9 @@
 
 .header {
   font-size: 2rem;
-  color: #34495e;
+  color: #446483;
   margin-bottom: 20px;
+  
 }
 
 /* Input and button container */

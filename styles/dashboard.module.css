@@ -1,0 +1,112 @@
+/* General Dashboard Container */
+.dashboardContainer {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 40px;
+    padding: 20px;
+    background-color: #f9fafb;
+    height: 100vh;
+    font-family: 'Roboto', sans-serif;
+  }
+  
+  .dashboardHeader {
+    text-align: center;
+    margin-bottom: 40px;
+  }
+  
+  .dashboardHeader h1 {
+    font-size: 2.5rem;
+    color: #333;
+    margin-bottom: 10px;
+  }
+  
+  .dashboardHeader p {
+    font-size: 1.2rem;
+    color: #666;
+  }
+  
+  .statsSummary {
+    display: flex;
+    justify-content: space-evenly;
+    width: 100%;
+    margin-bottom: 40px;
+  }
+  
+  .statCard {
+    background-color: #fff;
+    border-radius: 10px;
+    padding: 25px;
+    width: 28%;
+    text-align: center;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    transition: all 0.3s ease-in-out;
+  }
+  
+  .statCard:hover {
+    transform: scale(1.05);
+    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.2);
+  }
+  
+  .statCard h3 {
+    font-size: 1.4rem;
+    color: #4caf50;
+    margin-bottom: 10px;
+  }
+  
+  .statCard p {
+    font-size: 2rem;
+    font-weight: 500;
+    color: #333;
+  }
+  
+  .chartContainer {
+    display: flex;
+    justify-content: center;
+    margin-top: 50px;
+    width: 100%;
+  }
+  
+  .chartCard {
+    width: 100%;
+    max-width: 800px;
+    background-color: #fff;
+    padding: 30px;
+    text-align: center;
+    border-radius: 12px;
+    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.1);
+  }
+  
+  .chartCard h3 {
+    font-size: 1.6rem;
+    color: #333;
+    margin-bottom: 20px;
+  }
+  
+  .backButton {
+    margin-top: 50px;
+    text-align: center;
+  }
+  
+  .backButton button {
+    padding: 12px 25px;
+    font-size: 1.1rem;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+  }
+  
+  .backButton button:hover {
+    background-color: #0056b3;
+    transform: scale(1.05);
+  }
+  
+  .loading {
+    font-size: 1.5rem;
+    color: #555;
+    text-align: center;
+  }
+  
