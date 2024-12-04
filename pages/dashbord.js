@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import Sidebar from '../components/Sidebar';
-import TaskStatsChart from '../components/TaskStatsCharts';
+import TaskStatsChart from '../components/TaskStatsChart';
 import styles from '../styles/dashboard.module.css';
 
 const Dashboard = () => {

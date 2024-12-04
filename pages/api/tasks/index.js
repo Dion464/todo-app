@@ -2,40 +2,46 @@ import { openDB } from '../../../lib/db';
 
 export default async function handler(req, res) {
   const db = await openDB();
-  const { userId, completed } = req.query; // Get userId and completed filter from query parameters
+  const { userId, completed, category } = req.query; // Get userId, completed, and category from query parameters
 
   if (req.method === 'GET') {
     try {
       let tasks;
-      // If userId is provided, filter tasks by userId
+      // Filter by userId and category (if provided)
       if (userId) {
-        if (completed !== undefined) {
+        if (completed !== undefined && category) {
+          tasks = await db.all(
+            'SELECT * FROM tasks WHERE user_id = ? AND completed = ? AND category = ?',
+            [userId, completed === '1' ? 1 : 0, category]
+          );
+        } else if (completed !== undefined) {
           tasks = await db.all('SELECT * FROM tasks WHERE user_id = ? AND completed = ?', [userId, completed === '1' ? 1 : 0]);
+        } else if (category) {
+          tasks = await db.all('SELECT * FROM tasks WHERE user_id = ? AND category = ?', [userId, category]);
         } else {
-          // If no completed filter, fetch all tasks for the user
           tasks = await db.all('SELECT * FROM tasks WHERE user_id = ?', [userId]);
         }
       } else {
-        // If no userId is provided, fetch all tasks (if needed)
         tasks = await db.all('SELECT * FROM tasks');
       }
+
       return res.status(200).json(tasks);
     } catch (error) {
       console.error('Error retrieving tasks:', error);
       return res.status(500).json({ message: 'Error retrieving tasks', error: error.message });
     }
   } else if (req.method === 'POST') {
-    const { title, description, userId } = req.body;
-    if (!title || !userId) {
-      return res.status(400).json({ message: 'Task title and user ID are required' });
+    const { title, description, userId, category } = req.body;
+    if (!title || !userId || !category) {
+      return res.status(400).json({ message: 'Task title, user ID, and category are required' });
     }
 
     try {
       const result = await db.run(
-        'INSERT INTO tasks (title, description, completed, user_id) VALUES (?, ?, ?, ?)',
-        [title, description, false, userId]
+        'INSERT INTO tasks (title, description, completed, user_id, category) VALUES (?, ?, ?, ?, ?)',
+        [title, description, false, userId, category]
       );
-      const newTask = { id: result.lastID, title, description, completed: false, user_id: userId };
+      const newTask = { id: result.lastID, title, description, completed: false, user_id: userId, category };
       return res.status(201).json(newTask);
     } catch (error) {
       console.error('Error adding task:', error);

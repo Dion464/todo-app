@@ -1,14 +1,22 @@
 import React, { useState } from 'react';
 import styles from '../styles/TaskList.module.css';
+import CategoryModal from './categorySelection';
 
-const TaskList = ({ tasks, onToggleComplete, onDelete }) => {
+const TaskList = ({ tasks, onToggleComplete, onDelete, onAddTask }) => {
   const [flippedCards, setFlippedCards] = useState({});
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [currentTask, setCurrentTask] = useState(null);
 
   const toggleFlip = (taskId) => {
     setFlippedCards((prevState) => ({
       ...prevState,
       [taskId]: !prevState[taskId],
     }));
+  };
+
+  const handleAddTask = (newTask) => {
+    onAddTask(newTask);
+    setIsModalOpen(false);
   };
 
   const isAnyCardFlipped = Object.values(flippedCards).some((flipped) => flipped);
@@ -29,7 +37,7 @@ const TaskList = ({ tasks, onToggleComplete, onDelete }) => {
                   task.completed ? styles.completed : ''
                 }`}
               >
-                {task.title}
+                {task.title} ({task.category || 'No Category'}) {/* Display task category */}
               </span>
               <div className={styles.taskActions}>
                 <button
@@ -64,6 +72,15 @@ const TaskList = ({ tasks, onToggleComplete, onDelete }) => {
           </div>
         </div>
       ))}
+
+      {/* Category Modal */}
+      {isModalOpen && (
+        <CategoryModal
+          task={currentTask}
+          onClose={() => setIsModalOpen(false)}
+          onAddTask={handleAddTask}
+        />
+      )}
     </div>
   );
 };

@@ -1,112 +1,86 @@
-/* General Dashboard Container */
 .dashboardContainer {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    margin-top: 40px;
-    padding: 20px;
-    background-color:whitesmoke;
-    height: 100vh;
-    font-family: 'Roboto', sans-serif;
-  }
-  
-  .dashboardHeader {
-    text-align: center;
-    margin-bottom: 40px;
-  }
-  
-  .dashboardHeader h1 {
-    font-size: 2.5rem;
-    color: #333;
-    margin-bottom: 10px;
-  }
-  
-  .dashboardHeader p {
-    font-size: 1.2rem;
-    color: #666;
-  }
-  
-  .statsSummary {
-    display: flex;
-    justify-content: space-evenly;
-    width: 100%;
-    margin-bottom: 40px;
-  }
-  
-  .statCard {
-    background-color: #fff;
-    border-radius: 10px;
-    padding: 25px;
-    width: 28%;
-    text-align: center;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-    transition: all 0.3s ease-in-out;
-  }
-  
-  .statCard:hover {
-    transform: scale(1.05);
-    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.2);
-  }
-  
-  .statCard h3 {
-    font-size: 1.4rem;
-    color: #253e49;
-    margin-bottom: 10px;
-  }
-  
-  .statCard p {
-    font-size: 2rem;
-    font-weight: 500;
-    color: #333;
-  }
-  
-  .chartContainer {
-    display: flex;
-    justify-content: center;
-    margin-top: 50px;
-    width: 100%;
-  }
-  
-  .chartCard {
-    width: 100%;
-    max-width: 1200px;
-    background-color: #fff;
-    padding: 30px;
-    text-align: center;
-    border-radius: 12px;
-    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.1);
-  }
-  
-  .chartCard h3 {
-    font-size: 1.6rem;
-    color: #333;
-    margin-bottom: 20px;
-  }
-  
-  .backButton {
-    margin-top: 50px;
-    text-align: center;
-  }
-  
-  .backButton button {
-    padding: 12px 25px;
-    font-size: 1.1rem;
-    background-color: #007bff;
-    color: white;
-    border: none;
-    border-radius: 8px;
-    cursor: pointer;
-    transition: all 0.3s ease;
-  }
-  
-  .backButton button:hover {
-    background-color: #0056b3;
-    transform: scale(1.05);
-  }
-  
-  .loading {
-    font-size: 1.5rem;
-    color: #555;
-    text-align: center;
-  }
-  
+  display: flex;
+  height: 100vh;
+  background-color: #f4f6f7;
+}
+
+.mainContent {
+  flex: 1;
+  padding: 20px;
+  background-color: #ecf0f1;
+}
+
+.dashboardHeader {
+  text-align: center;
+  margin-bottom: 40px;
+}
+
+.dashboardHeader h1 {
+  font-size: 32px;
+  color: #2c3e50;
+}
+
+.dashboardHeader p {
+  font-size: 18px;
+  color: #7f8c8d;
+}
+
+.statsSummary {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 30px;
+}
+
+.statCard {
+  background-color: #ffffff;
+  padding: 20px;
+  border-radius: 10px;
+  width: 30%;
+  text-align: center;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.statCard h3 {
+  font-size: 20px;
+  color: #34495e;
+}
+
+.statCard p {
+  font-size: 24px;
+  font-weight: bold;
+  color: #2ecc71;
+}
+
+.chartWrapper {
+  margin-bottom: 40px;
+}
+
+.loading {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  font-size: 24px;
+  color: #7f8c8d;
+}
+
+.backButton {
+  display: flex;
+  justify-content: center;
+  margin-top: 20px;
+}
+
+.backButton button {
+  background-color: #3498db;
+  color: white;
+  padding: 12px 24px;
+  font-size: 16px;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.backButton button:hover {
+  background-color: #2980b9;
+}

@@ -18,17 +18,12 @@ body {
   align-items: flex-start;
   min-height: 100vh;
   padding: 20px;
+  transition: background-color 0.3s, color 0.3s; /* Smooth transition */
 }
+
 /* global.css */
 
-*,
-*::before,
-*::after {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-}
-
+/* Light mode styles */
 body {
   font-family: Arial, sans-serif;
   color: #333;
@@ -47,9 +42,19 @@ body::before {
   left: 0;
   width: 100%;
   height: 100%;
- 
   opacity: 0.1;
   z-index: -1;
+}
+
+/* Dark mode styles */
+body.dark {
+  background: #121212; /* Dark background */
+  color: #fff; /* Light text */
+}
+
+body.dark::before {
+  opacity: 0.3;
+  background-color: #333; /* Dark overlay */
 }
 
 /* Links */
@@ -68,16 +73,22 @@ a:hover {
   width: 100%;
   margin: 0 auto;
   padding: 20px;
-  background-color:white;
+  background-color: white;
   border-radius: 10px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* In dark mode, adjust container background */
+body.dark .container {
+  background-color: #333;
+  color: #fff;
 }
 
 /* Button Styling */
 button {
   padding: 10px 15px;
   border: none;
-  background-color: #4caf50; /* Green color to match the add task button */
+  background-color: #007bff; /* Blue color for all buttons */
   color: #fff;
   font-size: 16px;
   font-weight: bold;
@@ -86,8 +97,18 @@ button {
   transition: background 0.3s;
 }
 
+/* Simplified button hover effect */
 button:hover {
-  background-color: #43a047;
+  background-color: #0056b3; /* Darker blue for hover effect */
+}
+
+/* Dark mode button */
+body.dark button {
+  background-color: #0056b3;
+}
+
+body.dark button:hover {
+  background-color: #003d82;
 }
 
 /* Form Styling */
@@ -106,11 +127,26 @@ input[type="email"] {
   font-size: 1rem;
 }
 
+/* Dark mode form inputs */
+body.dark input[type="text"],
+body.dark input[type="password"],
+body.dark input[type="email"] {
+  background-color: #444;
+  color: #fff;
+  border: 1px solid #555;
+}
+
 /* Headings */
 h1, h2 {
   margin-bottom: 20px;
   color: #333;
   font-weight: bold;
+}
+
+/* Dark mode headings */
+body.dark h1,
+body.dark h2 {
+  color: #fff;
 }
 
 /* Main Content Layout */
@@ -119,7 +155,12 @@ main {
   padding: 20px;
   background-color: #ffffff;
   border-radius: 10px;
- 
+}
+
+/* Dark mode main content */
+body.dark main {
+  background-color: #333;
+  color: #fff;
 }
 
 /* Utility Classes */
@@ -157,4 +198,36 @@ main {
 
 .p-20 {
   padding: 20px;
+}
+
+/* Dark Mode Toggle Button */
+.dark-mode-toggle {
+  position: fixed;
+  bottom: 10px; /* Adjusted position to make it less intrusive */
+  right: 10px; /* Adjusted right position to move it more to the left */
+  padding: 8px 12px; /* Smaller padding for a smaller button */
+  border: 2px solid #007bff; /* Blue border to match button style */
+  background-color: transparent;
+  color: #007bff; /* Blue color */
+  font-size: 22px; /* Slightly smaller font size */
+  border-radius: 50%; /* Circular button */
+  cursor: pointer;
+  transition: background 0.3s ease;
+  z-index: 1000;
+}
+
+/* Simplified button hover effect */
+.dark-mode-toggle:hover {
+  background-color: transparent; /* No background color change */
+  color: #0056b3; /* Darker blue text when hovered */
+}
+
+/* Dark mode button styles */
+body.dark .dark-mode-toggle {
+  border-color: #fff; /* Light border in dark mode */
+  color: #fff; /* White text/icon in dark mode */
+}
+
+body.dark .dark-mode-toggle:hover {
+  color: #b0bec5; /* Lighter text color on hover in dark mode */
 }

@@ -3,12 +3,14 @@ import TaskList from '../components/TaskList';
 import Sidebar from '../components/Sidebar';
 import { useRouter } from 'next/router';
 import styles from '../styles/task.module.css';
-import Link from 'next/link';
+import CategoryModal from '../components/categorySelection';
 
 export default function FilteredTasks() {
   const [tasks, setTasks] = useState([]);
   const [newTask, setNewTask] = useState('');
   const [newDescription, setNewDescription] = useState('');
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [category, setCategory] = useState('');
   const router = useRouter();
   const { filter } = router.query;
   const userId = 1; // Placeholder user ID
@@ -21,6 +23,7 @@ export default function FilteredTasks() {
       let url = `/api/tasks?userId=${userId}`;
       if (filter === 'completed') url += `&completed=1`;
       else if (filter === 'incomplete') url += `&completed=0`;
+      if (category) url += `&category=${category}`;
 
       const response = await fetch(url);
       if (!response.ok) throw new Error('Failed to fetch tasks');
@@ -31,12 +34,10 @@ export default function FilteredTasks() {
     }
   };
 
-  // Fetch tasks when the filter changes
+  // Fetch tasks when the filter or category changes
   useEffect(() => {
-    if (filter) {
-      fetchTasks();
-    }
-  }, [filter]);
+    fetchTasks();
+  }, [filter, category]);
 
   // Add new task
   const addTask = async () => {
@@ -53,7 +54,7 @@ export default function FilteredTasks() {
       const response = await fetch('/api/tasks', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ title: newTask, description: newDescription, userId }), // Add description
+        body: JSON.stringify({ title: newTask, description: newDescription, userId, category }),
       });
       if (!response.ok) throw new Error('Failed to add task');
       fetchTasks();
@@ -64,7 +65,7 @@ export default function FilteredTasks() {
     }
   };
 
- 
+  // Toggle task completion status
   const onToggleComplete = async (taskId) => {
     try {
       const token = localStorage.getItem('token');
@@ -139,7 +140,6 @@ export default function FilteredTasks() {
           {filter ? `${filter.charAt(0).toUpperCase() + filter.slice(1)} Tasks` : 'All Tasks'}
         </h2>
 
-       
         <div className={styles.taskInputContainer}>
           <input
             type="text"
@@ -162,6 +162,9 @@ export default function FilteredTasks() {
             placeholder="Add a description (optional, max 40 characters)"
             className={styles.inputField}
           />
+          <button onClick={() => setIsModalOpen(true)} className={styles.categoryButton}>
+            Select Category
+          </button>
           <div className={styles.buttonContainer}>
             <button onClick={resetInput} className={styles.cancelButton}>
               Cancel
@@ -186,11 +189,20 @@ export default function FilteredTasks() {
             tasks={tasks}
             filter={filter}
             onToggleComplete={onToggleComplete}
-            onDelete={onDelete} // Pass onDelete function
+            onDelete={onDelete}
           />
         </div>
 
-       
+        {/* Category Modal */}
+        {isModalOpen && (
+          <CategoryModal
+            onClose={() => setIsModalOpen(false)}
+            onSelectCategory={(selectedCategory) => {
+              setCategory(selectedCategory);
+              setIsModalOpen(false); // Close the modal after selecting a category
+            }}
+          />
+        )}
       </div>
     </div>
   );

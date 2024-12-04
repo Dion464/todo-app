@@ -3,29 +3,25 @@ import { openDB } from './lib/db.js';
 const initDB = async () => {
     const db = await openDB();
     try {
-        // Create 'users' table
-        await db.exec(`
-            CREATE TABLE IF NOT EXISTS users (
-                id INTEGER PRIMARY KEY AUTOINCREMENT,
-                username TEXT NOT NULL UNIQUE,
-                email TEXT NOT NULL UNIQUE,
-                password TEXT NOT NULL
-            )
-        `);
-
-        // Create 'tasks' table with description column
+        // Ensure the 'tasks' table exists with 'category' column, if not already there
         await db.exec(`
             CREATE TABLE IF NOT EXISTS tasks (
                 id INTEGER PRIMARY KEY AUTOINCREMENT,
                 user_id INTEGER NOT NULL,
                 title TEXT NOT NULL,
-                description TEXT,  // Add description column
+                description TEXT,
                 completed BOOLEAN NOT NULL DEFAULT 0,
+                category TEXT, -- Added category column
                 FOREIGN KEY (user_id) REFERENCES users (id)
             )
         `);
 
-        // Create 'subtasks' table
+        // If the 'category' column doesn't exist, add it
+        await db.exec(`
+            ALTER TABLE tasks ADD COLUMN category TEXT;
+        `);
+
+        // Create 'subtasks' table if not already created
         await db.exec(`
             CREATE TABLE IF NOT EXISTS subtasks (
                 id INTEGER PRIMARY KEY AUTOINCREMENT,
@@ -36,7 +32,7 @@ const initDB = async () => {
             )
         `);
 
-        console.log('Database initialized');
+        console.log('Database initialized successfully');
     } catch (error) {
         console.error('Error initializing the database:', error);
     } finally {
@@ -44,4 +40,5 @@ const initDB = async () => {
     }
 };
 
+// Call the function to initialize the database
 initDB();
