@@ -1,5 +1,3 @@
-# See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
-
 # dependencies
 /node_modules
 /.pnp
@@ -29,8 +27,6 @@ npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
 
-
-
 # vercel
 .vercel
 
@@ -38,7 +34,6 @@ yarn-error.log*
 *.tsbuildinfo
 next-env.d.ts
 
-
-
-# gitignore
-.gitignore
+# Allow .env.local and SQLite database file to be tracked
+!/.env.local
+!/lib/database.sqlite
