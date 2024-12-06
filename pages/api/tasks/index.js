@@ -2,12 +2,11 @@ import { openDB } from '../../../lib/db';
 
 export default async function handler(req, res) {
   const db = await openDB();
-  const { userId, completed, category } = req.query; // Get userId, completed, and category from query parameters
+  const { userId, completed, category } = req.query;
 
   if (req.method === 'GET') {
     try {
       let tasks;
-      // Filter by userId and category (if provided)
       if (userId) {
         if (completed !== undefined && category) {
           tasks = await db.all(

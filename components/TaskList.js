@@ -37,7 +37,7 @@ const TaskList = ({ tasks, onToggleComplete, onDelete, onAddTask }) => {
                   task.completed ? styles.completed : ''
                 }`}
               >
-                {task.title} ({task.category || 'No Category'}) {/* Display task category */}
+                {task.title} ({task.category || 'No Category'})
               </span>
               <div className={styles.taskActions}>
                 <button
@@ -73,7 +73,6 @@ const TaskList = ({ tasks, onToggleComplete, onDelete, onAddTask }) => {
         </div>
       ))}
 
-      {/* Category Modal */}
       {isModalOpen && (
         <CategoryModal
           task={currentTask}

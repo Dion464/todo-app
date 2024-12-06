@@ -1,44 +1,64 @@
 import { openDB } from './lib/db.js';
 
 const initDB = async () => {
-    const db = await openDB();
+  const db = await openDB();
+  try {
+    // Create 'users' table
+    await db.exec(`
+      CREATE TABLE IF NOT EXISTS users (
+        id INTEGER PRIMARY KEY AUTOINCREMENT,
+        username TEXT NOT NULL UNIQUE,
+        email TEXT NOT NULL UNIQUE,
+        password TEXT NOT NULL
+      )
+    `);
+
+    // Create 'tasks' table with 'category' column if it doesn't exist
+    await db.exec(`
+      CREATE TABLE IF NOT EXISTS tasks (
+        id INTEGER PRIMARY KEY AUTOINCREMENT,
+        user_id INTEGER NOT NULL,
+        title TEXT NOT NULL,
+        description TEXT,
+        completed BOOLEAN NOT NULL DEFAULT 0,
+        category TEXT,  -- Ensure 'category' column exists
+        FOREIGN KEY (user_id) REFERENCES users (id)
+      )
+    `);
+
+    // Check if 'description' column exists, if not, add it
+    await db.run(`PRAGMA foreign_keys=off;`);
     try {
-        // Ensure the 'tasks' table exists with 'category' column, if not already there
-        await db.exec(`
-            CREATE TABLE IF NOT EXISTS tasks (
-                id INTEGER PRIMARY KEY AUTOINCREMENT,
-                user_id INTEGER NOT NULL,
-                title TEXT NOT NULL,
-                description TEXT,
-                completed BOOLEAN NOT NULL DEFAULT 0,
-                category TEXT, -- Added category column
-                FOREIGN KEY (user_id) REFERENCES users (id)
-            )
-        `);
-
-        // If the 'category' column doesn't exist, add it
-        await db.exec(`
-            ALTER TABLE tasks ADD COLUMN category TEXT;
-        `);
-
-        // Create 'subtasks' table if not already created
-        await db.exec(`
-            CREATE TABLE IF NOT EXISTS subtasks (
-                id INTEGER PRIMARY KEY AUTOINCREMENT,
-                task_id INTEGER NOT NULL,
-                title TEXT NOT NULL,
-                completed BOOLEAN NOT NULL DEFAULT 0,
-                FOREIGN KEY (task_id) REFERENCES tasks (id)
-            )
-        `);
-
-        console.log('Database initialized successfully');
-    } catch (error) {
-        console.error('Error initializing the database:', error);
-    } finally {
-        db.close();
+      await db.exec('ALTER TABLE tasks ADD COLUMN description TEXT');
+    } catch (err) {
+      console.log('Description column already exists or cannot be added', err);
     }
+
+    // Check if 'category' column exists, if not, add it
+    try {
+      await db.exec('ALTER TABLE tasks ADD COLUMN category TEXT');
+    } catch (err) {
+      console.log('Category column already exists or cannot be added', err);
+    }
+    await db.run(`PRAGMA foreign_keys=on;`);
+
+    // Create 'subtasks' table
+    await db.exec(`
+      CREATE TABLE IF NOT EXISTS subtasks (
+        id INTEGER PRIMARY KEY AUTOINCREMENT,
+        task_id INTEGER NOT NULL,
+        title TEXT NOT NULL,
+        completed BOOLEAN NOT NULL DEFAULT 0,
+        FOREIGN KEY (task_id) REFERENCES tasks (id)
+      )
+    `);
+
+    console.log('Database initialized');
+  } catch (error) {
+    console.error('Error initializing the database:', error);
+  } finally {
+    db.close();
+  }
 };
 
-// Call the function to initialize the database
 initDB();
