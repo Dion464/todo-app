@@ -1,20 +1,38 @@
-import { Bar } from 'react-chartjs-2';
-import { Chart as ChartJS, Title, Tooltip, Legend, BarElement, CategoryScale, LinearScale } from 'chart.js';
-import styles from "../styles/TaskStatsChart.module.css";
+import { Doughnut } from 'react-chartjs-2';
+import { Chart as ChartJS, Title, Tooltip, Legend, ArcElement, CategoryScale, LinearScale } from 'chart.js';
+import styles from "../styles/TaskStatsChart.module.css"
 
-// Registering required chart.js components
-ChartJS.register(Title, Tooltip, Legend, BarElement, CategoryScale, LinearScale);
+// Registering chart components
+ChartJS.register(Title, Tooltip, Legend, ArcElement, CategoryScale, LinearScale);
 
 const TaskStatsChart = ({ stats }) => {
+  // Blue gradient background colors for each segment
+  const gradientCompleted = (ctx) => {
+    const gradient = ctx.createLinearGradient(0, 0, 0, 400);
+    gradient.addColorStop(0, '#1e3a5f'); // Dark blue
+    gradient.addColorStop(1, '#64b5f6'); // Light blue
+    return gradient;
+  };
+
+  const gradientIncomplete = (ctx) => {
+    const gradient = ctx.createLinearGradient(0, 0, 0, 400);
+    gradient.addColorStop(0, '#90caf9'); // Soft blue
+    gradient.addColorStop(1, '#42a5f5'); // Standard blue
+    return gradient;
+  };
+
   const data = {
     labels: ['Completed', 'Incomplete'],
     datasets: [
       {
-        label: 'Tasks',
         data: [stats.completed, stats.total - stats.completed],
-        backgroundColor: ['#4caf50', '#f44336'],
-        borderColor: ['#388e3c', '#d32f2f'],
-        borderWidth: 1,
+        backgroundColor: [
+          gradientCompleted,
+          gradientIncomplete
+        ],
+        hoverBackgroundColor: ['#1565c0', '#1976d2'],
+        borderColor: ['#ffffff', '#ffffff'],
+        borderWidth: 2,
       },
     ],
   };
@@ -25,12 +43,23 @@ const TaskStatsChart = ({ stats }) => {
       title: {
         display: true,
         text: 'Task Completion Stats',
+        font: {
+          size: 20,
+        },
+        color: '#1e3a5f', // Dark blue for the title
+      },
+      tooltip: {
+        backgroundColor: '#212121',
+        titleColor: '#fff',
+        bodyColor: '#fff',
+        borderColor: '#1e3a5f',
+        borderWidth: 2,
       },
     },
-    scales: {
-      y: {
-        beginAtZero: true,
-      },
+    cutout: '70%',
+    animation: {
+      animateRotate: true,
+      duration: 1500, // Smooth animation duration
     },
   };
 
@@ -38,7 +67,7 @@ const TaskStatsChart = ({ stats }) => {
     <div className={styles.chartContainer}>
       <div className={styles.chartCard}>
         <h3>Task Completion Stats</h3>
-        <Bar data={data} options={options} />
+        <Doughnut data={data} options={options} />
       </div>
     </div>
   );

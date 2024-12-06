@@ -21,8 +21,6 @@ body {
   transition: background-color 0.3s, color 0.3s; /* Smooth transition */
 }
 
-/* global.css */
-
 /* Light mode styles */
 body {
   font-family: Arial, sans-serif;
@@ -230,4 +228,61 @@ body.dark .dark-mode-toggle {
 
 body.dark .dark-mode-toggle:hover {
   color: #b0bec5; /* Lighter text color on hover in dark mode */
+}
+
+/* Responsive Design */
+
+/* For screens larger than 768px */
+@media (min-width: 768px) {
+  .container {
+    padding: 40px;
+  }
+
+  form input[type="text"],
+  form input[type="password"],
+  form input[type="email"] {
+    font-size: 1.1rem;
+  }
+
+  button {
+    font-size: 18px;
+    padding: 12px 20px;
+  }
+}
+
+/* For screens smaller than 768px */
+@media (max-width: 768px) {
+  body {
+    padding: 10px;
+  }
+
+  .container {
+    width: 100%;
+    padding: 15px;
+  }
+
+  button {
+    padding: 10px 15px;
+    font-size: 14px;
+  }
+
+  .dark-mode-toggle {
+    font-size: 20px;
+    padding: 6px 10px;
+  }
+}
+
+/* For very small screens (below 480px) */
+@media (max-width: 480px) {
+  .dark-mode-toggle {
+    bottom: 5px;
+    right: 5px;
+    font-size: 18px;
+    padding: 5px 8px;
+  }
+
+  button {
+    padding: 8px 12px;
+    font-size: 13px;
+  }
 }

@@ -1,34 +1,78 @@
+/* Chart Container */
 .chartContainer {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    margin: 20px 0;
-    padding: 20px;
-    max-width: 100%;
-    background-color: #f5f5f5;
-    border-radius: 10px;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-  }
-  
+  margin-top: 40px;
+  display: flex;
+  justify-content: center;
+  padding: 0 20px; /* Added padding for smaller screens */
+}
+
+/* Chart Card */
+.chartCard {
+  background-color: #ffffff;
+  border-radius: 20px;
+  padding: 40px;
+  width: 100%;
+  max-width: 700px;
+  box-shadow: 0 6px 30px rgba(0, 0, 0, 0.1);
+  color: #333;
+  text-align: center;
+  transition: transform 0.3s ease;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+
+.chartCard:hover {
+  transform: translateY(-5px);
+}
+
+.chartCard h3 {
+  font-size: 2rem;
+  color: #1e3a5f; /* Dark blue title */
+  margin-bottom: 20px;
+}
+
+/* Responsive Design */
+
+/* Tablet / Small Desktop View */
+@media (max-width: 1024px) {
   .chartCard {
-    width: 100%;
-    max-width: 600px;
-    background-color: white;
-    border-radius: 10px;
-    padding: 20px;
-    text-align: center;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    padding: 30px;
+    max-width: 600px; /* Slightly smaller width */
   }
-  
+
   .chartCard h3 {
-    font-size: 1.5rem;
-    color: #333;
-    margin-bottom: 20px;
+    font-size: 1.8rem;
   }
-  
-  /* Ensures chart is responsive */
-  .canvas {
-    max-width: 100% !important;
-    height: auto !important;
+}
+
+/* Mobile View */
+@media (max-width: 768px) {
+  .chartContainer {
+    padding: 0 15px; /* Adjusted padding */
   }
-  
+
+  .chartCard {
+    padding: 20px;
+    max-width: 100%; /* Full width for mobile */
+  }
+
+  .chartCard h3 {
+    font-size: 1.6rem;
+    margin-bottom: 15px;
+  }
+}
+
+/* Extra Small Mobile View */
+@media (max-width: 480px) {
+  .chartCard {
+    padding: 15px;
+    max-width: 100%; /* Ensure full width on smaller screens */
+  }
+
+  .chartCard h3 {
+    font-size: 1.4rem;
+    margin-bottom: 10px;
+  }
+}

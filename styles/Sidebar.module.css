@@ -1,4 +1,5 @@
 /* Sidebar.module.css */
+
 .sidebar {
   position: fixed;
   top: 0;
@@ -9,6 +10,7 @@
   color: white;
   padding: 20px;
   box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
+  transition: all 0.3s ease;
 }
 
 .logoContainer {
@@ -16,6 +18,7 @@
   justify-content: center;
   margin-bottom: 20px;
 }
+
 .sidebarLogo {
   width: 40px; /* Increase size */
   height: 40px; /* Increase size */
@@ -30,11 +33,6 @@
   background-color: rgba(0, 0, 0, 0.1); /* Slightly darken the background */
 }
 
-
-
-
-
-
 .sidebar h3 {
   font-size: 1.5rem;
   margin-bottom: 20px;
@@ -42,7 +40,7 @@
 }
 
 .sidebar ul {
-  list-style-type:circle;
+  list-style-type: circle;
   padding: 0;
   padding-right: 25px;
 }
@@ -61,6 +59,7 @@
 .sidebar a:hover {
   color: #4561a7;
 }
+
 .profileSection {
   position: absolute;
   bottom: 20px; /* Moves the profile section to the bottom */
@@ -83,4 +82,92 @@
 
 .profileSection:hover {
   transform: translateY(-10px); /* Move the profile section up when hovered */
+}
+
+/* Media Queries for Responsiveness */
+
+/* For devices smaller than 1024px (tablets and below) */
+@media (max-width: 1024px) {
+  .sidebar {
+    width: 200px; /* Reduce the sidebar width */
+    padding: 15px; /* Adjust padding */
+  }
+
+  .sidebarLogo {
+    width: 35px;
+    height: 35px;
+  }
+
+  .sidebar h3 {
+    font-size: 1.3rem;
+  }
+
+  .sidebar a {
+    font-size: 1rem;
+  }
+
+  .profileImage {
+    width: 45px;
+    height: 45px;
+  }
+}
+
+/* For devices smaller than 768px (tablets and below) */
+@media (max-width: 768px) {
+  .sidebar {
+    width: 180px; /* Further reduce the sidebar width */
+    padding: 10px;
+  }
+
+  .sidebarLogo {
+    width: 30px;
+    height: 30px;
+  }
+
+  .sidebar h3 {
+    font-size: 1.2rem;
+  }
+
+  .sidebar a {
+    font-size: 0.95rem;
+  }
+
+  .profileImage {
+    width: 40px;
+    height: 40px;
+  }
+}
+
+/* For devices smaller than 480px (mobile phones) */
+@media (max-width: 480px) {
+  .sidebar {
+    width: 100%; /* Sidebar takes full width */
+    height: auto;
+    position: relative; /* Sidebar becomes static */
+    box-shadow: none; /* Remove the shadow for mobile */
+    padding: 10px;
+  }
+
+  .sidebarLogo {
+    width: 30px;
+    height: 30px;
+  }
+
+  .sidebar h3 {
+    font-size: 1rem;
+  }
+
+  .sidebar a {
+    font-size: 0.9rem;
+  }
+
+  .profileSection {
+    position: relative; /* Move the profile section to the flow of the document */
+    bottom: 0;
+  }
+
+  .profileImage {
+    width: 35px;
+    height: 35px;
+  }
 }

@@ -24,7 +24,6 @@
 
 .profileContainer {
   display: flex;
-
   flex-direction: column;
   align-items: center;
   padding: 30px;
@@ -110,6 +109,7 @@
   justify-content: center;
   margin-bottom: 20px;
 }
+
 .editSection {
   display: flex;
   flex-direction: column;
@@ -170,3 +170,63 @@
   color: #7f8c8d;
 }
 
+/* Media Queries for Responsiveness */
+
+/* For devices smaller than 768px (tablets and below) */
+@media (max-width: 768px) {
+  .profileContainer {
+    padding: 20px;
+  }
+
+  .profileHeading {
+    font-size: 2rem;
+  }
+
+  .profileInfo {
+    font-size: 1rem;
+  }
+
+  .usernameInput {
+    width: 90%;
+  }
+
+  .profileImage {
+    width: 60px;
+    height: 60px;
+  }
+
+  .button {
+    font-size: 1rem;
+    padding: 10px 20px;
+  }
+}
+
+/* For devices smaller than 480px (mobile phones) */
+@media (max-width: 480px) {
+  .profileContainer {
+    padding: 15px;
+    margin: 20px auto;
+  }
+
+  .profileHeading {
+    font-size: 1.6rem;
+  }
+
+  .profileInfo {
+    font-size: 0.95rem;
+  }
+
+  .usernameInput {
+    width: 100%;
+  }
+
+  .profileImage {
+    width: 50px;
+    height: 50px;
+  }
+
+  .button {
+    font-size: 0.9rem;
+    padding: 8px 18px;
+  }
+}

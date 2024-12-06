@@ -6,8 +6,6 @@
   justify-content: center;
   padding: 100px 20px;
   min-height: 100vh;
-  
-
 }
 
 .heading {
@@ -77,7 +75,7 @@
 
 .redirectButton {
   background-color: transparent;
-  color:rgb(168, 214, 168);
+  color: rgb(168, 214, 168);
   font-size: 1.1rem;
   font-weight: 600;
   border: none;
@@ -97,6 +95,7 @@
   margin-top: 15px;
   font-weight: 500;
 }
+
 .passwordContainer {
   position: relative;
   width: 100%;
@@ -121,6 +120,7 @@
 .eyeIcon:hover {
   color: #555;
 }
+
 .buttonSecondary {
   background-color: #bdd7e3;
   color: #333;
@@ -133,4 +133,113 @@
 
 .buttonSecondary:hover {
   background-color: #91abc6;
+}
+
+/* Responsive Design */
+
+/* For screens larger than 1024px (Desktops) */
+@media (min-width: 1024px) {
+  .container {
+    padding: 100px 50px;
+  }
+  
+  .heading {
+    font-size: 4rem;
+  }
+
+  .subheading {
+    font-size: 1.5rem;
+  }
+
+  .form {
+    max-width: 450px;
+    padding: 50px;
+  }
+
+  .button {
+    font-size: 1.2rem;
+  }
+}
+
+/* For screens between 768px and 1024px (Tablets) */
+@media (min-width: 768px) and (max-width: 1024px) {
+  .container {
+    padding: 80px 30px;
+  }
+  
+  .heading {
+    font-size: 3.5rem;
+  }
+
+  .subheading {
+    font-size: 1.4rem;
+  }
+
+  .form {
+    max-width: 400px;
+    padding: 40px;
+  }
+
+  .button {
+    font-size: 1.1rem;
+  }
+}
+
+/* For screens between 480px and 768px (Mobile Landscape) */
+@media (min-width: 480px) and (max-width: 768px) {
+  .container {
+    padding: 60px 20px;
+  }
+
+  .heading {
+    font-size: 3rem;
+  }
+
+  .subheading {
+    font-size: 1.3rem;
+  }
+
+  .form {
+    max-width: 380px;
+    padding: 35px;
+  }
+
+  .button {
+    font-size: 1rem;
+  }
+}
+
+/* For screens smaller than 480px (Mobile Portrait) */
+@media (max-width: 480px) {
+  .container {
+    padding: 50px 10px;
+  }
+
+  .heading {
+    font-size: 2.5rem;
+  }
+
+  .subheading {
+    font-size: 1.1rem;
+  }
+
+  .form {
+    max-width: 100%;
+    padding: 30px;
+  }
+
+  .inputField {
+    font-size: 1rem;
+    padding: 12px;
+  }
+
+  .button {
+    font-size: 1rem;
+    padding: 12px 25px;
+  }
+
+  .buttonSecondary {
+    font-size: 0.9rem;
+    padding: 8px 18px;
+  }
 }

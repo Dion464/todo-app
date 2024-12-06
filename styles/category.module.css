@@ -18,6 +18,7 @@
   padding: 20px;
   text-align: center;
   width: 300px;
+  max-width: 90%; /* Make sure it doesn't overflow on smaller screens */
 }
 
 .modalTitle {
@@ -67,4 +68,119 @@
 
 .closeButton:hover {
   background-color: #c0392b;
+}
+
+/* Responsive Design */
+
+/* For screens larger than 1024px (Desktops) */
+@media (min-width: 1024px) {
+  .modalContent {
+    width: 350px;
+  }
+
+  .categoryGrid {
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+  }
+
+  .categoryCard {
+    padding: 25px;
+  }
+
+  .icon {
+    font-size: 35px;
+  }
+
+  .categoryLabel {
+    font-size: 18px;
+  }
+
+  .closeButton {
+    padding: 10px 20px;
+  }
+}
+
+/* For screens between 768px and 1024px (Tablets) */
+@media (min-width: 768px) and (max-width: 1024px) {
+  .modalContent {
+    width: 80%;
+  }
+
+  .categoryGrid {
+    grid-template-columns: 1fr 1fr;
+    gap: 15px;
+  }
+
+  .categoryCard {
+    padding: 20px;
+  }
+
+  .icon {
+    font-size: 30px;
+  }
+
+  .categoryLabel {
+    font-size: 16px;
+  }
+
+  .closeButton {
+    padding: 10px 18px;
+  }
+}
+
+/* For screens between 480px and 768px (Mobile Landscape) */
+@media (min-width: 480px) and (max-width: 768px) {
+  .modalContent {
+    width: 85%;
+  }
+
+  .categoryGrid {
+    grid-template-columns: 1fr 1fr;
+    gap: 15px;
+  }
+
+  .categoryCard {
+    padding: 18px;
+  }
+
+  .icon {
+    font-size: 28px;
+  }
+
+  .categoryLabel {
+    font-size: 15px;
+  }
+
+  .closeButton {
+    padding: 8px 16px;
+  }
+}
+
+/* For screens smaller than 480px (Mobile Portrait) */
+@media (max-width: 480px) {
+  .modalContent {
+    width: 90%;
+    padding: 15px;
+  }
+
+  .categoryGrid {
+    grid-template-columns: 1fr;
+    gap: 12px;
+  }
+
+  .categoryCard {
+    padding: 15px;
+  }
+
+  .icon {
+    font-size: 25px;
+  }
+
+  .categoryLabel {
+    font-size: 14px;
+  }
+
+  .closeButton {
+    padding: 8px 14px;
+  }
 }

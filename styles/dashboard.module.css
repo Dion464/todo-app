@@ -1,86 +1,235 @@
+/* Dashboard container */
 .dashboardContainer {
   display: flex;
   height: 100vh;
-  background-color: #f4f6f7;
+  font-family: 'Roboto', sans-serif;
 }
 
+/* Main content area */
 .mainContent {
   flex: 1;
-  padding: 20px;
-  background-color: #ecf0f1;
+  margin-left: 250px;
+  padding: 30px;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
 }
 
+/* Dashboard header */
 .dashboardHeader {
   text-align: center;
   margin-bottom: 40px;
 }
 
 .dashboardHeader h1 {
-  font-size: 32px;
-  color: #2c3e50;
+  font-size: 2.5rem;
+  color: #1e3a5f; /* Dark blue color for the main heading */
+  transition: transform 0.3s ease;
 }
 
 .dashboardHeader p {
-  font-size: 18px;
-  color: #7f8c8d;
+  font-size: 1.2rem;
+  color: #333; /* Black color for the subheading */
 }
 
+.dashboardHeader:hover h1 {
+  transform: scale(1.05);
+}
+
+/* Stats summary section */
 .statsSummary {
   display: flex;
-  justify-content: space-between;
-  margin-bottom: 30px;
-}
-
-.statCard {
-  background-color: #ffffff;
-  padding: 20px;
-  border-radius: 10px;
-  width: 30%;
-  text-align: center;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-}
-
-.statCard h3 {
-  font-size: 20px;
-  color: #34495e;
-}
-
-.statCard p {
-  font-size: 24px;
-  font-weight: bold;
-  color: #2ecc71;
-}
-
-.chartWrapper {
+  justify-content: space-evenly;
+  width: 100%;
   margin-bottom: 40px;
 }
 
-.loading {
+/* Stats cards */
+.statCard {
+  background-color: rgba(255, 255, 255, 0.8);
+  padding: 30px;
+  border-radius: 12px;
+  text-align: center;
+  width: 28%;
+  box-shadow: 0 6px 30px rgba(0, 0, 0, 0.2);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 100vh;
-  font-size: 24px;
-  color: #7f8c8d;
+  flex-direction: column;
 }
 
+.statCard:hover {
+  transform: translateY(-10px);
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.3);
+}
+
+.statCard h3 {
+  font-size: 1.5rem;
+  color: #1e3a5f; /* Dark blue color for the headings */
+}
+
+.statCard p {
+  font-size: 2rem;
+  color: #000; /* Black color for the text */
+}
+
+/* Back button */
 .backButton {
-  display: flex;
-  justify-content: center;
-  margin-top: 20px;
+  margin-top: 40px;
+  text-align: center;
 }
 
 .backButton button {
-  background-color: #3498db;
+  padding: 12px 30px;
+  font-size: 1.2rem;
+  background-color: #1e3a5f; /* Dark blue button */
   color: white;
-  padding: 12px 24px;
-  font-size: 16px;
   border: none;
   border-radius: 8px;
   cursor: pointer;
-  transition: background-color 0.3s;
+  transition: all 0.3s ease;
 }
 
 .backButton button:hover {
-  background-color: #2980b9;
+  background-color: #1565c0; /* Slightly darker blue on hover */
+  transform: scale(1.05);
+}
+
+/* Loading text */
+.loading {
+  font-size: 1.5rem;
+  color: #555;
+  text-align: center;
+}
+
+/* Responsive Design */
+
+/* For screens larger than 1024px (Desktops) */
+@media (min-width: 1024px) {
+  .mainContent {
+    margin-left: 250px;
+    padding: 30px;
+  }
+
+  .statsSummary {
+    display: flex;
+    justify-content: space-evenly;
+    gap: 30px;
+  }
+
+  .statCard {
+    width: 28%;
+    padding: 30px;
+  }
+
+  .dashboardHeader h1 {
+    font-size: 2.5rem;
+  }
+
+  .dashboardHeader p {
+    font-size: 1.2rem;
+  }
+
+  .backButton button {
+    padding: 12px 30px;
+    font-size: 1.2rem;
+  }
+}
+
+/* For screens between 768px and 1024px (Tablets) */
+@media (min-width: 768px) and (max-width: 1024px) {
+  .mainContent {
+    margin-left: 200px;
+    padding: 20px;
+  }
+
+  .statsSummary {
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+  }
+
+  .statCard {
+    width: 80%;
+    padding: 25px;
+  }
+
+  .dashboardHeader h1 {
+    font-size: 2rem;
+  }
+
+  .dashboardHeader p {
+    font-size: 1rem;
+  }
+
+  .backButton button {
+    padding: 12px 25px;
+    font-size: 1.1rem;
+  }
+}
+
+/* For screens between 480px and 768px (Mobile Landscape) */
+@media (min-width: 480px) and (max-width: 768px) {
+  .mainContent {
+    margin-left: 150px;
+    padding: 15px;
+  }
+
+  .statsSummary {
+    flex-direction: column;
+    align-items: center;
+    gap: 15px;
+  }
+
+  .statCard {
+    width: 90%;
+    padding: 20px;
+  }
+
+  .dashboardHeader h1 {
+    font-size: 1.8rem;
+  }
+
+  .dashboardHeader p {
+    font-size: 1rem;
+  }
+
+  .backButton button {
+    padding: 12px 20px;
+    font-size: 1rem;
+  }
+}
+
+/* For screens smaller than 480px (Mobile Portrait) */
+@media (max-width: 480px) {
+  .mainContent {
+    margin-left: 0;
+    padding: 10px;
+  }
+
+  .statsSummary {
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+  }
+
+  .statCard {
+    width: 100%;
+    padding: 15px;
+  }
+
+  .dashboardHeader h1 {
+    font-size: 1.6rem;
+  }
+
+  .dashboardHeader p {
+    font-size: 1rem;
+  }
+
+  .backButton button {
+    padding: 12px 18px;
+    font-size: 1rem;
+  }
 }

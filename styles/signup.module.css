@@ -1,140 +1,216 @@
 /* Main container for signup page */
 .container {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    padding: 100px 20px;
-    min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 100px 20px;
+  min-height: 100vh;
+}
 
-   
+.heading {
+  font-size: 3.2rem;
+  color: #2e3b4e;
+  font-weight: 700;
+  margin-bottom: 20px;
+  letter-spacing: 2px;
+}
+
+.subheading {
+  font-size: 1.2rem;
+  color: #4f5d75;
+  margin-bottom: 40px;
+  font-weight: 400;
+}
+
+/* Form styling */
+.form {
+  background-color: #ffffff;
+  padding: 40px;
+  border-radius: 15px;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+  width: 100%;
+  max-width: 400px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.inputField {
+  padding: 15px;
+  font-size: 1.1rem;
+  border-radius: 25px;
+  border: 1px solid #ddd;
+  outline: none;
+  background-color: #f7f7f7;
+  box-shadow: 6px 6px 15px rgba(0, 0, 0, 0.1), -6px -6px 15px rgba(255, 255, 255, 0.1);
+  transition: all 0.3s ease;
+}
+
+.inputField:focus {
+  border-color: #4a90e2;
+  box-shadow: 0 0 10px rgba(74, 144, 226, 0.4);
+}
+
+.button {
+  padding: 12px 30px;
+  font-size: 1.1rem;
+  color: white;
+  background-color: #4a90e2;
+  border: none;
+  border-radius: 25px;
+  cursor: pointer;
+  box-shadow: 6px 6px 15px rgba(0, 0, 0, 0.1), -6px -6px 15px rgba(255, 255, 255, 0.1);
+  transition: all 0.3s ease;
+  width: 100%;
+  text-align: center;
+}
+
+.button:hover {
+  background-color: #7791ac;
+  box-shadow: 6px 6px 20px rgba(0, 0, 0, 0.2), -6px -6px 20px rgba(255, 255, 255, 0.15);
+  transform: translateY(-5px);
+}
+
+.redirectButton {
+  background-color: transparent;
+  color: #7f858b;
+  font-size: 1.1rem;
+  font-weight: 600;
+  border: none;
+  cursor: pointer;
+  text-align: center;
+  margin-top: 20px;
+  transition: all 0.3s ease;
+}
+
+.redirectButton:hover {
+  text-decoration: underline;
+}
+
+.successMessage {
+  color: green;
+  font-size: 1rem;
+  margin-top: 15px;
+  font-weight: 500;
+}
+
+.errorMessage {
+  color: red;
+  font-size: 1rem;
+  margin-top: 15px;
+  font-weight: 500;
+}
+
+.buttonSecondary {
+  background-color: #bdd7e3;
+  color: #333;
+  border: 1px solid #ccc;
+  padding: 10px 20px;
+  border-radius: 5px;
+  font-size: 1rem;
+  cursor: pointer;
+}
+
+.buttonSecondary:hover {
+  background-color: #91abc6;
+}
+
+.passwordContainer {
+  position: relative;
+  width: 100%;
+}
+
+/* The eye icon for toggling password visibility */
+.eyeIcon {
+  position: absolute;
+  right: 15px; /* Adjust this value to align the icon properly */
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 1.5rem;
+  color: #aaa;
+  cursor: pointer;
+  user-select: none;
+  z-index: 10; /* Ensure it appears above the input field */
+}
+
+.eyeIcon:hover {
+  color: #555;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .container {
+    padding: 80px 15px;
   }
-  
+
   .heading {
-    font-size: 3.2rem;
-    color: #2e3b4e;
-    font-weight: 700;
-    margin-bottom: 20px;
-    letter-spacing: 2px;
+    font-size: 2.5rem;
   }
-  
+
   .subheading {
-    font-size: 1.2rem;
-    color: #4f5d75;
-    margin-bottom: 40px;
-    font-weight: 400;
+    font-size: 1rem;
   }
-  
-  /* Form styling */
+
   .form {
-    background-color: #ffffff;
-    padding: 40px;
-    border-radius: 15px;
-    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
-    width: 100%;
-    max-width: 400px;
-    margin: 0 auto;
-    display: flex;
-    flex-direction: column;
-    gap: 20px;
+    padding: 30px;
+    max-width: 350px;
   }
-  
+
   .inputField {
-    padding: 15px;
-    font-size: 1.1rem;
-    border-radius: 25px;
-    border: 1px solid #ddd;
-    outline: none;
-    background-color: #f7f7f7;
-    box-shadow: 6px 6px 15px rgba(0, 0, 0, 0.1), -6px -6px 15px rgba(255, 255, 255, 0.1);
-    transition: all 0.3s ease;
+    padding: 12px;
+    font-size: 1rem;
   }
-  
-  .inputField:focus {
-    border-color: #4a90e2;
-    box-shadow: 0 0 10px rgba(74, 144, 226, 0.4);
-  }
-  
+
   .button {
-    padding: 12px 30px;
-    font-size: 1.1rem;
-    color: white;
-    background-color: #4a90e2;
-    border: none;
-    border-radius: 25px;
-    cursor: pointer;
-    box-shadow: 6px 6px 15px rgba(0, 0, 0, 0.1), -6px -6px 15px rgba(255, 255, 255, 0.1);
-    transition: all 0.3s ease;
-    width: 100%;
-    text-align: center;
+    padding: 10px 25px;
+    font-size: 1rem;
   }
-  
-  .button:hover {
-    background-color: #7791ac;
-    box-shadow: 6px 6px 20px rgba(0, 0, 0, 0.2), -6px -6px 20px rgba(255, 255, 255, 0.15);
-    transform: translateY(-5px);
-  }
-  
+
   .redirectButton {
-    background-color: transparent;
-    color: #7f858b;
-    font-size: 1.1rem;
-    font-weight: 600;
-    border: none;
-    cursor: pointer;
-    text-align: center;
-    margin-top: 20px;
-    transition: all 0.3s ease;
-  }
-  
-  .redirectButton:hover {
-    text-decoration: underline;
-  }
-  
-  .successMessage {
-    color: green;
     font-size: 1rem;
-    margin-top: 15px;
-    font-weight: 500;
   }
-  
-  .errorMessage {
-    color: red;
-    font-size: 1rem;
-    margin-top: 15px;
-    font-weight: 500;
-  }
+
   .buttonSecondary {
-    background-color: #bdd7e3;
-    color: #333;
-    border: 1px solid #ccc;
-    padding: 10px 20px;
-    border-radius: 5px;
     font-size: 1rem;
-    cursor: pointer;
+    padding: 8px 18px;
   }
-  
-  .buttonSecondary:hover {
-    background-color: #91abc6;
+}
+
+@media (max-width: 480px) {
+  .container {
+    padding: 60px 10px;
   }
-  .passwordContainer {
-    position: relative;
-    width: 100%;
+
+  .heading {
+    font-size: 2rem;
   }
-  
-  /* The eye icon for toggling password visibility */
+
+  .subheading {
+    font-size: 0.9rem;
+  }
+
+  .form {
+    padding: 25px;
+    max-width: 100%;
+  }
+
+  .inputField {
+    padding: 10px;
+    font-size: 0.95rem;
+  }
+
+  .button {
+    padding: 10px 20px;
+    font-size: 1rem;
+  }
+
+  .buttonSecondary {
+    padding: 6px 15px;
+  }
+
   .eyeIcon {
-    position: absolute;
-    right: 15px; /* Adjust this value to align the icon properly */
-    top: 50%;
-    transform: translateY(-50%);
-    font-size: 1.5rem;
-    color: #aaa;
-    cursor: pointer;
-    user-select: none;
-    z-index: 10; /* Ensure it appears above the input field */
+    font-size: 1.3rem;
   }
-  
-  .eyeIcon:hover {
-    color: #555;
-  }
+}
