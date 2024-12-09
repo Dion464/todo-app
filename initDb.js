@@ -13,15 +13,15 @@ const initDB = async () => {
       )
     `);
 
-    // Create 'tasks' table with 'category' column if it doesn't exist
+    // Create 'tasks' table if not exists
     await db.exec(`
       CREATE TABLE IF NOT EXISTS tasks (
         id INTEGER PRIMARY KEY AUTOINCREMENT,
         user_id INTEGER NOT NULL,
         title TEXT NOT NULL,
-        description TEXT,
+        description TEXT,  -- Ensure description column exists
         completed BOOLEAN NOT NULL DEFAULT 0,
-        category TEXT,  -- Ensure 'category' column exists
+        category TEXT,  
         FOREIGN KEY (user_id) REFERENCES users (id)
       )
     `);
@@ -32,13 +32,6 @@ const initDB = async () => {
       await db.exec('ALTER TABLE tasks ADD COLUMN description TEXT');
     } catch (err) {
       console.log('Description column already exists or cannot be added', err);
-    }
-
-    // Check if 'category' column exists, if not, add it
-    try {
-      await db.exec('ALTER TABLE tasks ADD COLUMN category TEXT');
-    } catch (err) {
-      console.log('Category column already exists or cannot be added', err);
     }
     await db.run(`PRAGMA foreign_keys=on;`);
 
