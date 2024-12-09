@@ -5,8 +5,6 @@ const  { dbConfig } = required('../../../lib/db');  // Adjust the path to your D
 const pool = new Pool(dbConfig);
 
 export default async function handler(req, res) {
-  console.log(req.method)
-  if (req.method === 'POST') {
     const { username, email, password } = req.body;
 
     // Check if all fields are provided
@@ -69,9 +67,4 @@ export default async function handler(req, res) {
       console.error('Error creating user:', error);
       res.status(500).json({ message: 'Internal server error' });
     }
-  } else {
-    // Handle any other HTTP method
-    res.setHeader('Allow', ['POST']);
-    res.status(405).end(`Method ${req.method} Not Allowed`);
-  }
 }
