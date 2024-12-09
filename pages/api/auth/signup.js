@@ -5,6 +5,7 @@ const  { dbConfig } = required('../../../lib/db');  // Adjust the path to your D
 const pool = new Pool(dbConfig);
 
 export default async function handler(req, res) {
+  console.log(req.method)
   if (req.method === 'POST') {
     const { username, email, password } = req.body;
 
