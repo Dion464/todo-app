@@ -1,5 +1,8 @@
 import bcrypt from 'bcrypt';
-import { openDB } from '../../../lib/db'; // Adjust this path if necessary
+import { Pool } from 'pg';  // PostgreSQL client
+import { dbConfig } from '../../../lib/db';  // Adjust the path to your DB config file
+
+const pool = new Pool(dbConfig);
 
 export default async function handler(req, res) {
   if (req.method === 'POST') {
@@ -28,32 +31,39 @@ export default async function handler(req, res) {
 
     try {
       // Open the database connection
-      const db = await openDB();
+      const client = await pool.connect();
 
-      // Check if email is already in use
-      const existingEmail = await db.get('SELECT * FROM users WHERE email = ?', email);
-      if (existingEmail) {
-        return res.status(400).json({ message: 'Email is already in use' });
+      try {
+        // Check if email is already in use
+        const emailQuery = 'SELECT * FROM users WHERE email = $1';
+        const emailResult = await client.query(emailQuery, [email]);
+        if (emailResult.rows.length > 0) {
+          return res.status(400).json({ message: 'Email is already in use' });
+        }
+
+        // Check if username is already in use
+        const usernameQuery = 'SELECT * FROM users WHERE username = $1';
+        const usernameResult = await client.query(usernameQuery, [username]);
+        if (usernameResult.rows.length > 0) {
+          return res.status(400).json({ message: 'Username is already in use' });
+        }
+
+        // Hash the password
+        const hashedPassword = await bcrypt.hash(password, 10);
+
+        // Create a new user
+        const insertQuery =
+          'INSERT INTO users (username, email, password) VALUES ($1, $2, $3)';
+        await client.query(insertQuery, [username, email, hashedPassword]);
+
+        // Return success response
+        res.status(201).json({ message: 'User created successfully' });
+      } catch (error) {
+        console.error('Error interacting with DB:', error);
+        res.status(500).json({ message: 'Internal server error' });
+      } finally {
+        client.release(); // Release the client back to the pool
       }
-
-      // Check if username is already in use
-      const existingUsername = await db.get('SELECT * FROM users WHERE username = ?', username);
-      if (existingUsername) {
-        return res.status(400).json({ message: 'Username is already in use' });
-      }
-
-      // Hash the password
-      const hashedPassword = await bcrypt.hash(password, 10);
-
-      // Create a new user
-      await db.run('INSERT INTO users (username, email, password) VALUES (?, ?, ?)', [
-        username,
-        email,
-        hashedPassword,
-      ]);
-
-      // Return success response
-      res.status(201).json({ message: 'User created successfully' });
     } catch (error) {
       console.error('Error creating user:', error);
       res.status(500).json({ message: 'Internal server error' });

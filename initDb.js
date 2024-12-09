@@ -2,16 +2,17 @@ import { openDB } from './lib/db.js';
 
 const initDB = async () => {
     const db = await openDB();
+
     try {
         // Drop existing tables if they exist
-        await db.exec(`DROP TABLE IF EXISTS subtasks`);
-        await db.exec(`DROP TABLE IF EXISTS tasks`);
-        await db.exec(`DROP TABLE IF EXISTS users`);
+        await db.query(`DROP TABLE IF EXISTS subtasks`);
+        await db.query(`DROP TABLE IF EXISTS tasks`);
+        await db.query(`DROP TABLE IF EXISTS users`);
 
         // Create 'users' table
-        await db.exec(`
+        await db.query(`
             CREATE TABLE users (
-                id INTEGER PRIMARY KEY AUTOINCREMENT,
+                id SERIAL PRIMARY KEY,
                 username TEXT NOT NULL UNIQUE,
                 email TEXT NOT NULL UNIQUE,
                 password TEXT NOT NULL
@@ -19,25 +20,25 @@ const initDB = async () => {
         `);
 
         // Create 'tasks' table
-        await db.exec(`
+        await db.query(`
             CREATE TABLE tasks (
-                id INTEGER PRIMARY KEY AUTOINCREMENT,
+                id SERIAL PRIMARY KEY,
                 user_id INTEGER NOT NULL,
                 title TEXT NOT NULL,
                 description TEXT,
                 category TEXT,
-                completed BOOLEAN NOT NULL DEFAULT 0,
+                completed BOOLEAN NOT NULL DEFAULT FALSE,
                 FOREIGN KEY (user_id) REFERENCES users (id)
             )
         `);
 
         // Create 'subtasks' table
-        await db.exec(`
+        await db.query(`
             CREATE TABLE subtasks (
-                id INTEGER PRIMARY KEY AUTOINCREMENT,
+                id SERIAL PRIMARY KEY,
                 task_id INTEGER NOT NULL,
                 title TEXT NOT NULL,
-                completed BOOLEAN NOT NULL DEFAULT 0,
+                completed BOOLEAN NOT NULL DEFAULT FALSE,
                 FOREIGN KEY (task_id) REFERENCES tasks (id)
             )
         `);
@@ -46,7 +47,7 @@ const initDB = async () => {
     } catch (error) {
         console.error('Error reinitializing the database:', error);
     } finally {
-        db.close();
+        db.end(); // Close the connection
     }
 };
 
