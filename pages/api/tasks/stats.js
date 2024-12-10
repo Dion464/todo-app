@@ -1,28 +1,15 @@
-import { openDB } from '../../../lib/db';
-
-async function openDBConnection() {
-  try {
-    return await openDB();
-  } catch (error) {
-    console.error('Failed to open DB connection:', error);
-    throw error;  // Re-throw the error after logging
-  }
-}
+import { queryDB } from '../../../lib/db';  // Use queryDB instead of openDB
 
 export default async function handler(req, res) {
   if (req.method === 'GET') {
     try {
-      const db = await openDBConnection();
-      
       // Query for total number of tasks
-      const totalTasksQuery = await db.get('SELECT COUNT(*) AS total FROM tasks');
-      const totalTasks = totalTasksQuery.total;
+      const totalTasksResult = await queryDB('SELECT COUNT(*) AS total FROM tasks');
+      const totalTasks = totalTasksResult.rows[0].total;
 
       // Query for total number of completed tasks
-      const completedTasksQuery = await db.get(
-        'SELECT COUNT(*) AS completed FROM tasks WHERE completed = 1'
-      );
-      const completedTasks = completedTasksQuery.completed;
+      const completedTasksResult = await queryDB('SELECT COUNT(*) AS completed FROM tasks WHERE completed = $1', [true]);
+      const completedTasks = completedTasksResult.rows[0].completed;
 
       // If queries are successful, send the data
       res.status(200).json({
