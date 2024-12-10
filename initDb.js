@@ -1,5 +1,5 @@
 // initDb.js
-const { pool } = require('./lib/db');  // Use CommonJS 'require'
+import { pool } from './lib/db.js';  // Use ES module import syntax
 
 const initDB = async () => {
     const db = pool;  // Use the pool directly, no need for openDB() as we're using pg directly
