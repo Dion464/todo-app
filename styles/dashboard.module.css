@@ -5,6 +5,14 @@
   font-family: 'Roboto', sans-serif;
 }
 
+/* Sidebar styling */
+.sidebar {
+  width: 250px;
+  background-color: #2c3e50; /* Dark sidebar background */
+  padding-top: 20px;
+  transition: width 0.3s ease; /* Smooth transition for resizing */
+}
+
 /* Main content area */
 .mainContent {
   flex: 1;
@@ -24,13 +32,13 @@
 
 .dashboardHeader h1 {
   font-size: 2.5rem;
-  color: #1e3a5f; /* Dark blue color for the main heading */
+  color: #1e3a5f;
   transition: transform 0.3s ease;
 }
 
 .dashboardHeader p {
   font-size: 1.2rem;
-  color: #333; /* Black color for the subheading */
+  color: #333;
 }
 
 .dashboardHeader:hover h1 {
@@ -67,12 +75,12 @@
 
 .statCard h3 {
   font-size: 1.5rem;
-  color: #1e3a5f; /* Dark blue color for the headings */
+  color: #1e3a5f;
 }
 
 .statCard p {
   font-size: 2rem;
-  color: #000; /* Black color for the text */
+  color: #000;
 }
 
 /* Back button */
@@ -84,7 +92,7 @@
 .backButton button {
   padding: 12px 30px;
   font-size: 1.2rem;
-  background-color: #1e3a5f; /* Dark blue button */
+  background-color: #1e3a5f;
   color: white;
   border: none;
   border-radius: 8px;
@@ -93,7 +101,7 @@
 }
 
 .backButton button:hover {
-  background-color: #1565c0; /* Slightly darker blue on hover */
+  background-color: #1565c0;
   transform: scale(1.05);
 }
 
@@ -140,6 +148,11 @@
 
 /* For screens between 768px and 1024px (Tablets) */
 @media (min-width: 768px) and (max-width: 1024px) {
+  /* Adjust the sidebar width */
+  .sidebar {
+    width: 200px; /* Reduce the sidebar width */
+  }
+
   .mainContent {
     margin-left: 200px;
     padding: 20px;
@@ -172,8 +185,13 @@
 
 /* For screens between 480px and 768px (Mobile Landscape) */
 @media (min-width: 480px) and (max-width: 768px) {
+  /* Adjust the sidebar width */
+  .sidebar {
+    width: 180px; /* Further reduce the sidebar width */
+  }
+
   .mainContent {
-    margin-left: 150px;
+    margin-left: 180px;
     padding: 15px;
   }
 
@@ -204,6 +222,11 @@
 
 /* For screens smaller than 480px (Mobile Portrait) */
 @media (max-width: 480px) {
+  /* Adjust the sidebar width */
+  .sidebar {
+    width: 150px; /* Collapse the sidebar on very small devices */
+  }
+
   .mainContent {
     margin-left: 0;
     padding: 10px;

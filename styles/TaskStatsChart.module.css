@@ -12,7 +12,7 @@
   border-radius: 20px;
   padding: 40px;
   width: 100%;
-  max-width: 700px;
+  max-width: 700px; /* Max width for larger screens */
   box-shadow: 0 6px 30px rgba(0, 0, 0, 0.1);
   color: #333;
   text-align: center;
@@ -50,12 +50,12 @@
 /* Mobile View */
 @media (max-width: 768px) {
   .chartContainer {
-    padding: 0 15px; /* Adjusted padding */
+    padding: 0 15px; /* Adjusted padding for mobile */
   }
 
   .chartCard {
     padding: 20px;
-    max-width: 100%; /* Full width for mobile */
+    max-width: 100%; /* Full width on mobile */
   }
 
   .chartCard h3 {
