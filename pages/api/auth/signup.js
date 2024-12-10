@@ -1,6 +1,7 @@
 import bcrypt from 'bcrypt';
 import { Pool } from 'pg';  // PostgreSQL client
-const  { dbConfig } = required('../../../lib/db');  // Adjust the path to your DB config file
+const { dbConfig } = require('../../../lib/db');  
+
 
 const pool = new Pool(dbConfig);
 
