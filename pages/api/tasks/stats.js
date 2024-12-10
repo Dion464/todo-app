@@ -1,4 +1,4 @@
-import { openDB } from '../../../lib/db.js';
+import { openDB } from '../../../lib/db';
 
 async function openDBConnection() {
   try {
