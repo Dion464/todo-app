@@ -1,4 +1,5 @@
-const { Pool } = require('pg');  // Use `require` for CommonJS modules
+const { Pool } = require('pg');  // Use `require` instead of `import`
+const bcrypt = require('bcrypt');  // Ensure bcrypt is imported with require
 const { dbConfig } = require("../../../lib/db");
 
 const pool = new Pool(dbConfig);
