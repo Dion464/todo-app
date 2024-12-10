@@ -1,7 +1,8 @@
-import { openDB } from './lib/db.js';
+// initDb.js
+const { pool } = require('./lib/db');  // Use CommonJS 'require'
 
 const initDB = async () => {
-    const db = await openDB();
+    const db = pool;  // Use the pool directly, no need for openDB() as we're using pg directly
 
     try {
         // Drop existing tables if they exist
