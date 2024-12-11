@@ -66,19 +66,19 @@ export default function Profile() {
         const updatedData = await response.json();
         setUserData((prev) => ({ ...prev, username: newUsername }));
         setMessage('Username updated successfully');
-        setMessageColor('green'); // Success message in green
+        setMessageColor('green'); 
       } else {
         const errorData = await response.json();
         setMessage(errorData.message);
-        setMessageColor('red'); // Error message in red
+        setMessageColor('red'); 
       }
     } catch (error) {
       console.error('Error updating username:', error);
       setMessage('Error updating username');
-      setMessageColor('red'); // Error message in red
+      setMessageColor('red'); 
     }
 
-    // Reset the message after 4 seconds
+ 
     setTimeout(() => {
       setMessage('');
     }, 4000);
@@ -111,7 +111,7 @@ export default function Profile() {
           </button>
         </div>
 
-        {/* Display the success or error message */}
+       
         {message && (
           <div className={styles.message} style={{ color: messageColor }}>
             {message}

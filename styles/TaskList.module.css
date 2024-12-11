@@ -22,7 +22,18 @@
   opacity: 1;
   transition: opacity 0.3s ease;
 }
+/* TaskList.module.css */
+.taskCategory {
+  display: flex;
+  align-items: center;
+  font-size: 1rem;
+  margin-top: 5px;
+}
 
+.categoryIcon {
+  margin-right: 8px;
+  font-size: 1.5rem;
+}
 /* Flip card container */
 .flipCard {
   background-color: transparent;

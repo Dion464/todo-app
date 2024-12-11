@@ -1,6 +1,20 @@
 import React, { useState } from 'react';
 import styles from '../styles/TaskList.module.css';
 import CategoryModal from './categorySelection';
+import { FaBriefcase, FaHome, FaShoppingCart, FaRegHandshake, FaPlane, FaMoneyBillWave, FaTv } from 'react-icons/fa';
+
+const categories = [
+  { name: 'Work', icon: <FaBriefcase /> },
+  { name: 'Personal', icon: <FaHome /> },
+  { name: 'Urgent', icon: '⚡' },
+  { name: 'Shopping', icon: <FaShoppingCart /> },
+  { name: 'Health', icon: '💪' },
+  { name: 'Study', icon: '📚' },
+  { name: 'Travel', icon: <FaPlane /> },
+  { name: 'Family', icon: '👨‍👩‍👧‍👦' },
+  { name: 'Finance', icon: <FaMoneyBillWave /> },
+  { name: 'Entertainment', icon: <FaTv /> },
+];
 
 const TaskList = ({ tasks, onToggleComplete, onDelete, onAddTask }) => {
   const [flippedCards, setFlippedCards] = useState({});
@@ -21,6 +35,11 @@ const TaskList = ({ tasks, onToggleComplete, onDelete, onAddTask }) => {
 
   const isAnyCardFlipped = Object.values(flippedCards).some((flipped) => flipped);
 
+  const getCategoryIcon = (categoryName) => {
+    const category = categories.find((cat) => cat.name === categoryName);
+    return category ? category.icon : null;
+  };
+
   return (
     <div className={styles.taskList}>
       {isAnyCardFlipped && <div className={styles.backdrop}></div>}
@@ -37,8 +56,17 @@ const TaskList = ({ tasks, onToggleComplete, onDelete, onAddTask }) => {
                   task.completed ? styles.completed : ''
                 }`}
               >
-                {task.title} ({task.category || 'No Category'})
+                {task.title}
               </span>
+              <div className={styles.taskCategory}>
+                {/* Show category icon and name only once */}
+                {task.category && (
+                  <>
+                    <span className={styles.categoryIcon}>{getCategoryIcon(task.category)}</span>
+                    <span>{task.category}</span>
+                  </>
+                )}
+              </div>
               <div className={styles.taskActions}>
                 <button
                   onClick={() => onToggleComplete(task.id)}

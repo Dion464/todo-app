@@ -10,20 +10,19 @@ export default function FilteredTasks() {
   const [newTask, setNewTask] = useState('');
   const [newDescription, setNewDescription] = useState('');
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [category, setCategory] = useState('');
+  const [category, setCategory] = useState(''); // Track selected category
   const router = useRouter();
   const { filter } = router.query;
   const userId = 1; // Placeholder user ID
   const MAX_TASK_LENGTH = 20; // Maximum characters for a task
   const MAX_DESCRIPTION_LENGTH = 40; // Maximum characters for description
 
-  // Fetch tasks with the appropriate filter
+  // Fetch tasks (without category filtering)
   const fetchTasks = async () => {
     try {
       let url = `/api/tasks?userId=${userId}`;
       if (filter === 'completed') url += `&completed=1`;
       else if (filter === 'incomplete') url += `&completed=0`;
-      if (category) url += `&category=${category}`;
 
       const response = await fetch(url);
       if (!response.ok) throw new Error('Failed to fetch tasks');
@@ -34,10 +33,10 @@ export default function FilteredTasks() {
     }
   };
 
-  // Fetch tasks when the filter or category changes
+  // Fetch tasks when the filter changes
   useEffect(() => {
     fetchTasks();
-  }, [filter, category]);
+  }, [filter]); // Re-fetch when filter changes
 
   // Add new task
   const addTask = async () => {
@@ -57,7 +56,7 @@ export default function FilteredTasks() {
         body: JSON.stringify({ title: newTask, description: newDescription, userId, category }),
       });
       if (!response.ok) throw new Error('Failed to add task');
-      fetchTasks();
+      fetchTasks(); // Refresh tasks after adding
       setNewTask('');
       setNewDescription('');
     } catch (error) {
@@ -99,7 +98,7 @@ export default function FilteredTasks() {
     }
   };
 
-  // Delete task with error handling and token authorization
+  // Delete task
   const onDelete = async (taskId) => {
     try {
       const token = localStorage.getItem('token');
@@ -190,6 +189,7 @@ export default function FilteredTasks() {
             filter={filter}
             onToggleComplete={onToggleComplete}
             onDelete={onDelete}
+            category={category} // Pass the selected category to display
           />
         </div>
 
@@ -198,7 +198,7 @@ export default function FilteredTasks() {
           <CategoryModal
             onClose={() => setIsModalOpen(false)}
             onSelectCategory={(selectedCategory) => {
-              setCategory(selectedCategory);
+              setCategory(selectedCategory); // Update category state
               setIsModalOpen(false); // Close the modal after selecting a category
             }}
           />

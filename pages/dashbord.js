@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import Sidebar from '../components/Sidebar';
 import TaskStatsChart from '../components/TaskStatsChart';
-import styles from "../styles/dashboard.module.css"
+import styles from "../styles/dashboard.module.css";
 
 const Dashboard = () => {
   const [stats, setStats] = useState(null);
@@ -14,7 +14,7 @@ const Dashboard = () => {
           throw new Error('Failed to fetch task stats');
         }
         const data = await response.json();
-        setStats(data);
+        setStats(data);  // Set stats data here
       } catch (error) {
         console.error(error);
       }
@@ -37,7 +37,7 @@ const Dashboard = () => {
         </div>
         <div className={styles.statsSummary}>
           <div className={styles.statCard}>
-            <h3>Total </h3>
+            <h3>Total</h3>
             <p>{stats.total}</p>
           </div>
           <div className={styles.statCard}>
@@ -49,7 +49,10 @@ const Dashboard = () => {
             <p>{stats.total - stats.completed}</p>
           </div>
         </div>
+        
+        {/* Task Completion Stats Chart */}
         <TaskStatsChart stats={stats} />
+
         <div className={styles.backButton}>
           <button onClick={() => window.history.back()}>Go Back</button>
         </div>

@@ -3,14 +3,33 @@
   display: flex;
   height: 100vh;
   font-family: 'Roboto', sans-serif;
+  flex-direction: row;
+  box-sizing: border-box;
 }
 
-/* Sidebar styling */
+/* Sidebar */
 .sidebar {
   width: 250px;
-  background-color: #2c3e50; /* Dark sidebar background */
-  padding-top: 20px;
-  transition: width 0.3s ease; /* Smooth transition for resizing */
+  background-color: #2c3e50;
+  color: white;
+  padding: 20px;
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  transition: width 0.3s ease;
+}
+
+.sidebar a {
+  color: white;
+  text-decoration: none;
+  padding: 10px;
+  display: block;
+  transition: background-color 0.3s;
+}
+
+.sidebar a:hover {
+  background-color: #34495e;
 }
 
 /* Main content area */
@@ -22,6 +41,7 @@
   flex-direction: column;
   justify-content: flex-start;
   align-items: center;
+  box-sizing: border-box;
 }
 
 /* Dashboard header */
@@ -112,50 +132,168 @@
   text-align: center;
 }
 
-/* Responsive Design */
-
-/* For screens larger than 1024px (Desktops) */
-@media (min-width: 1024px) {
-  .mainContent {
-    margin-left: 250px;
-    padding: 30px;
-  }
-
-  .statsSummary {
-    display: flex;
-    justify-content: space-evenly;
-    gap: 30px;
-  }
-
-  .statCard {
-    width: 28%;
-    padding: 30px;
-  }
-
-  .dashboardHeader h1 {
-    font-size: 2.5rem;
-  }
-
-  .dashboardHeader p {
-    font-size: 1.2rem;
-  }
-
-  .backButton button {
-    padding: 12px 30px;
-    font-size: 1.2rem;
-  }
+/* Chart Container */
+.chartContainer {
+  margin-top: 40px;
+  display: flex;
+  justify-content: center;
+  padding: 0 20px;
 }
 
-/* For screens between 768px and 1024px (Tablets) */
-@media (min-width: 768px) and (max-width: 1024px) {
-  /* Adjust the sidebar width */
-  .sidebar {
-    width: 200px; /* Reduce the sidebar width */
-  }
+/* Chart Card */
+.chartCard {
+  background-color: #ffffff;
+  border-radius: 20px;
+  padding: 40px;
+  width: 100%;
+  max-width: 700px;
+  box-shadow: 0 6px 30px rgba(0, 0, 0, 0.1);
+  color: #333;
+  text-align: center;
+  transition: transform 0.3s ease;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
 
+.chartCard:hover {
+  transform: translateY(-5px);
+}
+
+.chartCard h3 {
+  font-size: 2rem;
+  color: #1e3a5f;
+  margin-bottom: 20px;
+}
+
+/* Flip Card */
+.flipCard {
+  background-color: transparent;
+  width: 350px;
+  height: 180px;
+  perspective: 1000px;
+  transition: transform 0.4s ease, box-shadow 0.4s ease;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  position: relative;
+}
+
+.flipCard:hover {
+  transform: scale(1.05);
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+}
+
+/* Flip Card Inner */
+.flipCardInner {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  transition: transform 0.6s ease;
+  transform-style: preserve-3d;
+}
+
+.flipped {
+  transform: rotateY(180deg);
+}
+
+/* Front side styling */
+.flipCardFront,
+.flipCardBack {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  backface-visibility: hidden;
+  border-radius: 12px;
+}
+
+/* Front side styling */
+.flipCardFront {
+  background-color: #ecf0f1;
+  color: #34495e;
+  padding: 20px;
+}
+
+.flipCardFront:hover {
+  background-color: #bdc3c7;
+}
+
+/* Back side styling */
+.flipCardBack {
+  background-color: #095981;
+  color: white;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  transform: rotateY(180deg);
+  padding: 20px;
+  overflow-y: auto;
+}
+
+/* Task title */
+.taskTitle {
+  font-size: 1.2rem;
+  font-weight: 600;
+  text-align: left;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* Task actions */
+.taskActions {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 15px;
+}
+
+.taskButton {
+  padding: 10px 16px;
+  font-size: 15px;
+  border: none;
+  border-radius: 8px;
+  background-color: #2980b9;
+  color: white;
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.taskButton:hover {
+  background-color: #1f5f8a;
+  transform: translateY(-2px);
+}
+
+/* Flip back button */
+.flipBackButton {
+  background-color: #2980b9;
+  margin-top: 15px;
+}
+
+.flipBackButton:hover {
+  background-color: #2980b9;
+  transform: translateY(-2px);
+}
+
+/* Description text */
+.flipCardBack p {
+  font-size: 14px;
+  line-height: 1.5;
+  margin-bottom: 10px;
+  text-align: left;
+  max-height: 80px;
+  overflow-y: auto;
+  word-wrap: break-word;
+  max-width: 90%;
+}
+
+/* Responsive Design */
+
+/* Tablet / Small Desktop View */
+@media (max-width: 1024px) {
   .mainContent {
     margin-left: 200px;
-    padding: 20px;
   }
 
   .statsSummary {
@@ -177,21 +315,19 @@
     font-size: 1rem;
   }
 
-  .backButton button {
-    padding: 12px 25px;
-    font-size: 1.1rem;
+  .chartCard h3 {
+    font-size: 1.8rem;
+  }
+
+  .taskButton {
+    font-size: 14px;
   }
 }
 
-/* For screens between 480px and 768px (Mobile Landscape) */
-@media (min-width: 480px) and (max-width: 768px) {
-  /* Adjust the sidebar width */
-  .sidebar {
-    width: 180px; /* Further reduce the sidebar width */
-  }
-
+/* Mobile View */
+@media (max-width: 768px) {
   .mainContent {
-    margin-left: 180px;
+    margin-left: 150px;
     padding: 15px;
   }
 
@@ -210,23 +346,38 @@
     font-size: 1.8rem;
   }
 
-  .dashboardHeader p {
-    font-size: 1rem;
+  .chartCard {
+    padding: 20px;
+    max-width: 100%;
   }
 
-  .backButton button {
-    padding: 12px 20px;
-    font-size: 1rem;
+  .chartCard h3 {
+    font-size: 1.6rem;
+  }
+
+  .flipCard {
+    width: 100%;
+    height: 230px;
+  }
+
+  .flipCardFront,
+  .flipCardBack {
+    padding: 15px;
+  }
+
+  .taskButton {
+    font-size: 14px;
+    padding: 8px 14px;
+  }
+
+  .flipBackButton {
+    font-size: 14px;
+    padding: 8px 14px;
   }
 }
 
-/* For screens smaller than 480px (Mobile Portrait) */
+/* Extra Small Mobile View */
 @media (max-width: 480px) {
-  /* Adjust the sidebar width */
-  .sidebar {
-    width: 150px; /* Collapse the sidebar on very small devices */
-  }
-
   .mainContent {
     margin-left: 0;
     padding: 10px;
@@ -247,12 +398,32 @@
     font-size: 1.6rem;
   }
 
-  .dashboardHeader p {
-    font-size: 1rem;
+  .chartCard {
+    padding: 15px;
+    max-width: 100%;
   }
 
-  .backButton button {
-    padding: 12px 18px;
-    font-size: 1rem;
+  .chartCard h3 {
+    font-size: 1.4rem;
+  }
+
+  .flipCard {
+    width: 100%;
+    height: 200px;
+  }
+
+  .flipCardFront,
+  .flipCardBack {
+    padding: 10px;
+  }
+
+  .taskButton {
+    font-size: 13px;
+    padding: 6px 12px;
+  }
+
+  .flipBackButton {
+    font-size: 13px;
+    padding: 6px 12px;
   }
 }
