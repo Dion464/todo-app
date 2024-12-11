@@ -139,6 +139,45 @@
   max-height: 500px;
   overflow-y: auto;
 }
+/* Toast Message Styles */
+.toastMessage {
+  color: #004080; /* Dark Blue */
+  font-size: 16px;
+  font-weight: bold;
+  text-align: center;
+  padding: 10px 20px;
+  margin: 0 auto;
+  position: fixed;
+  top: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  animation: fadeInOut 2s ease-in-out;  /* Smooth transition */
+  z-index: 1000;
+  opacity: 1;
+}
+
+/* Animation for fade-in and fade-out */
+@keyframes fadeInOut {
+  0% {
+    opacity: 0;
+    transform: translateX(-50%) translateY(-20px);
+  }
+  50% {
+    opacity: 1;
+    transform: translateX(-50%) translateY(0);
+  }
+  100% {
+    opacity: 0;
+    transform: translateX(-50%) translateY(20px);
+  }
+}
+
+
+.successMessageText {
+  margin: 0;
+  padding: 0;
+  text-align: center; /* Center the text */
+}
 
 .profileLink {
   font-size: 1.1rem;

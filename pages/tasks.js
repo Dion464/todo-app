@@ -10,14 +10,15 @@ export default function FilteredTasks() {
   const [newTask, setNewTask] = useState('');
   const [newDescription, setNewDescription] = useState('');
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [category, setCategory] = useState(''); // Track selected category
+  const [category, setCategory] = useState('');
+  const [toastMessage, setToastMessage] = useState('');
   const router = useRouter();
   const { filter } = router.query;
-  const userId = 1; // Placeholder user ID
-  const MAX_TASK_LENGTH = 20; // Maximum characters for a task
-  const MAX_DESCRIPTION_LENGTH = 40; // Maximum characters for description
+  const userId = 1;
+  const MAX_TASK_LENGTH = 20;
+  const MAX_DESCRIPTION_LENGTH = 40;
 
-  // Fetch tasks (without category filtering)
+  // Fetch tasks
   const fetchTasks = async () => {
     try {
       let url = `/api/tasks?userId=${userId}`;
@@ -33,12 +34,10 @@ export default function FilteredTasks() {
     }
   };
 
-  // Fetch tasks when the filter changes
   useEffect(() => {
     fetchTasks();
-  }, [filter]); // Re-fetch when filter changes
+  }, [filter]);
 
-  // Add new task
   const addTask = async () => {
     if (!newTask.trim()) {
       alert('Task cannot be empty!');
@@ -56,79 +55,30 @@ export default function FilteredTasks() {
         body: JSON.stringify({ title: newTask, description: newDescription, userId, category }),
       });
       if (!response.ok) throw new Error('Failed to add task');
-      fetchTasks(); // Refresh tasks after adding
+      fetchTasks();
       setNewTask('');
       setNewDescription('');
+      setToastMessage(`Task titled "${newTask}" added successfully!`);
     } catch (error) {
       console.error('Error adding task:', error.message);
     }
   };
 
-  // Toggle task completion status
-  const onToggleComplete = async (taskId) => {
-    try {
-      const token = localStorage.getItem('token');
-      if (!token) {
-        console.error('Authorization token is missing.');
-        throw new Error('Authorization required.');
-      }
+  const onCategorySelect = (selectedCategory) => {
+    setCategory(selectedCategory);
+    setToastMessage(`Category "${selectedCategory}" selected!`);
+    setIsModalOpen(false);
+  };
 
-      const task = tasks.find((t) => t.id === taskId);
-      if (!task) throw new Error('Task not found');
-
-      const updatedTask = { ...task, completed: !task.completed };
-
-      const response = await fetch(`/api/tasks/${taskId}`, {
-        method: 'PUT',
-        headers: {
-          'Content-Type': 'application/json',
-          Authorization: `Bearer ${token}`,
-        },
-        body: JSON.stringify({ completed: updatedTask.completed, userId }),
-      });
-
-      if (!response.ok) {
-        console.error('Failed to toggle task completion:', await response.text());
-        throw new Error('Failed to toggle task completion');
-      }
-
-      fetchTasks();
-    } catch (error) {
-      console.error('Error toggling task completion:', error.message);
+  // Hide toast message after 2 seconds
+  useEffect(() => {
+    if (toastMessage) {
+      const timer = setTimeout(() => {
+        setToastMessage('');
+      }, 2000);  // Toast disappears after 2 seconds
+      return () => clearTimeout(timer);
     }
-  };
-
-  // Delete task
-  const onDelete = async (taskId) => {
-    try {
-      const token = localStorage.getItem('token');
-      if (!token) {
-        console.error('Authorization token is missing.');
-        throw new Error('Authorization required.');
-      }
-
-      const response = await fetch(`/api/tasks/${taskId}`, {
-        method: 'DELETE',
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      });
-
-      if (!response.ok) {
-        console.error('Failed to delete task:', await response.text());
-        throw new Error('Failed to delete task');
-      }
-
-      fetchTasks(); // Re-fetch tasks after deletion
-    } catch (error) {
-      console.error('Error deleting task:', error.message);
-    }
-  };
-
-  const resetInput = () => {
-    setNewTask('');
-    setNewDescription('');
-  };
+  }, [toastMessage]);
 
   return (
     <div className={styles.container}>
@@ -151,7 +101,7 @@ export default function FilteredTasks() {
             placeholder="Add new task (max 20 characters)"
             className={styles.inputField}
           />
-          <textarea
+          <input
             value={newDescription}
             onChange={(e) => {
               if (e.target.value.length <= MAX_DESCRIPTION_LENGTH) {
@@ -165,7 +115,7 @@ export default function FilteredTasks() {
             Select Category
           </button>
           <div className={styles.buttonContainer}>
-            <button onClick={resetInput} className={styles.cancelButton}>
+            <button onClick={() => setNewTask('')} className={styles.cancelButton}>
               Cancel
             </button>
             <button onClick={addTask} className={styles.addButton}>
@@ -174,36 +124,27 @@ export default function FilteredTasks() {
           </div>
         </div>
 
-        {/* Display remaining character count */}
-        <p className={styles.charCount}>
-          {MAX_TASK_LENGTH - newTask.length} characters remaining for task title
-        </p>
-        <p className={styles.charCount}>
-          {MAX_DESCRIPTION_LENGTH - newDescription.length} characters remaining for description
-        </p>
+        {/* Display success message (Toast) */}
+        {toastMessage && (
+          <div className={styles.toastMessage}>
+            <p>{toastMessage}</p>
+          </div>
+        )}
 
         {/* Task list */}
         <div className={styles.taskList}>
-          <TaskList
-            tasks={tasks}
-            filter={filter}
-            onToggleComplete={onToggleComplete}
-            onDelete={onDelete}
-            category={category} // Pass the selected category to display
-          />
+          <TaskList tasks={tasks} filter={filter} />
         </div>
 
         {/* Category Modal */}
         {isModalOpen && (
           <CategoryModal
             onClose={() => setIsModalOpen(false)}
-            onSelectCategory={(selectedCategory) => {
-              setCategory(selectedCategory); // Update category state
-              setIsModalOpen(false); // Close the modal after selecting a category
-            }}
+            onSelectCategory={onCategorySelect}
           />
         )}
       </div>
     </div>
   );
 }
+
