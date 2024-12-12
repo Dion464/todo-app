@@ -22,6 +22,106 @@
   opacity: 1;
   transition: opacity 0.3s ease;
 }
+/* styles/TaskList.module.css */
+.confirmationModal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.4); /* Semi-transparent dark background */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 9999;
+  animation: fadeIn 0.3s ease-out;
+}
+
+.modalContent {
+  background: #d0caca;
+  padding: 30px 40px;
+  border-radius: 10px;
+  width: 400px;
+  text-align: center;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  animation: scaleUp 0.3s ease-out;
+}
+
+.h3 {
+  font-size: 18px;
+  margin-bottom: 20px;
+  font-weight: 500;
+  color: #333;
+}
+
+.modalActions {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 20px;
+}
+
+.cancelButton, .confirmButton {
+  padding: 12px 25px;
+  border-radius: 8px;
+  border: none;
+  font-size: 16px;
+  cursor: pointer;
+  width: 45%;
+  transition: all 0.3s ease;
+}
+
+.cancelButton {
+  background-color: #cbc2c2;
+  color: #555;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  cursor: pointer;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.cancelButton:hover {
+  transform: translateY(-5px); /* Moves the button up */
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2); /* Enhanced shadow effect */
+}
+
+.confirmButton {
+  background-color: #0b6064;
+  color: white;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  cursor: pointer;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.confirmButton:hover {
+  transform: translateY(-5px); /* Moves the button up */
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2); /* Enhanced shadow effect */
+}
+
+
+
+
+.cancelButton:focus, .confirmButton:focus {
+  outline: none;
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes scaleUp {
+  from {
+    transform: scale(0.9);
+  }
+  to {
+    transform: scale(1);
+  }
+}
+
 /* TaskList.module.css */
 .taskCategory {
   display: flex;

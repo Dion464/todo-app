@@ -133,7 +133,7 @@ export default function FilteredTasks() {
 
         {/* Task list */}
         <div className={styles.taskList}>
-          <TaskList tasks={tasks} filter={filter} />
+          <TaskList tasks={tasks} setTasks={setTasks} filter={filter} />
         </div>
 
         {/* Category Modal */}
@@ -147,4 +147,3 @@ export default function FilteredTasks() {
     </div>
   );
 }
-
