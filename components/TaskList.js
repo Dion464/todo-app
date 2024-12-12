@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import styles from '../styles/TaskList.module.css';
-import CategoryModal from './categorySelection';
 import { FaBriefcase, FaHome, FaShoppingCart, FaPlane, FaMoneyBillWave, FaTv } from 'react-icons/fa';
 
 const categories = [
@@ -122,12 +121,12 @@ const TaskList = ({ tasks, setTasks }) => {
                 )}
               </div>
               <div className={styles.taskActions}>
-                {/* Complete/Undo Button */}
+                {/* Complete/Undo Button with animation */}
                 <button
                   onClick={() => onToggleComplete(task.id)}
-                  className={styles.taskButton}
+                  className={`${styles.taskButton} ${task.completed ? styles.completedButton : ''}`}
                 >
-                  {task.completed ? 'Undo' : 'Complete'}
+                  {task.completed ? 'Undo ⏭️' : 'Complete 🤘'}
                 </button>
 
                 {/* Delete Button */}
@@ -135,7 +134,7 @@ const TaskList = ({ tasks, setTasks }) => {
                   onClick={() => openDeleteModal(task)} // Open confirmation modal
                   className={styles.taskButton}
                 >
-                  Delete
+                  Delete 🗑️
                 </button>
 
                 {/* Flip Card Button */}
@@ -143,7 +142,7 @@ const TaskList = ({ tasks, setTasks }) => {
                   onClick={() => toggleFlip(task.id)}
                   className={styles.taskButton}
                 >
-                  Flip
+                  Flip →
                 </button>
               </div>
             </div>
@@ -154,7 +153,7 @@ const TaskList = ({ tasks, setTasks }) => {
                 onClick={() => toggleFlip(task.id)}
                 className={`${styles.taskButton} ${styles.flipBackButton}`}
               >
-                Flip Back
+                Flip Back 🔙
               </button>
             </div>
           </div>
@@ -165,7 +164,7 @@ const TaskList = ({ tasks, setTasks }) => {
       {isModalOpen && currentTask && (
         <div className={styles.confirmationModal}>
           <div className={styles.modalContent}>
-            <h3>Are you sure you want to delete this task </h3>
+            <h3>Are you sure you want to delete this task?</h3>
           
             <div className={styles.modalActions}>
               <button

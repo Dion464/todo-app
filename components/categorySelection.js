@@ -16,6 +16,7 @@ const CategoryModal = ({ onClose, onSelectCategory }) => {
     { name: 'Entertainment', icon: <FaTv /> },
   ];
 
+
   return (
     <div className={styles.modal}>
       <div className={styles.modalContent}>

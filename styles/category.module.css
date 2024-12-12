@@ -1,4 +1,4 @@
-/* todo-app/styles/category.module.css */
+/* Modal Styling */
 .modal {
   position: fixed;
   top: 0;
@@ -29,8 +29,8 @@
 
 .categoryGrid {
   display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 20px;
+  grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); /* Ensures the columns are flexible */
+  gap: 15px; /* Ensures consistent spacing */
 }
 
 .categoryCard {
@@ -79,7 +79,7 @@
   }
 
   .categoryGrid {
-    grid-template-columns: 1fr 1fr;
+    grid-template-columns: repeat(2, 1fr); /* Two columns on large screens */
     gap: 20px;
   }
 
@@ -107,7 +107,7 @@
   }
 
   .categoryGrid {
-    grid-template-columns: 1fr 1fr;
+    grid-template-columns: repeat(2, 1fr); /* Two columns for tablets */
     gap: 15px;
   }
 
@@ -135,7 +135,7 @@
   }
 
   .categoryGrid {
-    grid-template-columns: 1fr 1fr;
+    grid-template-columns: repeat(2, 1fr); /* Two columns for mobile landscape */
     gap: 15px;
   }
 
@@ -164,7 +164,7 @@
   }
 
   .categoryGrid {
-    grid-template-columns: 1fr;
+    grid-template-columns: 1fr; /* One column for smaller screens */
     gap: 12px;
   }
 
