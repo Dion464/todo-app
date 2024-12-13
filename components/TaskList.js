@@ -110,7 +110,7 @@ const TaskList = ({ tasks, setTasks }) => {
                   task.completed ? styles.completed : ''
                 }`}
               >
-                {task.title}
+                {task.title } 🖲
               </span>
               <div className={styles.taskCategory}>
                 {task.category && (

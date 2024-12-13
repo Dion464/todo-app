@@ -63,6 +63,7 @@
   bottom: 20px;
   left: 20px;
   z-index: 10;
+  margin-top: 150px;
   transition: transform 0.3s ease;
 }
 
@@ -71,6 +72,7 @@
   height: 50px;
   border-radius: 50%;
   border: 2px solid #fff;
+  margin-bottom: 75px;
   transition: transform 0.3s ease;
 }
 

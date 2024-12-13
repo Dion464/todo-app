@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import '../styles/globals.css';
+import Footer from '../components/Footer';
 
 function MyApp({ Component, pageProps }) {
   const [isDarkMode, setIsDarkMode] = useState(false);
@@ -22,6 +23,7 @@ function MyApp({ Component, pageProps }) {
         {isDarkMode ? '🌙' : '🌞'}
       </button>
       <Component {...pageProps} />
+      <Footer /> {/* Add the footer component here */}
     </div>
   );
 }

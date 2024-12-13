@@ -1,0 +1,16 @@
+.footer {
+    background-color: #2C3E50;
+    color: white;              /* White text */
+    text-align: center;        /* Center the text */
+    padding: 20px 0;           /* Padding for top and bottom */
+    position: fixed;           /* Fix it at the bottom */
+    width: 100%;               /* Full width */
+    bottom: 0;                 /* Stick to the bottom of the page */
+    left: 0;                   /* Align to the left edge */
+  }
+  
+  .footerContent p {
+    margin: 0;                 /* Remove default margin */
+    font-size: 14px;           /* Smaller font size */
+  }
+  
