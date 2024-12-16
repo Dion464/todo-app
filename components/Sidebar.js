@@ -13,12 +13,6 @@ export default function Sidebar() {
       </div>
       <h3>TODO-APP  🖲  </h3>
 
-      <div className={styles.profileSection}>
-        <Link href="/profile">
-          <img src={profileImage} alt="Profile" className={styles.profileImage} />
-        </Link>
-      </div>
-
       <ul>
         <li><Link href="/tasks?filter=all">All Tasks</Link></li>
         <li><Link href="/tasks?filter=completed">Completed Tasks</Link></li>

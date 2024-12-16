@@ -32,8 +32,8 @@ const Dashboard = () => {
       <Sidebar />
       <div className={styles.mainContent}>
         <div className={styles.dashboardHeader}>
-          <h1>Welcome to Your Dashboard</h1>
-          <p>Your task progress and stats</p>
+          <h1>Youre progres on our web </h1>
+          <p>Youre Tasks Stats at a glance </p>
         </div>
         <div className={styles.statsSummary}>
           <div className={styles.statCard}>

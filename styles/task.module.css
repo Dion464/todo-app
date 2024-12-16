@@ -6,56 +6,6 @@
   flex-direction: column;
 }
 
-
-/* Modal Styles */
-.categoryModal {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background-color: rgba(0, 0, 0, 0.5);
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  z-index: 9999;
-}
-
-.categoryButton {
-  padding: 10px;
-  background-color: #2980b9;
-  color: white;
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
-}
-
-.categoryButton:hover {
-  background-color: #3498db;
-}
-
-.modalContent {
-  background-color: white;
-  padding: 20px;
-  border-radius: 10px;
-  text-align: center;
-}
-
-.modalContent button {
-  margin: 10px;
-  padding: 10px 20px;
-  font-size: 16px;
-  background-color: #2980b9;
-  color: white;
-  border: none;
-  border-radius: 8px;
-  cursor: pointer;
-}
-
-.modalContent button:hover {
-  background-color: #1f5f8a;
-}
-
 .mainContent {
   margin-left: 250px;
   padding: 30px;
@@ -64,6 +14,11 @@
   max-width: 100%;
   height: 100vh;
   transition: margin-left 0.3s ease;
+}
+
+.header {
+  font-size: 1.5rem;
+  margin-bottom: 20px;
 }
 
 /* Input and button container */
@@ -123,11 +78,17 @@
   transform: translateY(1px);
 }
 
-/* Character count styling */
-.charCount {
-  font-size: 1rem;
-  color: #888;
-  margin-top: 10px;
+.categoryButton {
+  padding: 10px;
+  background-color: #2980b9;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.categoryButton:hover {
+  background-color: #3498db;
 }
 
 /* Task list container */
@@ -139,13 +100,15 @@
   max-height: 500px;
   overflow-y: auto;
 }
+
 /* Toast Message Styles */
 .toastMessage {
-  color: #004080; /* Dark Blue */
+  color: #4d76a0;  /* Dark blue text */
+  background-color: #b0b0b0;  /* Light blue background */
   font-size: 16px;
   font-weight: bold;
   text-align: center;
-  padding: 10px 20px;
+  padding: 12px 24px;  /* Slightly more padding for better spacing */
   margin: 0 auto;
   position: fixed;
   top: 20px;
@@ -154,53 +117,28 @@
   animation: fadeInOut 2s ease-in-out;  /* Smooth transition */
   z-index: 1000;
   opacity: 1;
+  
+  /* Rounded corners */
+  border-radius: 12px;  
+
+  /* Shadow for a more elevated and modern look */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+
+  /* Slightly smooth edges for better user experience */
+  border: none;  /* Remove any default borders */
 }
 
-/* Animation for fade-in and fade-out */
+/* Optional: Fade in/out animation */
 @keyframes fadeInOut {
   0% {
     opacity: 0;
-    transform: translateX(-50%) translateY(-20px);
   }
   50% {
-    opacity: 1;
-    transform: translateX(-50%) translateY(0);
+    opacity: 2;
   }
   100% {
     opacity: 0;
-    transform: translateX(-50%) translateY(20px);
   }
-}
-
-
-.successMessageText {
-  margin: 0;
-  padding: 0;
-  text-align: center; /* Center the text */
-}
-
-.profileLink {
-  font-size: 1.1rem;
-  color: #3498db;
-  text-decoration: none;
-  font-weight: bold;
-  display: inline-block;
-  margin-top: 30px;
-  transition: color 0.3s ease;
-}
-
-.profileLink:hover {
-  color: #2980b9;
-}
-
-/* Task item states */
-.taskItem.completed {
-  background-color: #7cc9f6;
-  text-decoration: line-through;
-}
-
-.taskItem.incomplete {
-  background-color: #9fe3e8;
 }
 
 /* Responsive Design */
@@ -211,18 +149,9 @@
     flex-direction: column;
   }
 
-  /* Adjust sidebar width */
-  .sidebar {
-    width: 200px;
-  }
-
   .mainContent {
     margin-left: 0;
     padding: 15px;
-  }
-
-  .sidebar.collapsed {
-    transform: translateX(-100%);
   }
 
   /* Button container adjustments */
@@ -248,21 +177,6 @@
 
 /* Mobile View */
 @media (max-width: 768px) {
-  /* Sidebar will be hidden on smaller screens */
-  .sidebar {
-    position: absolute;
-    width: 100%;
-    height: 100%;
-    top: 0;
-    left: -100%;
-    transform: translateX(0);
-    transition: transform 0.3s ease;
-  }
-
-  .sidebar.collapsed {
-    transform: translateX(-100%);
-  }
-
   .mainContent {
     margin-left: 0;
     width: 100%;
@@ -272,27 +186,5 @@
   .categoryButton {
     font-size: 1rem;
     padding: 8px 16px;
-  }
-
-  /* Adjust modal content width */
-  .modalContent {
-    width: 80%;
-  }
-
-  /* Sidebar toggle button */
-  .sidebarToggle {
-    display: block;
-    font-size: 1.5rem;
-    color: #fff;
-    background-color: transparent;
-    border: none;
-    cursor: pointer;
-    position: absolute;
-    top: 20px;
-    right: 20px;
-  }
-
-  .sidebarToggle:hover {
-    color: #3498db;
   }
 }

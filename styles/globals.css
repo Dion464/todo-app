@@ -6,7 +6,9 @@
   padding: 0;
   box-sizing: border-box;
 }
-
+:global(body) {
+  padding-left: 250px;
+}
 /* Base Body Styling */
 body {
   font-family: Arial, sans-serif;

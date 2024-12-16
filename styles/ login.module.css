@@ -46,6 +46,8 @@
   background-color: #f7f7f7;
   box-shadow: 6px 6px 15px rgba(0, 0, 0, 0.1), -6px -6px 15px rgba(255, 255, 255, 0.1);
   transition: all 0.3s ease;
+  width: 100%;
+  padding-right: 40px;
 }
 
 .inputField:focus {
@@ -67,26 +69,10 @@
   text-align: center;
 }
 
-.button:hover {
+.button:hover, .button:focus {
   background-color: #0066cc;
   box-shadow: 6px 6px 20px rgba(0, 0, 0, 0.2), -6px -6px 20px rgba(255, 255, 255, 0.15);
   transform: translateY(-5px);
-}
-
-.redirectButton {
-  background-color: transparent;
-  color: rgb(168, 214, 168);
-  font-size: 1.1rem;
-  font-weight: 600;
-  border: none;
-  cursor: pointer;
-  text-align: center;
-  margin-top: 20px;
-  transition: all 0.3s ease;
-}
-
-.redirectButton:hover {
-  text-decoration: underline;
 }
 
 .errorMessage {
@@ -101,11 +87,6 @@
   width: 100%;
 }
 
-.inputField {
-  width: 100%;
-  padding-right: 40px; /* Ensure space for the icon */
-}
-
 .eyeIcon {
   position: absolute;
   right: 10px;
@@ -114,7 +95,7 @@
   font-size: 1.5rem;
   color: #aaa;
   cursor: pointer;
-  user-select: none; /* Prevent accidental selection */
+  user-select: none;
 }
 
 .eyeIcon:hover {
@@ -135,111 +116,70 @@
   background-color: #91abc6;
 }
 
-/* Responsive Design */
+/* Media Queries */
 
-/* For screens larger than 1024px (Desktops) */
-@media (min-width: 1024px) {
+@media (max-width: 768px) {
   .container {
-    padding: 100px 50px;
+    padding: 60px 10px;
   }
   
-  .heading {
-    font-size: 4rem;
-  }
-
-  .subheading {
-    font-size: 1.5rem;
-  }
-
-  .form {
-    max-width: 450px;
-    padding: 50px;
-  }
-
-  .button {
-    font-size: 1.2rem;
-  }
-}
-
-/* For screens between 768px and 1024px (Tablets) */
-@media (min-width: 768px) and (max-width: 1024px) {
-  .container {
-    padding: 80px 30px;
-  }
-  
-  .heading {
-    font-size: 3.5rem;
-  }
-
-  .subheading {
-    font-size: 1.4rem;
-  }
-
-  .form {
-    max-width: 400px;
-    padding: 40px;
-  }
-
-  .button {
-    font-size: 1.1rem;
-  }
-}
-
-/* For screens between 480px and 768px (Mobile Landscape) */
-@media (min-width: 480px) and (max-width: 768px) {
-  .container {
-    padding: 60px 20px;
-  }
-
-  .heading {
-    font-size: 3rem;
-  }
-
-  .subheading {
-    font-size: 1.3rem;
-  }
-
-  .form {
-    max-width: 380px;
-    padding: 35px;
-  }
-
-  .button {
-    font-size: 1rem;
-  }
-}
-
-/* For screens smaller than 480px (Mobile Portrait) */
-@media (max-width: 480px) {
-  .container {
-    padding: 50px 10px;
-  }
-
   .heading {
     font-size: 2.5rem;
   }
-
+  
   .subheading {
-    font-size: 1.1rem;
+    font-size: 1rem;
   }
-
+  
   .form {
-    max-width: 100%;
     padding: 30px;
+    max-width: 350px;
   }
-
+  
   .inputField {
-    font-size: 1rem;
     padding: 12px;
-  }
-
-  .button {
     font-size: 1rem;
-    padding: 12px 25px;
   }
+  
+  .button {
+    padding: 10px 25px;
+    font-size: 1rem;
+  }
+  
+  .eyeIcon {
+    font-size: 1.3rem;
+  }
+}
 
-  .buttonSecondary {
+@media (max-width: 480px) {
+  .container {
+    padding: 40px 5px;
+  }
+  
+  .heading {
+    font-size: 2rem;
+  }
+  
+  .subheading {
     font-size: 0.9rem;
-    padding: 8px 18px;
+  }
+  
+  .form {
+    padding: 20px;
+    max-width: 100%;
+  }
+  
+  .inputField {
+    padding: 10px;
+    font-size: 0.95rem;
+  }
+  
+  .button {
+    padding: 8px 20px;
+    font-size: 0.9rem;
+  }
+  
+  .eyeIcon {
+    font-size: 1rem;
   }
 }
