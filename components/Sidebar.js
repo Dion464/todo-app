@@ -14,11 +14,13 @@ export default function Sidebar() {
       <h3>TODO-APP  🖲  </h3>
 
       <ul>
-        <li><Link href="/tasks?filter=all">All Tasks</Link></li>
+        <li><Link href="/tasks?filter=all">All Tasks </Link></li>
         <li><Link href="/tasks?filter=completed">Completed Tasks</Link></li>
         <li><Link href="/tasks?filter=incomplete">Incomplete Tasks</Link></li>
         <li><Link href="/dashbord">Dashboard</Link></li> {/* New Link */}
+    
       </ul>
+
     </div>
   );
 }

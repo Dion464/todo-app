@@ -15,12 +15,11 @@ const categories = [
   { name: 'Entertainment', icon: <FaTv /> },
 ];
 
-const TaskList = ({ tasks, setTasks }) => {
+const TaskList = ({ tasks, setTasks, refetchTasks }) => {
   const [flippedCards, setFlippedCards] = useState({});
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [currentTask, setCurrentTask] = useState(null);
 
-  // Toggles the flipped state of a task card
   const toggleFlip = (taskId) => {
     setFlippedCards((prevState) => ({
       ...prevState,
@@ -28,13 +27,11 @@ const TaskList = ({ tasks, setTasks }) => {
     }));
   };
 
-  // Gets the icon for a given category
   const getCategoryIcon = (categoryName) => {
     const category = categories.find((cat) => cat.name === categoryName);
     return category ? category.icon : null;
   };
 
-  // Toggles the completion status of a task
   const onToggleComplete = async (taskId) => {
     try {
       const taskIndex = tasks.findIndex((task) => task.id === taskId);
@@ -42,7 +39,6 @@ const TaskList = ({ tasks, setTasks }) => {
 
       const taskToUpdate = tasks[taskIndex];
 
-      // API call to update task completion status
       const response = await fetch(`/api/tasks/${taskId}`, {
         method: 'PUT',
         headers: {
@@ -55,19 +51,17 @@ const TaskList = ({ tasks, setTasks }) => {
         throw new Error('Failed to update task');
       }
 
-      // Update local state
       const updatedTasks = [...tasks];
       updatedTasks[taskIndex].completed = !taskToUpdate.completed;
       setTasks(updatedTasks);
+      refetchTasks();
     } catch (error) {
       console.error('Error toggling task completion:', error);
     }
   };
 
-  // Deletes a task
   const onDelete = async (taskId) => {
     try {
-      // API call to delete the task
       const response = await fetch(`/api/tasks/${taskId}`, {
         method: 'DELETE',
       });
@@ -76,20 +70,17 @@ const TaskList = ({ tasks, setTasks }) => {
         throw new Error('Failed to delete task');
       }
 
-      // Update local state
       setTasks((prevTasks) => prevTasks.filter((task) => task.id !== taskId));
     } catch (error) {
       console.error('Error deleting task:', error);
     }
   };
 
-  // Opens the delete confirmation modal
   const openDeleteModal = (task) => {
     setCurrentTask(task);
     setIsModalOpen(true);
   };
 
-  // Closes the delete confirmation modal
   const closeModal = () => {
     setIsModalOpen(false);
     setCurrentTask(null);
@@ -100,17 +91,13 @@ const TaskList = ({ tasks, setTasks }) => {
       {tasks.map((task) => (
         <div key={task.id} className={styles.flipCard}>
           <div
-            className={`${styles.flipCardInner} ${
-              flippedCards[task.id] ? styles.flipped : ''
-            }`}
+            className={`${styles.flipCardInner} ${flippedCards[task.id] ? styles.flipped : ''}`}
           >
             <div className={styles.flipCardFront}>
               <span
-                className={`${styles.taskTitle} ${
-                  task.completed ? styles.completed : ''
-                }`}
+                className={`${styles.taskTitle} ${task.completed ? styles.completed : ''}`}
               >
-                {task.title } 🖲
+                {task.title}
               </span>
               <div className={styles.taskCategory}>
                 {task.category && (
@@ -121,23 +108,18 @@ const TaskList = ({ tasks, setTasks }) => {
                 )}
               </div>
               <div className={styles.taskActions}>
-                {/* Complete/Undo Button with animation */}
                 <button
                   onClick={() => onToggleComplete(task.id)}
                   className={`${styles.taskButton} ${task.completed ? styles.completedButton : ''}`}
                 >
                   {task.completed ? 'Undo ⏭️' : 'Complete 🤘'}
                 </button>
-
-                {/* Delete Button */}
                 <button
-                  onClick={() => openDeleteModal(task)} // Open confirmation modal
+                  onClick={() => openDeleteModal(task)}
                   className={styles.taskButton}
                 >
                   Delete 🗑️
                 </button>
-
-                {/* Flip Card Button */}
                 <button
                   onClick={() => toggleFlip(task.id)}
                   className={styles.taskButton}
@@ -146,7 +128,6 @@ const TaskList = ({ tasks, setTasks }) => {
                 </button>
               </div>
             </div>
-
             <div className={styles.flipCardBack}>
               <p>{task.description || 'No description available'}</p>
               <button
@@ -160,23 +141,18 @@ const TaskList = ({ tasks, setTasks }) => {
         </div>
       ))}
 
-      {/* Confirmation Modal for Deletion */}
       {isModalOpen && currentTask && (
         <div className={styles.confirmationModal}>
           <div className={styles.modalContent}>
             <h3>Are you sure you want to delete this task?</h3>
-          
             <div className={styles.modalActions}>
-              <button
-                onClick={closeModal} // Close without deleting
-                className={styles.cancelButton}
-              >
+              <button onClick={closeModal} className={styles.cancelButton}>
                 Cancel
               </button>
               <button
                 onClick={() => {
-                  onDelete(currentTask.id); // Delete the task
-                  closeModal(); // Close the modal
+                  onDelete(currentTask.id);
+                  closeModal();
                 }}
                 className={styles.confirmButton}
               >

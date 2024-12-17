@@ -6,8 +6,8 @@ export default function Profile() {
   const [userData, setUserData] = useState(null);
   const [newUsername, setNewUsername] = useState('');
   const [loading, setLoading] = useState(true);
-  const [message, setMessage] = useState(''); // To store the success/error message
-  const [messageColor, setMessageColor] = useState(''); // To store the color for the message
+  const [message, setMessage] = useState('');
+  const [showModal, setShowModal] = useState(false); // Modal state for logout confirmation
   const router = useRouter();
 
   useEffect(() => {
@@ -66,23 +66,22 @@ export default function Profile() {
         const updatedData = await response.json();
         setUserData((prev) => ({ ...prev, username: newUsername }));
         setMessage('Username updated successfully');
-        setMessageColor('green'); 
       } else {
         const errorData = await response.json();
         setMessage(errorData.message);
-        setMessageColor('red'); 
       }
     } catch (error) {
       console.error('Error updating username:', error);
       setMessage('Error updating username');
-      setMessageColor('red'); 
     }
 
- 
     setTimeout(() => {
       setMessage('');
     }, 4000);
   };
+
+  const handleShowModal = () => setShowModal(true);
+  const handleCloseModal = () => setShowModal(false);
 
   if (loading) return <p>Loading...</p>;
   if (!userData) return <p>Error fetching user profile</p>;
@@ -91,7 +90,9 @@ export default function Profile() {
     <div className={styles.profileContainer}>
       <div className={styles.profileCard}>
         <div className={styles.profileHeader}>
-          <img src="/images.png" alt="Profile Avatar" className={styles.profileImage} />
+          <div className={styles.profileImageWrapper}>
+            <img src="/images.png" alt="Profile Avatar" className={styles.profileImage} />
+          </div>
           <div className={styles.profileDetails}>
             <h2 className={styles.username}>{userData.username}</h2>
             <p className={styles.email}>{userData.email}</p>
@@ -106,27 +107,39 @@ export default function Profile() {
             className={styles.usernameInput}
             placeholder="Enter new username"
           />
-          <button onClick={handleUsernameChange} className={`${styles.button} ${styles.saveButton}`}>
+          <button onClick={handleUsernameChange} className={styles.saveButton}>
             Save Username
           </button>
         </div>
 
-       
-        {message && (
-          <div className={styles.message} style={{ color: messageColor }}>
-            {message}
-          </div>
-        )}
+        {message && <div className={styles.message}>{message}</div>}
 
         <div className={styles.buttonContainer}>
-          <button onClick={handleBackToTasks} className={`${styles.button} ${styles.backButton}`}>
+          <button onClick={handleBackToTasks} className={styles.backButton}>
             Back to Tasks
           </button>
-          <button onClick={handleLogOut} className={`${styles.button} ${styles.logoutButton}`}>
+          <button onClick={handleShowModal} className={styles.logoutButton}>
             Log Out
           </button>
         </div>
       </div>
+
+      {/* Logout Confirmation Modal */}
+      {showModal && (
+        <div className={styles.modalOverlay}>
+          <div className={styles.modalContent}>
+            <h3>Are you sure you want to log out?</h3>
+            <div className={styles.modalActions}>
+              <button onClick={handleLogOut} className={styles.modalConfirmButton}>
+                Yes, Log Out
+              </button>
+              <button onClick={handleCloseModal} className={styles.modalCancelButton}>
+                Cancel
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 }

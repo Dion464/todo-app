@@ -1,131 +1,77 @@
-/* profile.module.css */
-
-.body {
-  background: linear-gradient(135deg, #f0f9ff, #cfe3e9);
-  background-attachment: fixed;
+/* Main Container */
+.profileContainer {
   display: flex;
   justify-content: center;
   align-items: center;
   min-height: 100vh;
-  font-family: Arial, sans-serif;
+  background: #f7f7f7;
+  padding: 20px;
 }
 
-.body::before {
-  content: "";
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background-image: url("https://www.transparenttextures.com/patterns/diagonal-stripes-light.png");
-  opacity: 0.1; /* Subtle productivity-themed pattern */
-  z-index: -1;
-}
-
-.profileContainer {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  padding: 30px;
-  background: rgba(255, 255, 255, 0.85); /* Slightly transparent for glass effect */
-  backdrop-filter: blur(10px); /* Glass effect */
+/* Profile Card */
+.profileCard {
+  background: #ffffff;
   border-radius: 12px;
-  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
-  max-width: 600px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
   width: 100%;
-  margin: 50px auto;
+  max-width: 400px;
+  padding: 30px;
+  text-align: center;
   transition: all 0.3s ease;
 }
 
-.profileContainer:hover {
+.profileCard:hover {
   transform: translateY(-5px);
 }
 
-.profileHeading {
-  font-size: 2.5rem;
-  font-weight: bold;
-  color: #00796b;
-  text-align: center;
-  margin-bottom: 20px;
-  letter-spacing: 1px;
-}
-
-.profileInfo {
-  font-size: 1.2rem;
-  color: #333;
-  text-align: left;
-  width: 100%;
-}
-
-.profileInfo p {
-  margin: 12px 0;
-  line-height: 1.5;
-}
-
-.buttonContainer {
-  display: flex;
-  justify-content: center;
-  gap: 15px;
-  margin-top: 30px;
-  width: 100%;
-}
-
-.button {
-  padding: 12px 24px;
-  font-size: 1.1rem;
-  font-weight: bold;
-  cursor: pointer;
-  border: none;
-  border-radius: 8px;
-  color: white;
-  transition: all 0.3s ease;
-}
-
-.button:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
-}
-
-.backButton {
-  background-color: #00796b;
-}
-
-.backButton:hover {
-  background-color: #004d40;
-}
-
-.logoutButton {
-  background-color: #d32f2f;
-}
-
-.logoutButton:hover {
-  background-color: #b71c1c;
-}
-
-/* Profile Header - New Styles */
+/* Profile Header - Avatar and Details */
 .profileHeader {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  margin-bottom: 20px;
-}
-
-.editSection {
   display: flex;
   flex-direction: column;
   align-items: center;
+  margin-bottom: 20px;
+}
+
+.profileImageWrapper {
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  overflow: hidden;
+  margin-bottom: 15px;
+}
+
+.profileImage {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.profileDetails {
+  text-align: center;
+}
+
+.username {
+  font-size: 1.8rem;
+  color: #333;
+}
+
+.email {
+  font-size: 1rem;
+  color: #888;
+}
+
+/* Edit Section */
+.editSection {
   margin-top: 20px;
-  gap: 10px;
 }
 
 .usernameInput {
+  width: 100%;
   padding: 10px;
-  font-size: 1rem;
-  border: 2px solid #3498db;
+  font-size: 1.1rem;
+  border: 1px solid #ccc;
   border-radius: 8px;
-  width: 80%;
-  max-width: 300px;
-  outline: none;
+  margin-bottom: 15px;
   transition: border-color 0.3s ease;
 }
 
@@ -134,99 +80,116 @@
 }
 
 .saveButton {
-  background-color: #4caf50;
+  background-color: #00796b;
+  color: #fff;
+  font-size: 1.1rem;
+  padding: 12px 24px;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
 }
 
 .saveButton:hover {
-  background-color: #388e3c;
+  background-color: #004d40;
 }
 
-/* Profile Image - New Styles */
-.profileImage {
-  width: 80px; /* Reduced size for profile pic */
-  height: 80px; /* Same as width to maintain circular shape */
-  border-radius: 50%;
-  object-fit: cover;
-  margin-right: 20px;
-  border: 2px solid #3498db; /* Optional border for image */
-}
-
-/* Profile Details */
-.profileDetails {
+/* Buttons */
+.buttonContainer {
   display: flex;
-  flex-direction: column;
+  justify-content: space-between;
+  margin-top: 30px;
+}
+
+.backButton, .logoutButton {
+  padding: 10px 20px;
+  font-size: 1rem;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.backButton {
+  background-color: #00796b;
+  color: #fff;
+}
+
+.logoutButton {
+  background-color: #d32f2f;
+  color: #fff;
+}
+
+.backButton:hover {
+  background-color: #004d40;
+}
+
+.logoutButton:hover {
+  background-color: #b71c1c;
+}
+
+/* Message */
+.message {
+  margin-top: 20px;
+  font-size: 1rem;
+  color: #333;
+  text-align: center;
+}
+
+/* Modal Overlay */
+.modalOverlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
   justify-content: center;
+  align-items: center;
+  z-index: 100;
 }
 
-.username {
-  font-size: 1.8rem;
-  font-weight: bold;
-  color: #34495e;
-  margin: 5px;
+/* Modal Content */
+.modalContent {
+  background-color: #fff;
+  padding: 25px;
+  border-radius: 10px;
+  text-align: center;
+  max-width: 400px;
+  width: 100%;
 }
 
-.email {
-  font-size: 1.1rem;
-  color: #7f8c8d;
+.modalActions {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 20px;
 }
 
-/* Media Queries for Responsiveness */
-
-/* For devices smaller than 768px (tablets and below) */
-@media (max-width: 768px) {
-  .profileContainer {
-    padding: 20px;
-  }
-
-  .profileHeading {
-    font-size: 2rem;
-  }
-
-  .profileInfo {
-    font-size: 1rem;
-  }
-
-  .usernameInput {
-    width: 90%;
-  }
-
-  .profileImage {
-    width: 60px;
-    height: 60px;
-  }
-
-  .button {
-    font-size: 1rem;
-    padding: 10px 20px;
-  }
+.modalConfirmButton,
+.modalCancelButton {
+  padding: 12px 25px;
+  font-size: 1rem;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
 }
 
-/* For devices smaller than 480px (mobile phones) */
-@media (max-width: 480px) {
-  .profileContainer {
-    padding: 15px;
-    margin: 20px auto;
-  }
+.modalConfirmButton {
+  background-color: #d32f2f;
+  color: #fff;
+}
 
-  .profileHeading {
-    font-size: 1.6rem;
-  }
+.modalCancelButton {
+  background-color: #00796b;
+  color: #fff;
+}
 
-  .profileInfo {
-    font-size: 0.95rem;
-  }
+.modalConfirmButton:hover {
+  background-color: #b71c1c;
+}
 
-  .usernameInput {
-    width: 100%;
-  }
-
-  .profileImage {
-    width: 50px;
-    height: 50px;
-  }
-
-  .button {
-    font-size: 0.9rem;
-    padding: 8px 18px;
-  }
+.modalCancelButton:hover {
+  background-color: #004d40;
 }

@@ -18,7 +18,6 @@ export default function FilteredTasks() {
   const MAX_TASK_LENGTH = 20;
   const MAX_DESCRIPTION_LENGTH = 40;
 
-  // Fetch tasks
   const fetchTasks = async () => {
     try {
       let url = `/api/tasks?userId=${userId}`;
@@ -28,7 +27,9 @@ export default function FilteredTasks() {
       const response = await fetch(url);
       if (!response.ok) throw new Error('Failed to fetch tasks');
       const data = await response.json();
-      setTasks(data);
+      // Sort tasks by createdAt in descending order
+      const sortedTasks = data.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
+      setTasks(sortedTasks);
     } catch (error) {
       console.error('Error fetching tasks:', error.message);
     }
@@ -37,6 +38,10 @@ export default function FilteredTasks() {
   useEffect(() => {
     fetchTasks();
   }, [filter]);
+
+  const refetchTasks = () => {
+    fetchTasks();
+  };
 
   const addTask = async () => {
     if (!newTask.trim()) {
@@ -55,9 +60,11 @@ export default function FilteredTasks() {
         body: JSON.stringify({ title: newTask, description: newDescription, userId, category }),
       });
       if (!response.ok) throw new Error('Failed to add task');
-      fetchTasks();
+      const newTaskData = await response.json();
+      setTasks([newTaskData, ...tasks]); // Prepend the new task
       setNewTask('');
       setNewDescription('');
+      setCategory('');
       setToastMessage(`Task titled "${newTask}" added successfully!`);
     } catch (error) {
       console.error('Error adding task:', error.message);
@@ -66,19 +73,22 @@ export default function FilteredTasks() {
 
   const onCategorySelect = (selectedCategory) => {
     setCategory(selectedCategory);
-    setToastMessage(`Category "${selectedCategory}" selected!`);
     setIsModalOpen(false);
   };
 
-  // Hide toast message after 2 seconds
   useEffect(() => {
     if (toastMessage) {
       const timer = setTimeout(() => {
         setToastMessage('');
-      }, 2000);  // Toast disappears after 2 seconds
+      }, 2000);
       return () => clearTimeout(timer);
     }
   }, [toastMessage]);
+
+  // Log tasks after state update
+  useEffect(() => {
+    console.log('Tasks updated:', tasks);
+  }, [tasks]);
 
   return (
     <div className={styles.container}>
@@ -93,23 +103,17 @@ export default function FilteredTasks() {
           <input
             type="text"
             value={newTask}
-            onChange={(e) => {
-              if (e.target.value.length <= MAX_TASK_LENGTH) {
-                setNewTask(e.target.value);
-              }
-            }}
+            onChange={(e) => setNewTask(e.target.value)}
             placeholder="Add new task (max 20 characters)"
             className={styles.inputField}
+            maxLength={MAX_TASK_LENGTH}
           />
           <input
             value={newDescription}
-            onChange={(e) => {
-              if (e.target.value.length <= MAX_DESCRIPTION_LENGTH) {
-                setNewDescription(e.target.value);
-              }
-            }}
+            onChange={(e) => setNewDescription(e.target.value)}
             placeholder="Add a description (optional, max 40 characters)"
             className={styles.inputField}
+            maxLength={MAX_DESCRIPTION_LENGTH}
           />
           <button onClick={() => setIsModalOpen(true)} className={styles.categoryButton}>
             Select Category
@@ -124,19 +128,21 @@ export default function FilteredTasks() {
           </div>
         </div>
 
-        {/* Display success message (Toast) */}
         {toastMessage && (
           <div className={styles.toastMessage}>
             <p>{toastMessage}</p>
           </div>
         )}
 
-        {/* Task list */}
         <div className={styles.taskList}>
-          <TaskList tasks={tasks} setTasks={setTasks} filter={filter} />
+          <TaskList
+            tasks={tasks}
+            setTasks={setTasks}
+            filter={filter}
+            refetchTasks={refetchTasks}
+          />
         </div>
 
-        {/* Category Modal */}
         {isModalOpen && (
           <CategoryModal
             onClose={() => setIsModalOpen(false)}
